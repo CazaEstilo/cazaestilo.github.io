@@ -3,175 +3,510 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caza Estilo | Moda Urbana con Actitud Dorada</title>
-    <meta name="description" content="Caza Estilo: La marca de moda urbana que redefine el estilo. Descubre nuestras exclusivas colecciones de chaquetas, sudaderas y camisetas inspiradas en la calle y la actitud del oro.">
-    <meta name="keywords" content="Caza Estilo, moda urbana, streetwear, ropa hombre, ropa mujer, chaquetas, sudaderas, camisetas, estilo callejero, moda colombiana, Medellín, undergold, actitud dorada">
-    <meta name="author" content="Caza Estilo">
+    <title>Caza Estilo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.png" type="image/png"> 
+    <style>
+        /* Variables CSS para fácil edición de colores */
+        :root {
+            --color-primary: #d4af37; /* Dorado principal */
+            --color-secondary: #0a0a0a; /* Negro profundo */
+            --color-dark-grey: #1a1a1a;
+            --color-light-grey: #f5f5f5;
+            --color-white: #fff;
+            --transition-speed: 0.4s;
+            --color-primary-rgb: 212, 175, 55; /* Versión RGB del color primario para sombras */
+        }
 
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Bebas+Neue&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <link rel="icon" href="assets/favicon.png" type="image/png">
-    
-    <link rel="stylesheet" href="css/style.css">
+        /* Base global */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth; /* Desplazamiento suave para anclas */
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif; /* Nueva fuente para el cuerpo */
+            background: linear-gradient(180deg, var(--color-secondary) 0%, #1c1c1c 100%);
+            color: var(--color-light-grey);
+            overflow-x: hidden; /* Evita barras de desplazamiento horizontales */
+            line-height: 1.6;
+        }
+
+        /* Loader y Overlay de Carga */
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-secondary); /* Negro profundo */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Asegura que esté por encima de todo */
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+        }
+
+        .loader-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            border: 6px solid #2a2a2a; /* Color del borde del círculo */
+            border-top: 6px solid var(--color-primary); /* Color del cargador giratorio */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Encabezado (Header) - Hero Section */
+        header {
+            background: url('header-bg.jpg') center/cover no-repeat fixed; /* Ruta corregida y parallax */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+            overflow: hidden; /* Para animaciones */
+            color: var(--color-white); /* Asegura que el texto blanco se vea bien en el fondo */
+            /* Inicialmente oculto para que aparezca después del loader */
+            opacity: 0; 
+            transition: opacity 1s ease-out;
+        }
+
+        /* Overlay sutil para el header */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Oscurece la imagen de fondo */
+            z-index: 1;
+        }
+
+        header > * {
+            position: relative;
+            z-index: 2; /* Asegura que el contenido esté sobre el overlay */
+        }
+
+        header h1 {
+            font-family: 'Anton', sans-serif; /* Nueva fuente para h1 */
+            font-size: 5rem; /* Un poco más grande */
+            letter-spacing: 5px; /* Más espacio entre letras */
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); /* Sombra más sutil */
+            margin-bottom: 1rem;
+            /* Eliminamos animaciones aquí, las controlará JS */
+        }
+
+        header p {
+            font-size: 1.5rem; /* Un poco más grande */
+            color: var(--color-light-grey);
+            margin-top: 0.5rem;
+            max-width: 800px;
+            /* Eliminamos animaciones aquí, las controlará JS */
+        }
+
+        /* Botones */
+        .btn {
+            background: var(--color-primary);
+            color: var(--color-secondary);
+            padding: 1.2rem 2.5rem; /* Más grande */
+            margin-top: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 50px; /* Más redondeado */
+            border: none;
+            cursor: pointer;
+            transition: background var(--transition-speed) ease, transform var(--transition-speed) ease;
+            text-decoration: none; /* Quita el subrayado en los enlaces */
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(var(--color-primary-rgb), 0.4); /* Sombra para profundidad */
+            /* Eliminamos animaciones aquí, las controlará JS */
+        }
+
+        .btn:hover {
+            background: var(--color-white);
+            transform: translateY(-5px) scale(1.02); /* Efecto 3D y ligero escalado */
+            box-shadow: 0 8px 20px rgba(var(--color-primary-rgb), 0.6);
+        }
+
+        .btn-small {
+            padding: 0.8rem 1.5rem;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            border-radius: 30px;
+        }
+
+        /* Secciones generales */
+        section {
+            padding: 5rem 2rem; /* Más padding vertical */
+            max-width: 1400px; /* Más ancho */
+            margin: auto;
+            background: var(--color-dark-grey); /* Fondo oscuro para secciones */
+            border-bottom: 1px solid #2a2a2a; /* Separador sutil */
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        h2 {
+            text-align: center;
+            font-family: 'Bebas Neue', sans-serif; /* Nueva fuente para h2 */
+            font-size: 3.5rem; /* Más grande */
+            margin-bottom: 3rem;
+            color: var(--color-primary);
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Productos */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Columnas un poco más grandes */
+            gap: 3rem; /* Más espacio entre productos */
+        }
+
+        .product {
+            background: var(--color-dark-grey);
+            border: 1px solid #444; /* Borde más visible */
+            border-radius: 20px; /* Más redondeado */
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Sombra inicial más sutil */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Transiciones más rápidas */
+            display: flex; /* Para organizar imagen y texto */
+            flex-direction: column;
+        }
+
+        .product:hover {
+            transform: translateY(-5px) scale(1.05); /* Menos elevación, más escalado */
+            box-shadow: 0 10px 25px rgba(var(--color-primary-rgb), 0.5); /* Sombra más enfocada en el color primario */
+        }
+
+        .product img {
+            width: 100%;
+            height: 300px; /* Altura fija para uniformidad */
+            object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+            display: block;
+            border-bottom: 1px solid #444;
+            transition: opacity 0.2s ease-in-out; /* Transición para la opacidad */
+        }
+
+        .product:hover img {
+            opacity: 0.9; /* Ligeramente más tenue al hacer hover */
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1; /* Permite que el contenido ocupe el espacio restante */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Empuja el botón hacia abajo */
+        }
+
+        .product h3 {
+            font-family: 'Bebas Neue', sans-serif; /* Nueva fuente para h3 */
+            font-size: 1.6rem; /* Más grande */
+            margin-bottom: 0.8rem;
+            color: var(--color-primary);
+        }
+
+        .product p {
+            margin-bottom: 1rem;
+            font-weight: bold;
+            font-size: 1.3rem; /* Más grande */
+            color: var(--color-white);
+        }
+
+        /* Sección Quiénes Somos */
+        #about {
+            background: linear-gradient(180deg, var(--color-dark-grey) 0%, #0d0d0d 100%);
+            text-align: center;
+        }
+
+        .about-text {
+            max-width: 900px;
+            margin: auto;
+            color: #ccc;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Pie de página (Footer) */
+        footer {
+            background: var(--color-secondary);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        .socials {
+            margin-bottom: 1.5rem;
+        }
+
+        .socials a {
+            margin: 0 1.5rem; /* Más espacio */
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
+        }
+
+        .socials a:hover {
+            color: var(--color-white);
+            transform: translateY(-3px); /* Pequeño efecto al pasar el mouse */
+        }
+
+        /* Animaciones CSS */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Clases para animación controladas por JS */
+        .animated-text {
+            opacity: 0;
+        }
+        .animated-text.show {
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+
+        /* Animación de secciones al hacer scroll */
+        .hidden-section h2,
+        .hidden-section .product {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .visible-section h2 {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.2s; /* H2 aparece ligeramente después de la sección */
+        }
+
+        .visible-section .product:nth-child(1) { transition-delay: 0.4s; }
+        .visible-section .product:nth-child(2) { transition-delay: 0.6s; }
+        .visible-section .product:nth-child(3) { transition-delay: 0.8s; }
+        .visible-section .product:nth-child(4) { transition-delay: 1.0s; }
+        /* Añade más si tienes más productos: .visible-section .product:nth-child(5) { transition-delay: 1.2s; } */
+        
+        .visible-section .product {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Media Queries para Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 3.5rem;
+                letter-spacing: 3px;
+            }
+            header p {
+                font-size: 1.1rem;
+            }
+            h2 {
+                font-size: 2.5rem;
+            }
+            .products {
+                grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+            }
+            .product-info {
+                padding: 1rem;
+            }
+            .product h3 {
+                font-size: 1.4rem;
+            }
+            .product p {
+                font-size: 1.1rem;
+            }
+            .btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+            .socials a {
+                margin: 0 0.8rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2.8rem;
+            }
+            header p {
+                font-size: 1rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            section {
+                padding: 3rem 1rem;
+            }
+            .about-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="loader-overlay">
         <div class="loader"></div>
     </div>
 
-    <nav class="main-nav">
-        <a href="#home" class="nav-logo scroll-to-section">CAZA ESTILO</a>
-        <ul class="nav-links">
-            <li><a href="#home" class="scroll-to-section">Inicio</a></li>
-            <li><a href="#productos" class="scroll-to-section">Colección</a></li>
-            <li><a href="#about" class="scroll-to-section">Nuestra Esencia</a></li>
-            <li><a href="#contact" class="scroll-to-section">Conéctate</a></li>
-        </ul>
-    </nav>
-
-    <header id="home" class="hero-section">
-        <h1 class="hero-title animate-in">CAZA ESTILO</h1>
-        <p class="hero-subtitle animate-in">La calle nos llama. El oro nos define. Tu estilo, nuestra misión.</p>
-        <a href="#productos" class="btn scroll-to-section animate-in"><i class="fas fa-arrow-down"></i> Explora la colección</a>
+    <header>
+        <h1 class="animated-text">CAZA ESTILO</h1>
+        <p class="animated-text">Calle. Oro. Estilo. Tu presencia empieza por lo que llevas puesto.</p>
+        <a href="#productos" class="btn scroll-to-section animated-text">Explora la colección</a>
     </header>
 
-    <section id="productos" class="products-section hidden-anim">
-        <h2 class="section-title">✨ Colección Exclusiva ✨</h2> 
-        <div class="products-grid">
-            <div class="product-card">
-                <img src="assets/mockup1.jpg" alt="Chaqueta Oversized">
+    <section id="productos" class="hidden-section">
+        <h2>Productos Destacados</h2> <div class="products">
+            <div class="product">
+                <img src="mockup1.jpg" alt="Chaqueta Oversized">
                 <div class="product-info">
-                    <h3>Chaqueta Urbana Gold</h3>
-                    <p class="product-price">$90.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Chaqueta%20Shein%20Oversized%20de%20%2490.000%20COP." target="_blank" class="btn btn-small product-btn"><i class="fab fa-whatsapp"></i> Comprar</a>
+                    <h3>Chaqueta Shein Oversized</h3>
+                    <p>$90.000 COP</p>
+                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Chaqueta%20Shein%20Oversized%20de%20%2490.000%20COP." target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
                 </div>
             </div>
-            <div class="product-card">
-                <img src="assets/mockup2.jpg" alt="Sudadera Negra">
+            <div class="product">
+                <img src="mockup2.jpg" alt="Sudadera Negra">
                 <div class="product-info">
-                    <h3>Sudadera Profunda Undergold</h3>
-                    <p class="product-price">$120.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Sudadera%20Negra%20Gold%20de%20%24120.000%20COP." target="_blank" class="btn btn-small product-btn"><i class="fab fa-whatsapp"></i> Comprar</a>
+                    <h3>Sudadera Negra Gold</h3>
+                    <p>$120.000 COP</p>
+                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Sudadera%20Negra%20Gold%20de%20%24120.000%20COP." target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
                 </div>
             </div>
-            <div class="product-card">
-                <img src="assets/mockup3.jpg" alt="Camiseta Caza Estilo">
+            <div class="product">
+                <img src="mockup3.jpg" alt="Camiseta Caza Estilo">
                 <div class="product-info">
-                    <h3>Camiseta Esencia Callejera</h3>
-                    <p class="product-price">$55.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Camiseta%20Caza%20Estilo%20de%20%2455.000%20COP." target="_blank" class="btn btn-small product-btn"><i class="fab fa-whatsapp"></i> Comprar</a>
+                    <h3>Camiseta Caza Estilo</h3>
+                    <p>$55.000 COP</p>
+                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Camiseta%20Caza%20Estilo%20de%20%2455.000%20COP." target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
                 </div>
             </div>
-            <div class="product-card">
-                <img src="assets/mockup4.jpg" alt="Hoodie Beige">
+            <div class="product">
+                <img src="mockup4.jpg" alt="Hoodie Beige">
                 <div class="product-info">
-                    <h3>Hoodie Minimal Urbano</h3>
-                    <p class="product-price">$110.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Hoodie%20Street%20Beige%20de%20%24110.000%20COP." target="_blank" class="btn btn-small product-btn"><i class="fab fa-whatsapp"></i> Comprar</a>
+                    <h3>Hoodie Street Beige</h3>
+                    <p>$110.000 COP</p>
+                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Hoodie%20Street%20Beige%20de%20%24110.000%20COP." target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="about" class="about-section hidden-anim">
-        <h2 class="section-title">🌟 Nuestra Esencia</h2>
-        <div class="about-content">
-            <div class="about-text-block">
-                <p>
-                    En <strong>Caza Estilo</strong>, no solo vendemos ropa; ofrecemos una declaración. Somos la voz de la calle, el brillo del oro en cada detalle, la actitud que se lleva puesta. Nacimos de la pasión por la moda urbana auténtica, para quienes saben que el verdadero estilo es una extensión de la personalidad.
-                </p>
-                <p>
-                    Cada prenda es cuidadosamente seleccionada y diseñada para resonar con tu espíritu audaz. No seguimos tendencias, las creamos. Si buscas destacar, si tu presencia es tu carta de presentación, entonces has encontrado tu marca.
-                </p>
-                <p>
-                    <strong>Caza Estilo: Donde el oro no es un metal, sino una actitud.</strong>
-                </p>
-            </div>
-            <div class="about-image-block">
-                <img src="assets/about-image.jpg" alt="Actitud Caza Estilo" class="about-visual">
-            </div>
-        </div>
+    <section id="about" class="hidden-section">
+        <h2>Quiénes Somos</h2> <p class="about-text">
+            Somos Caza Estilo: donde el oro no es un metal, sino una actitud. Una marca nacida en las calles para quienes no temen destacar. Cada prenda es energía, elegancia y poder callejero. Esto no es moda: es presencia.
+        </p>
     </section>
 
-    <footer id="contact" class="footer-section hidden-anim">
-        <h2 class="section-title">Conéctate con Nosotros</h2>
-        <div class="social-links">
-            <a href="https://instagram.com/cazaestilo" target="_blank" aria-label="Instagram de Caza Estilo"><i class="fab fa-instagram"></i></a>
-            <a href="https://wa.me/57XXXXXXXXXX" target="_blank" aria-label="WhatsApp de Caza Estilo"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://tiktok.com/@cazaestilo" target="_blank" aria-label="TikTok de Caza Estilo"><i class="fab fa-tiktok"></i></a>
+    <footer>
+        <div class="socials">
+            <a href="https://instagram.com/cazaestilo" target="_blank">Instagram</a>
+            <a href="https://wa.me/57XXXXXXXXXX" target="_blank">WhatsApp</a>
         </div>
-        <p class="footer-copy">&copy; 2025 Caza Estilo. Todos los derechos reservados. Diseñado en Medellín, Colombia.</p>
+        <p>&copy; 2025 Caza Estilo. Todos los derechos reservados.</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const loaderOverlay = document.querySelector('.loader-overlay');
-            const heroSection = document.querySelector('.hero-section');
-            const nav = document.querySelector('.main-nav');
-            const heroAnimatedElements = document.querySelectorAll('.hero-section .animate-in');
-            const sectionsToAnimate = document.querySelectorAll('.products-section, .about-section, .footer-section');
+            const header = document.querySelector('header');
+            const headerElements = [
+                document.querySelector('header h1'),
+                document.querySelector('header p'),
+                document.querySelector('header .btn')
+            ];
 
-            // --- Loader Animation & Initial Hero Reveal ---
+            // Retraso para el loader y la aparición del contenido
             setTimeout(() => {
-                loaderOverlay.classList.add('hidden'); // Fade out the loader
+                loaderOverlay.classList.add('hidden'); // Oculta el overlay
                 
-                // Animate hero section elements after loader is hidden
-                setTimeout(() => {
-                    heroAnimatedElements.forEach((el, index) => {
-                        el.style.animationDelay = `${0.2 * index}s`; // Staggered delay
-                        el.classList.add('fade-in-scale-up'); // New animation class
-                    });
-                    heroSection.style.opacity = '1'; // Ensure hero section is visible
-                }, 400); // Small delay after loader starts fading
-            }, 1000); // Loader visible for 1 second
+                // Muestra el header completo con una transición
+                header.style.opacity = '1';
 
-            // --- Smooth Scroll for Navigation and Buttons ---
-            document.querySelectorAll('.scroll-to-section').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
+                // Aplica las animaciones a los elementos del header con retraso
+                // Cada elemento aparece con un retraso secuencial
+                setTimeout(() => {
+                    headerElements[0].classList.add('animated-text', 'show');
+                }, 100); // Pequeño retraso después de que el loader desaparece
+
+                setTimeout(() => {
+                    headerElements[1].classList.add('animated-text', 'show');
+                }, 600); // 0.5 segundos después del h1
+
+                setTimeout(() => {
+                    headerElements[2].classList.add('animated-text', 'show');
+                }, 1100); // 0.5 segundos después del párrafo
+
+            }, 1000); // 1 segundo de duración del loader, luego el fade out del loader
+
+            // Smooth scroll para enlaces con la clase 'scroll-to-section'
+            const scrollLinks = document.querySelectorAll('.scroll-to-section');
+            scrollLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault(); // Previene el comportamiento de ancla predeterminado
                     const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        const navHeight = nav.offsetHeight;
-                        const offsetTop = targetElement.offsetTop - navHeight; 
-                        window.scrollTo({
-                            top: offsetTop,
-                            behavior: 'smooth'
-                        });
-                    }
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
                 });
             });
 
-            // --- Navbar Sticky and Background Change on Scroll ---
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) { 
-                    nav.classList.add('scrolled');
-                } else {
-                    nav.classList.remove('scrolled');
-                }
-            });
+            // Animación de secciones al hacer scroll (Intersection Observer)
+            const sections = document.querySelectorAll('section');
 
-           
             const observerOptions = {
-                root: null, // viewport
+                root: null, // El viewport es el elemento raíz
                 rootMargin: '0px',
-                threshold: 0.15 // Section is considered visible when 15% is in view
+                threshold: 0.1 // La sección se considera visible cuando el 10% de ella está en el viewport
             };
 
             const sectionObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        // Optional: observer.unobserve(entry.target); // Uncomment to animate only once
+                        entry.target.classList.add('visible-section');
+                        entry.target.classList.remove('hidden-section'); // Asegura que la clase oculta se elimine
+                        // observer.unobserve(entry.target); // Opcional: para que la animación solo ocurra una vez
                     } else {
-                        entry.target.classList.remove('is-visible'); // Reset animation when out of view
+                        // Si quieres que la animación se reinicie cada vez que la sección sale de la vista
+                        entry.target.classList.remove('visible-section');
+                        entry.target.classList.add('hidden-section');
                     }
                 });
             }, observerOptions);
 
-            sectionsToAnimate.forEach(section => {
+            // Observa todas las secciones
+            sections.forEach(section => {
                 sectionObserver.observe(section);
             });
         });
