@@ -1,15 +1,16 @@
-/* --- CSS Variables --- */
+/* --- CSS Variables (Colores y transiciones) --- */
 :root {
-    --color-primary: #d4af37; /* Gold */
-    --color-secondary: #0a0a0a; /* Deep Black */
-    --color-dark-grey: #1a1a1a;
-    --color-light-grey: #f5f5f5;
-    --color-white: #fff;
-    --transition-speed: 0.3s; /* Adjusted for snappier transitions */
-    --color-primary-rgb: 212, 175, 55; /* RGB for shadows */
+    --color-primary: #e6b800; /* Oro más vibrante */
+    --color-secondary: #000000; /* Negro puro */
+    --color-dark-grey: #121212; /* Negro muy oscuro, casi negro */
+    --color-medium-grey: #222222; /* Gris oscuro para fondos de tarjetas */
+    --color-light-grey: #cccccc; /* Gris claro para texto secundario */
+    --color-white: #ffffff; /* Blanco puro */
+    --transition-speed: 0.4s; /* Transiciones un poco más lentas para suavidad */
+    --color-primary-rgb: 230, 184, 0; /* RGB para sombras doradas */
 }
 
-/* --- Base & Reset --- */
+/* --- Base & Reset (Aseguramos un inicio limpio) --- */
 * {
     margin: 0;
     padding: 0;
@@ -18,46 +19,48 @@
 
 html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased; /* Mejor renderizado de fuentes */
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(180deg, var(--color-secondary) 0%, #1c1c1c 100%);
+    background: linear-gradient(180deg, var(--color-secondary) 0%, #080808 100%); /* Degradado de negro a casi negro */
     color: var(--color-light-grey);
-    overflow-x: hidden;
-    line-height: 1.6;
+    overflow-x: hidden; /* Evita scroll horizontal no deseado */
+    line-height: 1.7; /* Mayor legibilidad en párrafos */
 }
 
-/* --- Loader Overlay --- */
+/* --- Loader Overlay (Animación de carga inicial) --- */
 .loader-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--color-secondary);
+    background-color: var(--color-secondary); /* Fondo negro */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
+    z-index: 9999; /* Asegura que esté por encima de todo */
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out; /* Transición suave */
 }
 
 .loader-overlay.hidden {
     opacity: 0;
     visibility: hidden;
-    pointer-events: none; /* Prevents interaction with hidden overlay */
+    pointer-events: none; /* Deshabilita interacciones una vez oculto */
 }
 
 .loader {
-    border: 6px solid #2a2a2a;
-    border-top: 6px solid var(--color-primary);
+    border: 6px solid #333; /* Borde oscuro */
+    border-top: 6px solid var(--color-primary); /* Borde superior dorado */
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
+    width: 60px; /* Tamaño ligeramente mayor */
+    height: 60px;
+    animation: spin 1s linear infinite; /* Animación de giro */
 }
 
 @keyframes spin {
@@ -65,38 +68,41 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* --- Navigation Bar --- */
+/* --- Barra de Navegación (Estilo fijo y elegante) --- */
 .main-nav {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Slightly more transparent */
-    padding: 1rem 2rem;
+    background: rgba(0, 0, 0, 0.85); /* Fondo casi opaco */
+    padding: 1rem 3rem; /* Más padding */
     z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-    transition: background var(--transition-speed) ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); /* Sombra más pronunciada */
+    transition: background var(--transition-speed) ease, padding var(--transition-speed) ease;
 }
 
 .main-nav.scrolled {
-    background: var(--color-secondary); /* Solid background on scroll */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    background: var(--color-secondary); /* Negro sólido al hacer scroll */
+    padding: 0.8rem 3rem; /* Ligeramente más compacta */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8);
 }
 
 .nav-logo {
-    font-family: 'Anton', sans-serif;
-    font-size: 1.8rem;
+    font-family: 'Oswald', sans-serif; /* Nueva fuente para el logo */
+    font-size: 2rem; /* Más grande */
     color: var(--color-primary);
     text-decoration: none;
-    letter-spacing: 2px;
-    transition: color var(--transition-speed) ease;
+    letter-spacing: 3px; /* Más espacio */
+    font-weight: 700;
+    transition: color var(--transition-speed) ease, transform 0.2s ease;
 }
 
 .nav-logo:hover {
     color: var(--color-white);
+    transform: scale(1.05); /* Pequeño zoom al pasar el ratón */
 }
 
 .nav-links {
@@ -105,16 +111,16 @@ body {
 }
 
 .nav-links li {
-    margin-left: 2.5rem;
+    margin-left: 3rem; /* Más espacio entre enlaces */
 }
 
 .nav-links a {
     color: var(--color-light-grey);
     text-decoration: none;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1.05rem; /* Un poco más grande */
     position: relative;
-    padding-bottom: 5px; /* Space for underline effect */
+    padding-bottom: 7px; /* Espacio para efecto de línea */
     transition: color var(--transition-speed) ease;
 }
 
@@ -122,24 +128,26 @@ body {
     content: '';
     position: absolute;
     width: 0%;
-    height: 2px;
+    height: 3px; /* Línea más gruesa */
     background-color: var(--color-primary);
     bottom: 0;
-    left: 0;
+    left: 50%; /* Inicia desde el centro */
+    transform: translateX(-50%); /* Centra la línea */
     transition: width var(--transition-speed) ease-out;
 }
 
 .nav-links a:hover::after {
-    width: 100%;
+    width: 100%; /* Expansión completa al pasar el ratón */
 }
 
 .nav-links a:hover {
     color: var(--color-white);
+    text-shadow: 0 0 8px rgba(var(--color-primary-rgb), 0.5); /* Sombra sutil */
 }
 
-/* --- Hero Section (Header) --- */
+/* --- Sección de Encabezado (Hero Section - La primera impresión) --- */
 .hero-section {
-    background: url('header-bg.jpg') center/cover no-repeat fixed; /* Parallax effect */
+    background: url('assets/header-bg.jpg') center/cover no-repeat fixed; /* Parallax effect */
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -150,8 +158,8 @@ body {
     position: relative;
     overflow: hidden;
     color: var(--color-white);
-    opacity: 0; /* Hidden by default, animated by JS */
-    transition: opacity 1s ease-out; /* Smooth reveal of the whole section */
+    opacity: 0; /* Oculto por defecto, animado por JS */
+    transition: opacity 1s ease-out;
 }
 
 .hero-section::before {
@@ -161,37 +169,40 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.65); /* Darker overlay */
+    background: rgba(0, 0, 0, 0.75); /* Overlay más oscuro para mejor contraste */
     z-index: 1;
 }
 
 .hero-section > * {
     position: relative;
-    z-index: 2; /* Ensure content is above overlay */
+    z-index: 2; /* Contenido sobre el overlay */
 }
 
 .hero-title {
-    font-family: 'Anton', sans-serif;
-    font-size: 5.5rem; /* Larger title */
-    letter-spacing: 6px; /* More spacing */
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.6); /* More prominent shadow */
-    margin-bottom: 1.5rem;
+    font-family: 'Oswald', sans-serif; /* Nueva fuente para el título principal */
+    font-size: 6.5rem; /* Más grande y audaz */
+    letter-spacing: 8px; /* Mayor espaciado */
+    text-shadow: 0 0 30px rgba(var(--color-primary-rgb), 0.8); /* Sombra dorada intensa */
+    margin-bottom: 2rem;
+    font-weight: 700;
 }
 
 .hero-subtitle {
-    font-size: 1.6rem; /* Larger subtitle */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem; /* Subtítulo más grande */
     color: var(--color-light-grey);
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     max-width: 900px;
-    font-weight: 300; /* Lighter weight */
+    font-weight: 300;
+    line-height: 1.5;
 }
 
-/* --- General Button Styles --- */
+/* --- Botones (Estilo consistente y atractivo) --- */
 .btn {
     background: var(--color-primary);
     color: var(--color-secondary);
-    padding: 1.2rem 2.8rem; /* Even larger padding */
-    margin-top: 3rem; /* More space from subtitle */
+    padding: 1.3rem 3rem; /* Aún más padding */
+    margin-top: 3.5rem; /* Más espacio */
     font-weight: bold;
     text-transform: uppercase;
     border-radius: 50px;
@@ -199,41 +210,47 @@ body {
     cursor: pointer;
     transition: background var(--transition-speed) ease, transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
     text-decoration: none;
-    font-size: 1.15rem; /* Slightly larger font */
-    box-shadow: 0 6px 20px rgba(var(--color-primary-rgb), 0.5); /* Stronger shadow */
+    font-size: 1.2rem; /* Más grande */
+    box-shadow: 0 8px 25px rgba(var(--color-primary-rgb), 0.6); /* Sombra más fuerte */
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .btn i {
-    margin-right: 0.8rem;
-    font-size: 1.3rem;
+    margin-right: 1rem; /* Más espacio para el icono */
+    font-size: 1.4rem;
+    transition: transform var(--transition-speed) ease;
 }
 
 .btn:hover {
     background: var(--color-white);
-    transform: translateY(-7px) scale(1.03); /* More pronounced lift and scale */
-    box-shadow: 0 10px 30px rgba(var(--color-primary-rgb), 0.7); /* More prominent shadow on hover */
-    color: var(--color-secondary); /* Text color change on hover */
+    color: var(--color-dark-grey); /* Texto oscuro en hover blanco */
+    transform: translateY(-8px) scale(1.04); /* Más pronunciado */
+    box-shadow: 0 15px 40px rgba(var(--color-primary-rgb), 0.8); /* Sombra dorada muy vibrante */
+}
+
+.btn:hover i {
+    transform: translateX(5px); /* Pequeño movimiento del icono */
 }
 
 .btn-small {
-    padding: 0.9rem 1.8rem; /* Adjusted small button size */
+    padding: 1rem 2rem;
     font-size: 1rem;
-    margin-top: 1.5rem; /* Adjusted margin for small buttons */
+    margin-top: 1.5rem;
     border-radius: 35px;
 }
 
-/* --- General Section Styles --- */
+/* --- Secciones Generales (Base para todas las secciones) --- */
 section {
-    padding: 6rem 2rem; /* More vertical padding */
+    padding: 7rem 3rem; /* Más padding vertical y horizontal */
     max-width: 1400px;
     margin: auto;
-    background: var(--color-dark-grey);
-    border-bottom: 1px solid #2a2a2a;
-    position: relative; /* For animations */
+    background: var(--color-dark-grey); /* Fondo gris oscuro */
+    border-bottom: 1px solid var(--color-medium-grey); /* Borde sutil */
+    position: relative;
+    overflow: hidden; /* Para contener animaciones */
 }
 
 section:last-of-type {
@@ -242,52 +259,52 @@ section:last-of-type {
 
 .section-title {
     text-align: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 4rem; /* Larger section titles */
-    margin-bottom: 4rem; /* More space below title */
+    font-family: 'Bebas Neue', sans-serif; /* Mantenemos Bebas Neue para títulos de sección */
+    font-size: 4.5rem; /* Títulos de sección más grandes */
+    margin-bottom: 5rem; /* Más espacio */
     color: var(--color-primary);
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); /* Deeper shadow */
-    letter-spacing: 1px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7); /* Sombra más profunda */
+    letter-spacing: 2px;
 }
 
-/* --- Products Section --- */
+/* --- Sección de Productos (Grid responsivo y animaciones de tarjetas) --- */
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Slightly larger min-width for cards */
-    gap: 3.5rem; /* More space between products */
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Tarjetas más grandes */
+    gap: 4rem; /* Mayor espacio entre tarjetas */
 }
 
 .product-card {
-    background: var(--color-dark-grey);
-    border: 1px solid #333; /* Softer border */
-    border-radius: 20px;
+    background: var(--color-medium-grey); /* Fondo de tarjeta gris medio */
+    border: 1px solid #3a3a3a;
+    border-radius: 25px; /* Bordes más redondeados */
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); /* Stronger initial shadow */
-    transition: all 0.3s ease-in-out; /* All properties transition */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra inicial más marcada */
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
     display: flex;
     flex-direction: column;
 }
 
 .product-card:hover {
-    transform: translateY(-10px) scale(1.03); /* More pronounced lift and scale */
-    box-shadow: 0 15px 40px rgba(var(--color-primary-rgb), 0.6); /* Vibrant shadow on hover */
+    transform: translateY(-12px) scale(1.04); /* Elevación y zoom más dramáticos */
+    box-shadow: 0 20px 50px rgba(var(--color-primary-rgb), 0.7); /* Sombra dorada intensa al hover */
 }
 
 .product-card img {
     width: 100%;
-    height: 320px; /* Slightly taller images */
+    height: 350px; /* Imágenes más altas */
     object-fit: cover;
     display: block;
-    border-bottom: 1px solid #333;
-    transition: transform 0.4s ease-in-out;
+    border-bottom: 1px solid #3a3a3a;
+    transition: transform 0.5s ease-in-out;
 }
 
 .product-card:hover img {
-    transform: scale(1.1); /* Stronger zoom on hover */
+    transform: scale(1.15) rotate(1deg); /* Zoom y ligera rotación al pasar el ratón */
 }
 
 .product-info {
-    padding: 1.8rem; /* More padding inside card */
+    padding: 2rem; /* Más padding interno */
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -296,90 +313,212 @@ section:last-of-type {
 
 .product-card h3 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem; /* Larger product title */
-    margin-bottom: 1rem;
+    font-size: 2rem; /* Título de producto más grande */
+    margin-bottom: 1.2rem;
     color: var(--color-primary);
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
 }
 
 .product-price {
-    margin-bottom: 1.5rem; /* More space before button */
+    margin-bottom: 1.8rem; /* Más espacio antes del botón */
     font-weight: bold;
-    font-size: 1.5rem; /* Larger price */
+    font-size: 1.6rem; /* Precio más grande */
     color: var(--color-white);
 }
 
 .product-btn {
-    align-self: flex-start; /* Align button to start */
+    align-self: flex-start; /* Botón alineado a la izquierda */
 }
 
-/* --- About Section --- */
+/* --- Sección Quiénes Somos (Diseño con imagen y texto) --- */
 .about-section {
-    background: linear-gradient(180deg, var(--color-dark-grey) 0%, #0d0d0d 100%);
+    background: linear-gradient(180deg, var(--color-dark-grey) 0%, var(--color-secondary) 100%);
     text-align: center;
+    padding-bottom: 7rem; /* Mantener padding en la parte inferior */
 }
 
-.about-text {
-    max-width: 900px;
-    margin: auto;
-    color: #bbb; /* Slightly lighter text */
-    font-size: 1.15rem; /* Slightly larger text */
+.about-content {
+    display: flex;
+    flex-direction: row; /* Diseño por defecto en fila */
+    align-items: center;
+    gap: 4rem; /* Espacio entre texto e imagen */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-text-block {
+    flex: 1;
+    text-align: left; /* Texto justificado a la izquierda */
+    font-size: 1.18rem; /* Texto más grande */
+    color: var(--color-light-grey);
     line-height: 1.8;
 }
 
-/* --- Footer Section --- */
+.about-text-block p {
+    margin-bottom: 1.5rem; /* Espacio entre párrafos */
+}
+
+.about-text-block p:last-child {
+    margin-bottom: 0;
+    font-weight: bold;
+    color: var(--color-primary); /* Último párrafo dorado */
+    font-size: 1.25rem;
+    text-shadow: 0 0 5px rgba(var(--color-primary-rgb), 0.3);
+}
+
+.about-image-block {
+    flex: 0 0 450px; /* Ancho fijo para la imagen en desktop */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    transform: rotateY(10deg) scale(0.98); /* Ligera perspectiva inicial */
+    transition: transform 0.6s ease-out, box-shadow 0.6s ease-out;
+}
+
+.about-section.is-visible .about-image-block {
+    transform: rotateY(0deg) scale(1); /* End state for animation */
+}
+
+.about-visual {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.4s ease-in-out;
+}
+
+.about-image-block:hover .about-visual {
+    transform: scale(1.05); /* Pequeño zoom en la imagen al pasar el ratón */
+}
+
+/* --- Pie de Página (Footer con estilo moderno) --- */
 .footer-section {
     background: var(--color-secondary);
-    padding: 4rem 2rem; /* More padding */
+    padding: 5rem 3rem; /* Más padding */
     text-align: center;
-    color: #888; /* Softer color */
-    font-size: 0.95rem;
+    color: #999;
+    font-size: 1rem;
     border-top: 1px solid #2a2a2a;
 }
 
+.footer-section .section-title {
+    font-size: 3.5rem; /* Título del footer un poco más pequeño */
+    margin-bottom: 3.5rem;
+}
+
 .social-links {
-    margin-top: 2rem; /* More space from title */
-    margin-bottom: 2.5rem; /* More space to copyright */
+    margin-top: 2.5rem;
+    margin-bottom: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 2.5rem; /* Consistent gap for social links */
+    gap: 3rem; /* Mayor espacio entre iconos */
 }
 
 .social-links a {
     color: var(--color-primary);
     text-decoration: none;
     font-weight: bold;
-    font-size: 2.2rem; /* Larger icons */
+    font-size: 2.5rem; /* Iconos más grandes */
     transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    padding: 10px; /* Área de clic más grande */
+    border-radius: 50%;
+    background: rgba(var(--color-primary-rgb), 0.1); /* Fondo sutil */
 }
 
-.social-links a i {
-    margin-right: 0.8rem; /* Space between icon and text if text is present */
+.social-links a::before { /* Efecto de brillo alrededor del icono */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 0 0 rgba(var(--color-primary-rgb), 0);
+    transition: box-shadow var(--transition-speed) ease;
+}
+
+.social-links a:hover::before {
+    box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.7); /* Brillo dorado al hover */
 }
 
 .social-links a:hover {
     color: var(--color-white);
-    transform: translateY(-8px) scale(1.15); /* More prominent lift and scale */
+    transform: translateY(-10px) scale(1.2); /* Elevación y zoom significativos */
+    background: var(--color-primary); /* Fondo sólido dorado al hover */
+    color: var(--color-secondary); /* Icono oscuro sobre fondo dorado */
 }
+.social-links a:hover i {
+    transform: scale(1.1); /* Ligerísimo zoom al icono interno */
+}
+
 
 .footer-copy {
-    margin-top: 1.5rem; /* Space from social links */
-    font-size: 0.9rem;
-    color: #777;
+    margin-top: 2rem;
+    font-size: 0.95rem;
+    color: #888;
 }
 
-/* --- Animations --- */
+/* --- Animaciones CSS Puras (Clases controladas por JS) --- */
 
-/* Generic Fade In and Slide Up for Hero Section elements */
-@keyframes fadeInSlideUp {
+/* Animación de entrada para el Hero Section */
+@keyframes fadeInScaleUp {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.animate-in {
+    opacity: 0; /* Por defecto oculto */
+}
+
+.animate-in.fade-in-scale-up {
+    animation: fadeInScaleUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* Curva de animación suave */
+}
+
+/* Animaciones de secciones al hacer scroll (clase 'hidden-anim' y 'is-visible') */
+
+/* Animación para el título de la sección */
+@keyframes sectionTitleReveal {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Animación para las tarjetas de producto (entrada escalonada) */
+@keyframes cardRiseIn {
+    from {
+        opacity: 0;
+        transform: translateY(100px) rotateX(-15deg); /* Viene desde abajo con ligera inclinación */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+    }
+}
+
+/* Animación para el texto de Quiénes Somos */
+@keyframes textFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
     }
     to {
         opacity: 1;
@@ -387,101 +526,128 @@ section:last-of-type {
     }
 }
 
-.animated-element {
-    opacity: 0; /* Hidden by default */
-}
 
-.animated-element.fade-in-slide-up {
-    animation: fadeInSlideUp 1s ease-out forwards;
-}
-
-/* Hidden state for sections that animate on scroll */
-.hidden-fade-up {
+/* Estados iniciales ocultos para animaciones de scroll */
+.hidden-anim .section-title,
+.hidden-anim .product-card,
+.hidden-anim .about-text-block,
+.hidden-anim .about-image-block,
+.hidden-anim .social-links,
+.hidden-anim .footer-copy {
     opacity: 0;
-    transform: translateY(80px); /* Starts lower */
-    transition: opacity 1s ease-out, transform 1s ease-out;
+    transform: translateY(80px); /* Valores iniciales para la animación */
+    transition: none; /* Desactivar transiciones por defecto para que la animación se aplique */
 }
 
-.hidden-fade-up.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Specific animations for elements within sections */
-.products-section.is-visible .section-title,
-.about-section.is-visible .section-title,
-.footer-section.is-visible .section-title {
-    animation: fadeInSlideUp 1s ease-out forwards;
+/* Clases para aplicar animaciones cuando son visibles */
+.is-visible .section-title {
+    animation: sectionTitleReveal 1s ease-out forwards;
     animation-delay: 0.2s;
 }
 
-/* Product cards staggered animation */
-.products-section.is-visible .product-card {
-    animation: fadeInSlideUp 1s ease-out forwards;
-    opacity: 0; /* Override initial opacity to allow animation */
-    transform: translateY(80px); /* Override initial transform */
+.is-visible .products-grid .product-card {
+    animation: cardRiseIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* Animación elástica */
+    /* staggered delay handled by JS */
 }
 
+.is-visible .about-text-block {
+    animation: textFadeIn 1.2s ease-out forwards;
+    animation-delay: 0.4s;
+}
+
+.is-visible .social-links {
+    animation: textFadeIn 1s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+.is-visible .footer-copy {
+    animation: textFadeIn 1s ease-out forwards;
+    animation-delay: 0.4s;
+}
+
+/* Staggered delay para las tarjetas de producto (manual o con JS si son muchas) */
+/* El JS ya se encarga de esto con forEach y index, pero si quieres CSS: */
 .products-section.is-visible .product-card:nth-child(1) { animation-delay: 0.4s; }
 .products-section.is-visible .product-card:nth-child(2) { animation-delay: 0.6s; }
 .products-section.is-visible .product-card:nth-child(3) { animation-delay: 0.8s; }
 .products-section.is-visible .product-card:nth-child(4) { animation-delay: 1.0s; }
 
-/* About text animation */
-.about-section.is-visible .about-text {
-    animation: fadeInSlideUp 1s ease-out forwards;
-    animation-delay: 0.6s;
-    opacity: 0; /* Ensure it starts hidden for animation */
-    transform: translateY(20px); /* Ensure it starts from desired position */
+
+/* --- Responsive Design (Aseguramos la adaptabilidad) --- */
+@media (max-width: 1200px) {
+    .about-content {
+        flex-direction: column; /* Columna en pantallas medianas */
+        gap: 3rem;
+        text-align: center;
+    }
+    .about-image-block {
+        flex: none; /* Elimina el flex fijo */
+        width: 80%; /* Ancho más flexible */
+        max-width: 500px; /* Máximo para evitar que sea muy grande */
+        transform: rotateY(0deg) scale(1); /* Elimina la rotación en móviles */
+    }
+    .about-visual {
+        height: auto; /* Altura automática */
+    }
+    .about-text-block {
+        text-align: center;
+    }
 }
 
-/* Footer elements animation */
-.footer-section.is-visible .social-links,
-.footer-section.is-visible .footer-copy {
-    animation: fadeInSlideUp 1s ease-out forwards;
-    opacity: 0;
-    transform: translateY(40px);
-}
-.footer-section.is-visible .social-links { animation-delay: 0.4s; }
-.footer-section.is-visible .footer-copy { animation-delay: 0.6s; }
-
-
-/* --- Responsive Design (Media Queries) --- */
 @media (max-width: 992px) {
+    .main-nav {
+        padding: 0.8rem 1.5rem;
+    }
+    .nav-logo {
+        font-size: 1.6rem;
+        letter-spacing: 2px;
+    }
+    .nav-links li {
+        margin-left: 2rem;
+    }
+    .nav-links a {
+        font-size: 0.95rem;
+    }
     .hero-title {
         font-size: 4.5rem;
-        letter-spacing: 4px;
+        letter-spacing: 5px;
     }
     .hero-subtitle {
         font-size: 1.4rem;
     }
-    .section-title {
-        font-size: 3.5rem;
-    }
-    .products-grid {
-        gap: 2.5rem;
-    }
-    .product-card img {
-        height: 280px;
-    }
-    .product-card h3 {
-        font-size: 1.6rem;
-    }
-    .product-price {
-        font-size: 1.3rem;
-    }
     .btn {
-        padding: 1rem 2.2rem;
-        font-size: 1.05rem;
+        padding: 1.1rem 2.5rem;
+        font-size: 1.1rem;
+        margin-top: 3rem;
     }
     .btn i {
-        font-size: 1.15rem;
+        font-size: 1.2rem;
+    }
+    .section-title {
+        font-size: 3.8rem;
+        margin-bottom: 4rem;
+    }
+    .products-grid {
+        gap: 3rem;
+    }
+    .product-card img {
+        height: 300px;
+    }
+    .product-card h3 {
+        font-size: 1.8rem;
+    }
+    .product-price {
+        font-size: 1.4rem;
+    }
+    section {
+        padding: 6rem 2rem;
     }
     .social-links {
         gap: 2rem;
     }
     .social-links a {
-        font-size: 1.8rem;
+        font-size: 2rem;
+        padding: 8px;
     }
 }
 
@@ -503,76 +669,107 @@ section:last-of-type {
     }
     .hero-title {
         font-size: 3.5rem;
-        letter-spacing: 3px;
+        letter-spacing: 4px;
     }
     .hero-subtitle {
         font-size: 1.2rem;
     }
     .section-title {
         font-size: 3rem;
-        margin-bottom: 3rem;
+        margin-bottom: 3.5rem;
     }
     .products-grid {
-        grid-template-columns: 1fr; /* Single column on small screens */
-        gap: 2rem;
+        grid-template-columns: 1fr; /* Una sola columna en móviles */
+        gap: 2.5rem;
     }
     .product-card img {
-        height: 250px;
+        height: 260px;
     }
     .product-info {
-        padding: 1.2rem;
+        padding: 1.5rem;
     }
     .product-card h3 {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
     }
     .product-price {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
     .btn {
-        padding: 0.9rem 1.8rem;
-        font-size: 0.95rem;
-        margin-top: 2rem;
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        margin-top: 2.5rem;
     }
     .btn-small {
-        padding: 0.7rem 1.4rem;
-        font-size: 0.85rem;
-        margin-top: 1rem;
+        padding: 0.8rem 1.6rem;
+        font-size: 0.9rem;
     }
-    .about-text {
+    .about-text-block {
         font-size: 1.05rem;
-        padding: 0 1rem; /* Add padding to text on small screens */
+    }
+    .about-image-block {
+        width: 90%;
+    }
+    .footer-section .section-title {
+        font-size: 3rem;
     }
     .social-links {
         gap: 1.5rem;
     }
     .social-links a {
-        font-size: 1.6rem;
-    }
-    .social-links a i {
-        margin-right: 0.5rem;
+        font-size: 1.8rem;
     }
 }
 
 @media (max-width: 480px) {
+    .main-nav {
+        padding: 0.6rem 0.8rem;
+    }
+    .nav-logo {
+        font-size: 1.4rem;
+        letter-spacing: 1px;
+    }
+    .nav-links {
+        font-size: 0.85rem;
+    }
+    .nav-links li {
+        margin: 0.2rem 0.5rem;
+    }
     .hero-title {
         font-size: 2.8rem;
+        letter-spacing: 3px;
     }
     .hero-subtitle {
         font-size: 1rem;
     }
     .section-title {
         font-size: 2.5rem;
+        margin-bottom: 3rem;
     }
     section {
-        padding: 4rem 1rem;
+        padding: 5rem 1rem;
     }
-    .footer-section {
-        padding: 3rem 1rem;
+    .product-card img {
+        height: 220px;
+    }
+    .product-card h3 {
+        font-size: 1.4rem;
+    }
+    .product-price {
+        font-size: 1.1rem;
+    }
+    .about-text-block p {
+        font-size: 0.95rem;
+    }
+    .about-text-block p:last-child {
+        font-size: 1.05rem;
+    }
+    .footer-section .section-title {
+        font-size: 2.5rem;
     }
     .social-links {
         gap: 1rem;
     }
     .social-links a {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
     }
 }
