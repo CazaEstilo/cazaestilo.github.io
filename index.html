@@ -1,11 +1,20 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caza Estilo</title>
+    <title>Caza Estilo | Tu Esencia Callejera</title>
+    <meta name="description" content="Caza Estilo: Moda urbana con actitud. Descubre nuestras colecciones de chaquetas, sudaderas y camisetas inspiradas en la calle, el oro y el estilo.">
+    <meta name="keywords" content="Caza Estilo, moda urbana, streetwear, ropa hombre, ropa mujer, chaquetas, sudaderas, camisetas, estilo callejero, moda colombiana, undergold, Medellín">
+    <meta name="author" content="Caza Estilo">
+    
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <link rel="icon" href="favicon.png" type="image/png"> 
+    
     <style>
         /* Variables CSS para fácil edición de colores */
         :root {
@@ -57,6 +66,7 @@
         .loader-overlay.hidden {
             opacity: 0;
             visibility: hidden;
+            pointer-events: none; /* Deshabilita interacciones una vez oculto */
         }
 
         .loader {
@@ -134,10 +144,18 @@
             border-radius: 50px;
             border: none;
             cursor: pointer;
-            transition: background var(--transition-speed) ease, transform var(--transition-speed) ease;
+            transition: background var(--transition-speed) ease, transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
             text-decoration: none;
             font-size: 1.1rem;
             box-shadow: 0 5px 15px rgba(var(--color-primary-rgb), 0.4);
+            display: inline-flex; /* Para alinear icono y texto */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn i {
+            margin-right: 0.8rem; /* Espacio entre icono y texto */
+            font-size: 1.2rem;
         }
 
         .btn:hover {
@@ -210,10 +228,11 @@
             object-fit: cover;
             display: block;
             border-bottom: 1px solid #444;
-            transition: opacity 0.2s ease-in-out;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transición para zoom en hover */
         }
 
         .product:hover img {
+            transform: scale(1.08); /* Zoom al pasar el cursor */
             opacity: 0.9;
         }
 
@@ -223,6 +242,11 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: opacity 0.3s ease-in-out; /* Transición para oscurecimiento de texto */
+        }
+
+        .product:hover .product-info {
+            opacity: 0.9; /* Sutil oscurecimiento del texto al pasar el cursor */
         }
 
         .product h3 {
@@ -265,20 +289,27 @@
 
         .socials {
             margin-bottom: 1.5rem;
+            display: flex; /* Para centrar íconos */
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* Permite que los íconos se envuelvan en pantallas pequeñas */
         }
 
         .socials a {
-            margin: 0 1.5rem;
+            margin: 0 1.2rem; /* Espacio entre los iconos */
             color: var(--color-primary);
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1.8rem; /* Tamaño de los iconos */
             transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
+            display: inline-flex; /* Asegura el tamaño del área de clic */
+            align-items: center;
+            justify-content: center;
         }
 
         .socials a:hover {
             color: var(--color-white);
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.1); /* Sutil elevación y zoom en hover */
         }
 
         /* Animaciones CSS - Head de página (una vez) */
@@ -411,7 +442,7 @@
             }
             .socials a {
                 margin: 0 0.8rem;
-                font-size: 1rem;
+                font-size: 1.5rem; /* Ajuste para móviles */
             }
         }
 
@@ -428,6 +459,10 @@
             section {
                 padding: 3rem 1rem;
             }
+            .socials a {
+                margin: 0 0.6rem; /* Más compacto en móviles */
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
@@ -439,7 +474,7 @@
     <header>
         <h1 class="animated-text">CAZA ESTILO</h1>
         <p class="animated-text">Calle. Oro. Estilo. Tu presencia empieza por lo que llevas puesto.</p>
-        <a href="#productos" class="btn scroll-to-section animated-text">Explora la colección</a>
+        <a href="#productos" class="btn scroll-to-section animated-text"><i class="fas fa-shopping-bag"></i> Explora la colección</a>
     </header>
 
     <section id="productos" class="hidden-section">
@@ -450,7 +485,7 @@
                 <div class="product-info">
                     <h3>Chaqueta Shein Oversized</h3>
                     <p>$90.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Chaqueta%20Shein%20Oversized%20de%20%2490.000%20COP." target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
+                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Chaqueta%20Shein%20Oversized%20de%20%2490.000%20COP." target="_blank" class="btn btn-small"><i class="fab fa-whatsapp"></i> Comprar por WhatsApp</a>
                 </div>
             </div>
             <div class="product">
@@ -458,7 +493,7 @@
                 <div class="product-info">
                     <h3>Sudadera Negra Gold</h3>
                     <p>$120.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Sudadera%20Negra%20Gold%20de%20%24120.000%20COP." target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
+                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Sudadera%20Negra%20Gold%20de%20%24120.000%20COP." target="_blank" class="btn btn-small"><i class="fab fa-whatsapp"></i> Comprar por WhatsApp</a>
                 </div>
             </div>
             <div class="product">
@@ -466,7 +501,7 @@
                 <div class="product-info">
                     <h3>Camiseta Caza Estilo</h3>
                     <p>$55.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Camiseta%20Caza%20Estilo%20de%20%2455.000%20COP." target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
+                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Camiseta%20Caza%20Estilo%20de%20%2455.000%20COP." target="_blank" class="btn btn-small"><i class="fab fa-whatsapp"></i> Comprar por WhatsApp</a>
                 </div>
             </div>
             <div class="product">
@@ -474,7 +509,7 @@
                 <div class="product-info">
                     <h3>Hoodie Street Beige</h3>
                     <p>$110.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Hoodie%20Street%20Beige%20de%20%24110.000%20COP." target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
+                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Hoodie%20Street%20Beige%20de%20%24110.000%20COP." target="_blank" class="btn btn-small"><i class="fab fa-whatsapp"></i> Comprar por WhatsApp</a>
                 </div>
             </div>
         </div>
@@ -483,14 +518,15 @@
     <section id="about" class="hidden-section">
         <h2>Quiénes Somos</h2>
         <p class="about-text">
-            Somos Caza Estilo: donde el oro no es un metal, sino una actitud. Una marca nacida en las calles para quienes no temen destacar. Cada prenda es energía, elegancia y poder callejero. Esto no es moda: es presencia.
+            Somos Caza Estilo: donde el oro no es un metal, sino una actitud. Nacimos de la pasión por la moda urbana y la autenticidad en cada detalle. Cada prenda es seleccionada y diseñada pensando en quienes no temen destacar, en los que forjan su propio camino y transforman la calle en su pasarela personal. Esto no es solo ropa; es energía, elegancia y el poder inconfundible de la presencia callejera. Te invitamos a unirte a nuestra manada y a vestir tu esencia.
         </p>
     </section>
 
     <footer id="footer-section" class="hidden-section">
         <div class="socials">
-            <a href="https://instagram.com/cazaestilo" target="_blank">Instagram</a>
-            <a href="https://wa.me/57XXXXXXXXXX" target="_blank">WhatsApp</a>
+            <a href="https://instagram.com/cazaestilo" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/57XXXXXXXXXX" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://tiktok.com/@cazaestilo" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
         </div>
         <p>&copy; 2025 Caza Estilo. Todos los derechos reservados.</p>
     </footer>
@@ -540,7 +576,7 @@
                 });
             });
 
-            // Animación de secciones al hacer scroll (Intersection Observer)
+            // Animación de secciones y footer al hacer scroll (Intersection Observer)
             // Se observa tanto las secciones <section> como el <footer>
             const sectionsAndFooter = document.querySelectorAll('section, footer');
 
@@ -570,4 +606,3 @@
     </script>
 </body>
 </html>
-
