@@ -15,6 +15,7 @@
             --color-light-grey: #f5f5f5;
             --color-white: #fff;
             --transition-speed: 0.4s;
+            --color-primary-rgb: 212, 175, 55; /* Versión RGB del color primario para sombras */
         }
 
         /* Base global */
@@ -138,14 +139,14 @@
             transition: background var(--transition-speed) ease, transform var(--transition-speed) ease;
             text-decoration: none; /* Quita el subrayado en los enlaces */
             font-size: 1.1rem;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); /* Sombra para profundidad */
+            box-shadow: 0 5px 15px rgba(var(--color-primary-rgb), 0.4); /* Sombra para profundidad */
             /* Eliminamos animaciones aquí, las controlará JS */
         }
 
         .btn:hover {
             background: var(--color-white);
             transform: translateY(-5px) scale(1.02); /* Efecto 3D y ligero escalado */
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.6);
+            box-shadow: 0 8px 20px rgba(var(--color-primary-rgb), 0.6);
         }
 
         .btn-small {
@@ -189,15 +190,15 @@
             border: 1px solid #444; /* Borde más visible */
             border-radius: 20px; /* Más redondeado */
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2), 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada */
-            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Sombra inicial más sutil */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Transiciones más rápidas */
             display: flex; /* Para organizar imagen y texto */
             flex-direction: column;
         }
 
         .product:hover {
-            transform: translateY(-10px) scale(1.02); /* Levantar y escalar más al pasar el mouse */
-            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4), 0 5px 10px rgba(0, 0, 0, 0.8);
+            transform: translateY(-5px) scale(1.05); /* Menos elevación, más escalado */
+            box-shadow: 0 10px 25px rgba(var(--color-primary-rgb), 0.5); /* Sombra más enfocada en el color primario */
         }
 
         .product img {
@@ -206,6 +207,11 @@
             object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
             display: block;
             border-bottom: 1px solid #444;
+            transition: opacity 0.2s ease-in-out; /* Transición para la opacidad */
+        }
+
+        .product:hover img {
+            opacity: 0.9; /* Ligeramente más tenue al hacer hover */
         }
 
         .product-info {
@@ -389,7 +395,7 @@
                 <div class="product-info">
                     <h3>Chaqueta Shein Oversized</h3>
                     <p>$90.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX" target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
+                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Chaqueta%20Shein%20Oversized%20de%20%2490.000%20COP." target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
                 </div>
             </div>
             <div class="product">
@@ -397,7 +403,7 @@
                 <div class="product-info">
                     <h3>Sudadera Negra Gold</h3>
                     <p>$120.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX" target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
+                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Sudadera%20Negra%20Gold%20de%20%24120.000%20COP." target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
                 </div>
             </div>
             <div class="product">
@@ -405,7 +411,7 @@
                 <div class="product-info">
                     <h3>Camiseta Caza Estilo</h3>
                     <p>$55.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX" target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
+                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Camiseta%20Caza%20Estilo%20de%20%2455.000%20COP." target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
                 </div>
             </div>
             <div class="product">
@@ -413,7 +419,7 @@
                 <div class="product-info">
                     <h3>Hoodie Street Beige</h3>
                     <p>$110.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX" target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
+                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Hoodie%20Street%20Beige%20de%20%24110.000%20COP." target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
                 </div>
             </div>
         </div>
@@ -452,11 +458,20 @@
                 header.style.opacity = '1';
 
                 // Aplica las animaciones a los elementos del header con retraso
-                headerElements[0].classList.add('animated-text', 'show');
-                headerElements[1].classList.add('animated-text', 'show-delay-1');
-                headerElements[2].classList.add('animated-text', 'show-delay-2');
+                // Cada elemento aparece con un retraso secuencial
+                setTimeout(() => {
+                    headerElements[0].classList.add('animated-text', 'show');
+                }, 100); // Pequeño retraso después de que el loader desaparece
 
-            }, 1000); // 1 segundo de duración del loader, luego el fade out
+                setTimeout(() => {
+                    headerElements[1].classList.add('animated-text', 'show');
+                }, 600); // 0.5 segundos después del h1
+
+                setTimeout(() => {
+                    headerElements[2].classList.add('animated-text', 'show');
+                }, 1100); // 0.5 segundos después del párrafo
+
+            }, 1000); // 1 segundo de duración del loader, luego el fade out del loader
 
             // Smooth scroll para enlaces con la clase 'scroll-to-section'
             const scrollLinks = document.querySelectorAll('.scroll-to-section');
