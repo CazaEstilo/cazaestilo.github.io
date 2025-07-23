@@ -1,15 +1,15 @@
-/* Variables CSS para fácil edición de colores */
+/* --- CSS Variables --- */
 :root {
-    --color-primary: #d4af37; /* Dorado principal */
-    --color-secondary: #0a0a0a; /* Negro profundo */
+    --color-primary: #d4af37; /* Gold */
+    --color-secondary: #0a0a0a; /* Deep Black */
     --color-dark-grey: #1a1a1a;
     --color-light-grey: #f5f5f5;
     --color-white: #fff;
-    --transition-speed: 0.4s;
-    --color-primary-rgb: 212, 175, 55; /* Versión RGB del color primario para sombras */
+    --transition-speed: 0.3s; /* Adjusted for snappier transitions */
+    --color-primary-rgb: 212, 175, 55; /* RGB for shadows */
 }
 
-/* Base global */
+/* --- Base & Reset --- */
 * {
     margin: 0;
     padding: 0;
@@ -17,29 +17,29 @@
 }
 
 html {
-    scroll-behavior: smooth; /* Desplazamiento suave para anclas */
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Montserrat', sans-serif; /* Usamos Montserrat como en soluciones anteriores */
+    font-family: 'Montserrat', sans-serif;
     background: linear-gradient(180deg, var(--color-secondary) 0%, #1c1c1c 100%);
     color: var(--color-light-grey);
-    overflow-x: hidden; /* Evita barras de desplazamiento horizontales */
+    overflow-x: hidden;
     line-height: 1.6;
 }
 
-/* Loader y Overlay de Carga */
+/* --- Loader Overlay --- */
 .loader-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--color-secondary); /* Negro profundo */
+    background-color: var(--color-secondary);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Asegura que esté por encima de todo */
+    z-index: 9999;
     opacity: 1;
     visibility: visible;
     transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
@@ -48,12 +48,12 @@ body {
 .loader-overlay.hidden {
     opacity: 0;
     visibility: hidden;
-    pointer-events: none; /* Deshabilita interacciones una vez oculto */
+    pointer-events: none; /* Prevents interaction with hidden overlay */
 }
 
 .loader {
-    border: 6px solid #2a2a2a; /* Color del borde del círculo */
-    border-top: 6px solid var(--color-primary); /* Color del cargador giratorio */
+    border: 6px solid #2a2a2a;
+    border-top: 6px solid var(--color-primary);
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -65,32 +65,38 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* Barra de Navegación */
-nav {
-    position: fixed; /* Barra de navegación fija en la parte superior */
+/* --- Navigation Bar --- */
+.main-nav {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.8); /* Fondo semitransparente */
+    background: rgba(0, 0, 0, 0.7); /* Slightly more transparent */
     padding: 1rem 2rem;
-    z-index: 1000; /* Asegura que esté sobre otros elementos */
+    z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    transition: background 0.3s ease; /* Transición para cuando cambia de color al hacer scroll */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    transition: background var(--transition-speed) ease;
 }
 
-nav.scrolled {
-    background: var(--color-secondary); /* Color sólido al hacer scroll */
+.main-nav.scrolled {
+    background: var(--color-secondary); /* Solid background on scroll */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
 }
 
 .nav-logo {
-    font-family: 'Anton', sans-serif; /* Usamos Anton como en soluciones anteriores */
+    font-family: 'Anton', sans-serif;
     font-size: 1.8rem;
     color: var(--color-primary);
     text-decoration: none;
     letter-spacing: 2px;
+    transition: color var(--transition-speed) ease;
+}
+
+.nav-logo:hover {
+    color: var(--color-white);
 }
 
 .nav-links {
@@ -108,6 +114,7 @@ nav.scrolled {
     font-weight: bold;
     font-size: 1rem;
     position: relative;
+    padding-bottom: 5px; /* Space for underline effect */
     transition: color var(--transition-speed) ease;
 }
 
@@ -115,9 +122,9 @@ nav.scrolled {
     content: '';
     position: absolute;
     width: 0%;
-    height: 3px;
+    height: 2px;
     background-color: var(--color-primary);
-    bottom: -8px;
+    bottom: 0;
     left: 0;
     transition: width var(--transition-speed) ease-out;
 }
@@ -130,9 +137,9 @@ nav.scrolled {
     color: var(--color-white);
 }
 
-/* Encabezado (Header) - Hero Section */
-header {
-    background: url('header-bg.jpg') center/cover no-repeat fixed; /* Ruta corregida y parallax */
+/* --- Hero Section (Header) --- */
+.hero-section {
+    background: url('header-bg.jpg') center/cover no-repeat fixed; /* Parallax effect */
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -141,51 +148,50 @@ header {
     text-align: center;
     padding: 0 2rem;
     position: relative;
-    overflow: hidden; /* Para animaciones */
-    color: var(--color-white); /* Asegura que el texto blanco se vea bien en el fondo */
-    /* Inicialmente oculto para que aparezca después del loader */
-    opacity: 0; 
-    transition: opacity 1s ease-out;
+    overflow: hidden;
+    color: var(--color-white);
+    opacity: 0; /* Hidden by default, animated by JS */
+    transition: opacity 1s ease-out; /* Smooth reveal of the whole section */
 }
 
-/* Overlay sutil para el header */
-header::before {
+.hero-section::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* Oscurece la imagen de fondo */
+    background: rgba(0, 0, 0, 0.65); /* Darker overlay */
     z-index: 1;
 }
 
-header > * {
+.hero-section > * {
     position: relative;
-    z-index: 2; /* Asegura que el contenido esté sobre el overlay */
+    z-index: 2; /* Ensure content is above overlay */
 }
 
-header h1 {
-    font-family: 'Anton', sans-serif; /* Usamos Anton como en soluciones anteriores */
-    font-size: 5rem;
-    letter-spacing: 5px;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-    margin-bottom: 1rem;
+.hero-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 5.5rem; /* Larger title */
+    letter-spacing: 6px; /* More spacing */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.6); /* More prominent shadow */
+    margin-bottom: 1.5rem;
 }
 
-header p {
-    font-size: 1.5rem;
+.hero-subtitle {
+    font-size: 1.6rem; /* Larger subtitle */
     color: var(--color-light-grey);
     margin-top: 0.5rem;
-    max-width: 800px;
+    max-width: 900px;
+    font-weight: 300; /* Lighter weight */
 }
 
-/* Botones */
+/* --- General Button Styles --- */
 .btn {
     background: var(--color-primary);
     color: var(--color-secondary);
-    padding: 1.2rem 2.5rem;
-    margin-top: 2.5rem;
+    padding: 1.2rem 2.8rem; /* Even larger padding */
+    margin-top: 3rem; /* More space from subtitle */
     font-weight: bold;
     text-transform: uppercase;
     border-radius: 50px;
@@ -193,125 +199,122 @@ header p {
     cursor: pointer;
     transition: background var(--transition-speed) ease, transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
     text-decoration: none;
-    font-size: 1.1rem;
-    box-shadow: 0 5px 15px rgba(var(--color-primary-rgb), 0.4);
-    display: inline-flex; /* Para alinear icono y texto */
+    font-size: 1.15rem; /* Slightly larger font */
+    box-shadow: 0 6px 20px rgba(var(--color-primary-rgb), 0.5); /* Stronger shadow */
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    letter-spacing: 0.5px;
 }
 
 .btn i {
-    margin-right: 0.8rem; /* Espacio entre icono y texto */
-    font-size: 1.2rem;
+    margin-right: 0.8rem;
+    font-size: 1.3rem;
 }
 
 .btn:hover {
     background: var(--color-white);
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 8px 20px rgba(var(--color-primary-rgb), 0.6);
+    transform: translateY(-7px) scale(1.03); /* More pronounced lift and scale */
+    box-shadow: 0 10px 30px rgba(var(--color-primary-rgb), 0.7); /* More prominent shadow on hover */
+    color: var(--color-secondary); /* Text color change on hover */
 }
 
 .btn-small {
-    padding: 0.8rem 1.5rem;
-    font-size: 0.9rem;
-    margin-top: 1rem;
-    border-radius: 30px;
+    padding: 0.9rem 1.8rem; /* Adjusted small button size */
+    font-size: 1rem;
+    margin-top: 1.5rem; /* Adjusted margin for small buttons */
+    border-radius: 35px;
 }
 
-/* Secciones generales */
+/* --- General Section Styles --- */
 section {
-    padding: 5rem 2rem;
+    padding: 6rem 2rem; /* More vertical padding */
     max-width: 1400px;
     margin: auto;
     background: var(--color-dark-grey);
     border-bottom: 1px solid #2a2a2a;
+    position: relative; /* For animations */
 }
 
 section:last-of-type {
     border-bottom: none;
 }
 
-h2 {
+.section-title {
     text-align: center;
-    font-family: 'Bebas Neue', sans-serif; /* Usamos Bebas Neue como en soluciones anteriores */
-    font-size: 3.5rem;
-    margin-bottom: 3rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem; /* Larger section titles */
+    margin-bottom: 4rem; /* More space below title */
     color: var(--color-primary);
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); /* Deeper shadow */
+    letter-spacing: 1px;
 }
 
-/* Productos */
-.products {
+/* --- Products Section --- */
+.products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Slightly larger min-width for cards */
+    gap: 3.5rem; /* More space between products */
 }
 
-.product {
+.product-card {
     background: var(--color-dark-grey);
-    border: 1px solid #444;
+    border: 1px solid #333; /* Softer border */
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); /* Stronger initial shadow */
+    transition: all 0.3s ease-in-out; /* All properties transition */
     display: flex;
     flex-direction: column;
 }
 
-/* Animación de pulso para el hover del producto */
-@keyframes productPulse {
-    0% { transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 25px rgba(var(--color-primary-rgb), 0.5); }
-    50% { transform: translateY(-7px) scale(1.06); box-shadow: 0 12px 30px rgba(var(--color-primary-rgb), 0.6); }
-    100% { transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 25px rgba(var(--color-primary-rgb), 0.5); }
+.product-card:hover {
+    transform: translateY(-10px) scale(1.03); /* More pronounced lift and scale */
+    box-shadow: 0 15px 40px rgba(var(--color-primary-rgb), 0.6); /* Vibrant shadow on hover */
 }
 
-.product:hover {
-    animation: productPulse 1.2s infinite alternate ease-in-out; /* Aplica el pulso */
-}
-
-.product img {
+.product-card img {
     width: 100%;
-    height: 300px;
+    height: 320px; /* Slightly taller images */
     object-fit: cover;
     display: block;
-    border-bottom: 1px solid #444;
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transición para zoom en hover */
+    border-bottom: 1px solid #333;
+    transition: transform 0.4s ease-in-out;
 }
 
-.product:hover img {
-    transform: scale(1.08); /* Zoom al pasar el cursor */
-    opacity: 0.9;
+.product-card:hover img {
+    transform: scale(1.1); /* Stronger zoom on hover */
 }
 
 .product-info {
-    padding: 1.5rem;
+    padding: 1.8rem; /* More padding inside card */
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: opacity 0.3s ease-in-out; /* Transición para oscurecimiento de texto */
 }
 
-.product:hover .product-info {
-    opacity: 0.9; /* Sutil oscurecimiento del texto al pasar el cursor */
-}
-
-.product h3 {
-    font-family: 'Bebas Neue', sans-serif; /* Usamos Bebas Neue como en soluciones anteriores */
-    font-size: 1.6rem;
-    margin-bottom: 0.8rem;
-    color: var(--color-primary);
-}
-
-.product p {
+.product-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem; /* Larger product title */
     margin-bottom: 1rem;
+    color: var(--color-primary);
+    letter-spacing: 0.5px;
+}
+
+.product-price {
+    margin-bottom: 1.5rem; /* More space before button */
     font-weight: bold;
-    font-size: 1.3rem;
+    font-size: 1.5rem; /* Larger price */
     color: var(--color-white);
 }
 
-/* Sección Quiénes Somos */
-#about {
+.product-btn {
+    align-self: flex-start; /* Align button to start */
+}
+
+/* --- About Section --- */
+.about-section {
     background: linear-gradient(180deg, var(--color-dark-grey) 0%, #0d0d0d 100%);
     text-align: center;
 }
@@ -319,208 +322,257 @@ h2 {
 .about-text {
     max-width: 900px;
     margin: auto;
-    color: #ccc;
-    font-size: 1.1rem;
+    color: #bbb; /* Slightly lighter text */
+    font-size: 1.15rem; /* Slightly larger text */
     line-height: 1.8;
-    /* Estos estilos aseguran que el texto esté inicialmente oculto */
-    opacity: 0; 
-    transform: translateY(20px); 
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Una transición por si falla la animación JS */
 }
 
-/* Pie de página (Footer) */
-footer {
+/* --- Footer Section --- */
+.footer-section {
     background: var(--color-secondary);
-    padding: 3rem 2rem;
+    padding: 4rem 2rem; /* More padding */
     text-align: center;
-    color: #999;
-    font-size: 0.9rem;
+    color: #888; /* Softer color */
+    font-size: 0.95rem;
     border-top: 1px solid #2a2a2a;
 }
 
-.socials {
-    margin-bottom: 1.5rem;
-    display: flex; /* Para centrar íconos */
+.social-links {
+    margin-top: 2rem; /* More space from title */
+    margin-bottom: 2.5rem; /* More space to copyright */
+    display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap; /* Permite que los íconos se envuelvan en pantallas pequeñas */
+    flex-wrap: wrap;
+    gap: 2.5rem; /* Consistent gap for social links */
 }
 
-.socials a {
-    margin: 0 1.2rem; /* Espacio entre los iconos */
+.social-links a {
     color: var(--color-primary);
     text-decoration: none;
     font-weight: bold;
-    font-size: 1.8rem; /* Tamaño de los iconos */
+    font-size: 2.2rem; /* Larger icons */
     transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
-    display: inline-flex; /* Asegura el tamaño del área de clic */
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 }
 
-.socials a:hover {
+.social-links a i {
+    margin-right: 0.8rem; /* Space between icon and text if text is present */
+}
+
+.social-links a:hover {
     color: var(--color-white);
-    transform: translateY(-5px) scale(1.1); /* Sutil elevación y zoom en hover */
+    transform: translateY(-8px) scale(1.15); /* More prominent lift and scale */
 }
 
-/* Animaciones CSS generales */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.footer-copy {
+    margin-top: 1.5rem; /* Space from social links */
+    font-size: 0.9rem;
+    color: #777;
 }
 
-@keyframes slideUp { 
-    from { opacity: 0; transform: translateY(80px); }
-    to { opacity: 1; transform: translateY(0); }
+/* --- Animations --- */
+
+/* Generic Fade In and Slide Up for Hero Section elements */
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-@keyframes zoomInFade {
-    from { opacity: 0; transform: scale(0.5) rotate(-5deg); } /* Más agresivo, con rotación */
-    to { opacity: 1; transform: scale(1) rotate(0deg); }
+.animated-element {
+    opacity: 0; /* Hidden by default */
 }
 
-@keyframes slideInFromLeft {
-    from { opacity: 0; transform: translateX(-300px) rotate(-15deg); } /* Más agresivo */
-    to { opacity: 1; transform: translateX(0) rotate(0deg); }
+.animated-element.fade-in-slide-up {
+    animation: fadeInSlideUp 1s ease-out forwards;
 }
 
-@keyframes slideInFromRight {
-    from { opacity: 0; transform: translateX(300px) rotate(15deg); } /* Más agresivo */
-    to { opacity: 1; transform: translateX(0) rotate(0deg); }
-}
-
-/* Clases para animación controladas por JS */
-.animated-text {
+/* Hidden state for sections that animate on scroll */
+.hidden-fade-up {
     opacity: 0;
-}
-.animated-text.show {
-    animation: fadeIn 1.5s ease-out forwards;
-}
-
-/* Estado inicial (oculto) para elementos que se animarán al scroll */
-section h2,
-.products .product,
-footer .socials,
-footer p {
-    opacity: 0;
-    transform: translateY(100px); /* Los eleva desde abajo */
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transición suave al aparecer */
+    transform: translateY(80px); /* Starts lower */
+    transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
-/* Cuando la sección es visible, activamos las animaciones */
-.visible-section h2 {
-    animation: zoomInFade 1s ease-out forwards;
+.hidden-fade-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Specific animations for elements within sections */
+.products-section.is-visible .section-title,
+.about-section.is-visible .section-title,
+.footer-section.is-visible .section-title {
+    animation: fadeInSlideUp 1s ease-out forwards;
     animation-delay: 0.2s;
 }
 
-/* Productos: Alternando animaciones desde izquierda y derecha */
-.visible-section .products .product:nth-child(odd) {
-    animation: slideInFromLeft 0.8s ease-out forwards;
+/* Product cards staggered animation */
+.products-section.is-visible .product-card {
+    animation: fadeInSlideUp 1s ease-out forwards;
+    opacity: 0; /* Override initial opacity to allow animation */
+    transform: translateY(80px); /* Override initial transform */
 }
 
-.visible-section .products .product:nth-child(even) {
-    animation: slideInFromRight 0.8s ease-out forwards;
+.products-section.is-visible .product-card:nth-child(1) { animation-delay: 0.4s; }
+.products-section.is-visible .product-card:nth-child(2) { animation-delay: 0.6s; }
+.products-section.is-visible .product-card:nth-child(3) { animation-delay: 0.8s; }
+.products-section.is-visible .product-card:nth-child(4) { animation-delay: 1.0s; }
+
+/* About text animation */
+.about-section.is-visible .about-text {
+    animation: fadeInSlideUp 1s ease-out forwards;
+    animation-delay: 0.6s;
+    opacity: 0; /* Ensure it starts hidden for animation */
+    transform: translateY(20px); /* Ensure it starts from desired position */
 }
 
-/* Retrasos escalonados para las tarjetas de producto */
-.visible-section .products .product:nth-child(1) { animation-delay: 0.4s; }
-.visible-section .products .product:nth-child(2) { animation-delay: 0.6s; }
-.visible-section .products .product:nth-child(3) { animation-delay: 0.8s; }
-.visible-section .products .product:nth-child(4) { animation-delay: 1.0s; }
-
-/* Animación para el texto de "Quiénes Somos" */
-.visible-section #about .about-text {
-    animation: fadeIn 1s ease-out forwards; /* Fade in simple */
-    animation-delay: 0.6s; /* Aparece después del título */
-    opacity: 1; /* Asegura que quede visible */
-    transform: translateY(0); /* Asegura que quede en su posición final */
-}
-
-/* Animación para el Footer */
-.visible-section #footer-section .socials,
-.visible-section #footer-section p {
-    animation: slideUp 1s ease-out forwards;
-}
-.visible-section #footer-section .socials { animation-delay: 0.2s; }
-.visible-section #footer-section p { animation-delay: 0.4s; }
-
-/* Para que los elementos se oculten de nuevo al salir de vista */
-section:not(.visible-section) h2,
-section:not(.visible-section) .product,
-footer:not(.visible-section) .socials,
-footer:not(.visible-section) p {
+/* Footer elements animation */
+.footer-section.is-visible .social-links,
+.footer-section.is-visible .footer-copy {
+    animation: fadeInSlideUp 1s ease-out forwards;
     opacity: 0;
-    transform: translateY(100px);
-    animation: none; /* Detiene cualquier animación activa */
+    transform: translateY(40px);
 }
-/* Específico para el texto de Quiénes Somos cuando no está visible */
-#about:not(.visible-section) .about-text {
-    opacity: 0;
-    transform: translateY(20px); /* Vuelve a su estado inicial oculto */
-    animation: none;
+.footer-section.is-visible .social-links { animation-delay: 0.4s; }
+.footer-section.is-visible .footer-copy { animation-delay: 0.6s; }
+
+
+/* --- Responsive Design (Media Queries) --- */
+@media (max-width: 992px) {
+    .hero-title {
+        font-size: 4.5rem;
+        letter-spacing: 4px;
+    }
+    .hero-subtitle {
+        font-size: 1.4rem;
+    }
+    .section-title {
+        font-size: 3.5rem;
+    }
+    .products-grid {
+        gap: 2.5rem;
+    }
+    .product-card img {
+        height: 280px;
+    }
+    .product-card h3 {
+        font-size: 1.6rem;
+    }
+    .product-price {
+        font-size: 1.3rem;
+    }
+    .btn {
+        padding: 1rem 2.2rem;
+        font-size: 1.05rem;
+    }
+    .btn i {
+        font-size: 1.15rem;
+    }
+    .social-links {
+        gap: 2rem;
+    }
+    .social-links a {
+        font-size: 1.8rem;
+    }
 }
 
-/* Media Queries para Responsive Design */
 @media (max-width: 768px) {
-    nav {
+    .main-nav {
         flex-direction: column;
-        padding: 1rem;
+        padding: 0.8rem 1rem;
+    }
+    .nav-logo {
+        margin-bottom: 0.8rem;
     }
     .nav-links {
-        margin-top: 1rem;
+        margin-top: 0.5rem;
         flex-wrap: wrap;
         justify-content: center;
     }
     .nav-links li {
-        margin: 0.5rem 1rem;
+        margin: 0.3rem 0.8rem;
     }
-    header h1 {
+    .hero-title {
         font-size: 3.5rem;
         letter-spacing: 3px;
     }
-    header p {
-        font-size: 1.1rem;
+    .hero-subtitle {
+        font-size: 1.2rem;
     }
-    h2 {
-        font-size: 2.5rem;
+    .section-title {
+        font-size: 3rem;
+        margin-bottom: 3rem;
     }
-    .products {
-        grid-template-columns: 1fr;
+    .products-grid {
+        grid-template-columns: 1fr; /* Single column on small screens */
+        gap: 2rem;
+    }
+    .product-card img {
+        height: 250px;
     }
     .product-info {
-        padding: 1rem;
+        padding: 1.2rem;
     }
-    .product h3 {
-        font-size: 1.4rem;
+    .product-card h3 {
+        font-size: 1.5rem;
     }
-    .product p {
-        font-size: 1.1rem;
+    .product-price {
+        font-size: 1.2rem;
     }
     .btn {
-        padding: 1rem 2rem;
-        font-size: 1rem;
+        padding: 0.9rem 1.8rem;
+        font-size: 0.95rem;
+        margin-top: 2rem;
     }
-    .socials a {
-        margin: 0 0.8rem;
-        font-size: 1.5rem; /* Ajuste para móviles */
+    .btn-small {
+        padding: 0.7rem 1.4rem;
+        font-size: 0.85rem;
+        margin-top: 1rem;
+    }
+    .about-text {
+        font-size: 1.05rem;
+        padding: 0 1rem; /* Add padding to text on small screens */
+    }
+    .social-links {
+        gap: 1.5rem;
+    }
+    .social-links a {
+        font-size: 1.6rem;
+    }
+    .social-links a i {
+        margin-right: 0.5rem;
     }
 }
 
 @media (max-width: 480px) {
-    header h1 {
+    .hero-title {
         font-size: 2.8rem;
     }
-    header p {
+    .hero-subtitle {
         font-size: 1rem;
     }
-    h2 {
-        font-size: 2rem;
+    .section-title {
+        font-size: 2.5rem;
     }
     section {
+        padding: 4rem 1rem;
+    }
+    .footer-section {
         padding: 3rem 1rem;
     }
-    .socials a {
-        margin: 0 0.6rem; /* Más compacto en móviles */
-        font-size: 1.3rem;
+    .social-links {
+        gap: 1rem;
+    }
+    .social-links a {
+        font-size: 1.4rem;
     }
 }
