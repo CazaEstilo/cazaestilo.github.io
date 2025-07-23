@@ -1,3 +1,4 @@
+/* Variables CSS para fácil edición de colores */
 :root {
     --color-primary: #d4af37; /* Dorado principal */
     --color-secondary: #0a0a0a; /* Negro profundo */
@@ -399,7 +400,7 @@ footer {
 /* IMPORTANTE: ESTAS REGLAS INICIALES OCULTAN LOS ELEMENTOS */
 section h2,
 .products .product,
-#about .about-text,
+#about .about-text, /* Asegúrate de que esta regla esté aquí */
 footer .socials,
 footer p {
     opacity: 0;
@@ -430,6 +431,7 @@ footer p {
 
 
 /* Animación para el texto de "Quiénes Somos" */
+/* ***** CAMBIO AQUÍ: Aseguramos que la animación se aplique directamente al .about-text ***** */
 .visible-section #about .about-text {
     animation: slideUp 1s ease-out forwards;
     animation-delay: 0.4s; /* Aparece después del título de la sección */
@@ -439,23 +441,20 @@ footer p {
 .visible-section #footer-section .socials,
 .visible-section #footer-section p {
     animation: slideUp 1s ease-out forwards;
-    /* Retrasos para los elementos del footer */
 }
 .visible-section #footer-section .socials { animation-delay: 0.2s; }
 .visible-section #footer-section p { animation-delay: 0.4s; }
 
 
-/* Para que los elementos se oculten de nuevo al salir de vista, SIEMPRE DEBEN ESTAR EN OPACITY 0 INICIALMENTE */
-/* Esta regla asegura que si la sección pierde la visibilidad, se reinicie para una nueva animación al volver a entrar */
+/* Para que los elementos se oculten de nuevo al salir de vista */
 section:not(.visible-section) h2,
 section:not(.visible-section) .product,
-section:not(.visible-section) #about .about-text,
+section:not(.visible-section) #about .about-text, /* Asegúrate de que esta regla también esté aquí */
 footer:not(.visible-section) .socials,
 footer:not(.visible-section) p {
     opacity: 0;
     transform: translateY(100px);
     animation: none; /* Detiene cualquier animación activa */
-    /* No agregamos una transición fuerte aquí para que no interfiera cuando se añade la clase visible-section */
 }
 
 
