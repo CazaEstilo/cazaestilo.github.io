@@ -3,172 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caza Estilo | Tu Esencia Callejera</title>
-    <meta name="description" content="Caza Estilo: Moda urbana con actitud. Descubre nuestras colecciones de chaquetas, sudaderas y camisetas inspiradas en la calle, el oro y el estilo.">
-    <meta name="keywords" content="Caza Estilo, moda urbana, streetwear, ropa hombre, ropa mujer, chaquetas, sudaderas, camisetas, estilo callejero, moda colombiana, undergold, Medellín">
+    <title>Caza Estilo | Moda Urbana con Actitud</title>
+    <meta name="description" content="Caza Estilo: La marca de moda urbana que redefine el estilo. Descubre nuestras exclusivas colecciones de chaquetas, sudaderas y camisetas inspiradas en la calle y la actitud del oro.">
+    <meta name="keywords" content="Caza Estilo, moda urbana, streetwear, ropa hombre, ropa mujer, chaquetas, sudaderas, camisetas, estilo callejero, moda colombiana, Medellín, undergold, actitud dorada">
     <meta name="author" content="Caza Estilo">
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
-    <link rel="icon" href="favicon.png" type="image/png"> 
+    <link rel="icon" href="favicon.png" type="image/png">
     
-    <link rel="stylesheet" href="css/style.css"> 
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="loader-overlay">
         <div class="loader"></div>
     </div>
 
-    <nav>
+    <nav class="main-nav">
         <a href="#home" class="nav-logo scroll-to-section">CAZA ESTILO</a>
         <ul class="nav-links">
             <li><a href="#home" class="scroll-to-section">Inicio</a></li>
             <li><a href="#productos" class="scroll-to-section">Productos</a></li>
             <li><a href="#about" class="scroll-to-section">Quiénes Somos</a></li>
-            <li><a href="#footer-section" class="scroll-to-section">Contacto</a></li>
+            <li><a href="#contact" class="scroll-to-section">Contacto</a></li>
         </ul>
     </nav>
 
-    <header id="home">
-        <h1 class="animated-text">CAZA ESTILO</h1>
-        <p class="animated-text">Calle. Oro. Estilo. Tu presencia empieza por lo que llevas puesto.</p>
-        <a href="#productos" class="btn scroll-to-section animated-text"><i class="fas fa-shopping-bag"></i> Explora la colección</a>
+    <header id="home" class="hero-section">
+        <h1 class="hero-title animated-element">CAZA ESTILO</h1>
+        <p class="hero-subtitle animated-element">Calle. Oro. Estilo. Tu presencia empieza por lo que llevas puesto.</p>
+        <a href="#productos" class="btn scroll-to-section animated-element"><i class="fas fa-shopping-bag"></i> Explora la colección</a>
     </header>
 
-    <section id="productos" class="hidden-section">
-        <h2>🔥 Productos Destacados 🔥</h2> 
-        <div class="products">
-            <div class="product">
+    <section id="productos" class="products-section hidden-fade-up">
+        <h2 class="section-title">🔥 Productos Destacados 🔥</h2>
+        <div class="products-grid">
+            <div class="product-card">
                 <img src="mockup1.jpg" alt="Chaqueta Oversized">
                 <div class="product-info">
                     <h3>Chaqueta Shein Oversized</h3>
-                    <p>$90.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Chaqueta%20Shein%20Oversized%20de%20%2490.000%20COP." target="_blank" class="btn btn-small"><i class="fab fa-whatsapp"></i> Comprar por WhatsApp</a>
+                    <p class="product-price">$90.000 COP</p>
+                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Chaqueta%20Shein%20Oversized%20de%20%2490.000%20COP." target="_blank" class="btn btn-small product-btn"><i class="fab fa-whatsapp"></i> Comprar por WhatsApp</a>
                 </div>
             </div>
-            <div class="product">
+            <div class="product-card">
                 <img src="mockup2.jpg" alt="Sudadera Negra">
                 <div class="product-info">
                     <h3>Sudadera Negra Gold</h3>
-                    <p>$120.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Sudadera%20Negra%20Gold%20de%20%24120.000%20COP." target="_blank" class="btn btn-small"><i class="fab fa-whatsapp"></i> Comprar por WhatsApp</a>
+                    <p class="product-price">$120.000 COP</p>
+                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Sudadera%20Negra%20Gold%20de%20%24120.000%20COP." target="_blank" class="btn btn-small product-btn"><i class="fab fa-whatsapp"></i> Comprar por WhatsApp</a>
                 </div>
             </div>
-            <div class="product">
+            <div class="product-card">
                 <img src="mockup3.jpg" alt="Camiseta Caza Estilo">
                 <div class="product-info">
                     <h3>Camiseta Caza Estilo</h3>
-                    <p>$55.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Camiseta%20Caza%20Estilo%20de%20%2455.000%20COP." target="_blank" class="btn btn-small"><i class="fab fa-whatsapp"></i> Comprar por WhatsApp</a>
+                    <p class="product-price">$55.000 COP</p>
+                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Camiseta%20Caza%20Estilo%20de%20%2455.000%20COP." target="_blank" class="btn btn-small product-btn"><i class="fab fa-whatsapp"></i> Comprar por WhatsApp</a>
                 </div>
             </div>
-            <div class="product">
+            <div class="product-card">
                 <img src="mockup4.jpg" alt="Hoodie Beige">
                 <div class="product-info">
                     <h3>Hoodie Street Beige</h3>
-                    <p>$110.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Hoodie%20Street%20Beige%20de%20%24110.000%20COP." target="_blank" class="btn btn-small"><i class="fab fa-whatsapp"></i> Comprar por WhatsApp</a>
+                    <p class="product-price">$110.000 COP</p>
+                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20estoy%20interesado%20en%20la%20Hoodie%20Street%20Beige%20de%20%24110.000%20COP." target="_blank" class="btn btn-small product-btn"><i class="fab fa-whatsapp"></i> Comprar por WhatsApp</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="about" class="hidden-section">
-        <h2>💬 Quiénes Somos</h2>
+    <section id="about" class="about-section hidden-fade-up">
+        <h2 class="section-title">💬 Quiénes Somos</h2>
         <p class="about-text">
             Somos Caza Estilo: donde el oro no es un metal, sino una actitud. Una marca nacida en las calles para quienes no temen destacar. Cada prenda es energía, elegancia y poder callejero. Esto no es moda: es presencia.
         </p>
     </section>
 
-    <footer id="footer-section" class="hidden-section">
-        <div class="socials">
-            <a href="https://instagram.com/cazaestilo" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://wa.me/57XXXXXXXXXX" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://tiktok.com/@cazaestilo" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+    <footer id="contact" class="footer-section hidden-fade-up">
+        <h2 class="section-title">Encuéntranos en Redes</h2>
+        <div class="social-links">
+            <a href="https://instagram.com/cazaestilo" target="_blank" aria-label="Instagram de Caza Estilo"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://wa.me/57XXXXXXXXXX" target="_blank" aria-label="WhatsApp de Caza Estilo"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="https://tiktok.com/@cazaestilo" target="_blank" aria-label="TikTok de Caza Estilo"><i class="fab fa-tiktok"></i> TikTok</a>
         </div>
-        <p>&copy; 2025 Caza Estilo. Todos los derechos reservados.</p>
+        <p class="footer-copy">&copy; 2025 Caza Estilo. Todos los derechos reservados.</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const loaderOverlay = document.querySelector('.loader-overlay');
-            const header = document.querySelector('header');
-            const nav = document.querySelector('nav');
-            const headerElements = [
-                document.querySelector('header h1'),
-                document.querySelector('header p'),
-                document.querySelector('header .btn')
-            ];
+            const heroSection = document.querySelector('.hero-section');
+            const nav = document.querySelector('.main-nav');
+            const heroElements = document.querySelectorAll('.hero-section .animated-element');
+            const sections = document.querySelectorAll('.products-section, .about-section, .footer-section');
 
-            // Retraso para el loader y la aparición del contenido
+            // --- Loader Animation ---
             setTimeout(() => {
-                loaderOverlay.classList.add('hidden'); // Oculta el overlay
+                loaderOverlay.classList.add('hidden'); // Fade out the loader
                 
-                // Muestra el header completo con una transición
-                header.style.opacity = '1';
-
-                // Aplica las animaciones a los elementos del header con retraso
+                // Animate hero section elements after loader is hidden
                 setTimeout(() => {
-                    headerElements[0].classList.add('animated-text', 'show');
-                }, 100); 
-
-                setTimeout(() => {
-                    headerElements[1].classList.add('animated-text', 'show');
-                }, 600); 
-
-                setTimeout(() => {
-                    headerElements[2].classList.add('animated-text', 'show');
-                }, 1100); 
-
-            }, 1000); // 1 segundo de duración del loader
-
-            // Smooth scroll para enlaces con la clase 'scroll-to-section'
-            const scrollLinks = document.querySelectorAll('.scroll-to-section');
-            scrollLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault(); 
-                    const targetId = this.getAttribute('href');
-                    document.querySelector(targetId).scrollIntoView({
-                        behavior: 'smooth'
+                    heroElements.forEach((el, index) => {
+                        // Apply a custom delay for each element in the hero
+                        el.style.animationDelay = `${0.3 * index}s`;
+                        el.classList.add('fade-in-slide-up');
                     });
+                    heroSection.style.opacity = '1'; // Ensure hero section is visible
+                }, 500); // Small delay after loader starts fading
+            }, 1000); // Loader visible for 1 second
+
+            // --- Smooth Scroll for Navigation and Buttons ---
+            document.querySelectorAll('.scroll-to-section').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const offsetTop = targetElement.offsetTop - nav.offsetHeight; // Adjust for fixed nav height
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
                 });
             });
 
-            // Animación de secciones y footer al hacer scroll (Intersection Observer)
-            const sectionsAndFooter = document.querySelectorAll('section, footer');
+            // --- Navbar Sticky and Background Change on Scroll ---
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) { // After scrolling 50px
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
 
+            // --- Section Scroll Animations (Intersection Observer) ---
             const observerOptions = {
-                root: null, // El viewport es el elemento raíz
+                root: null, // viewport
                 rootMargin: '0px',
-                threshold: 0.1 // La sección se considera visible cuando el 10% de ella está en el viewport
+                threshold: 0.1 // 10% of the section must be visible
             };
 
             const sectionObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('visible-section');
+                        entry.target.classList.add('is-visible');
+                        // Optional: Unobserve after first appearance if you don't want repeat animations
+                        // observer.unobserve(entry.target); 
                     } else {
-                        // Al salir de la vista, removemos la clase para que la animación se reinicie
-                        entry.target.classList.remove('visible-section');
+                        // Optional: Remove class when out of view to re-trigger animation on scroll back
+                        entry.target.classList.remove('is-visible'); 
                     }
                 });
             }, observerOptions);
 
-            // Observa todas las secciones y el footer
-            sectionsAndFooter.forEach(element => {
-                element.classList.add('hidden-section'); // Asegura que todos los elementos observados inicien ocultos
-                sectionObserver.observe(element);
-            });
-
-            // Efecto de cambio de fondo de la barra de navegación al hacer scroll
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) { // Cambia el fondo después de 50px de scroll
-                    nav.classList.add('scrolled');
-                } else {
-                    nav.classList.remove('scrolled');
-                }
+            sections.forEach(section => {
+                sectionObserver.observe(section);
             });
         });
     </script>
