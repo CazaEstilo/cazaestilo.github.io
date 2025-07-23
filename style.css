@@ -1,5 +1,6 @@
+/* Variables CSS para fácil edición de colores */
 :root {
-    --color-primary: #d4af37; 
+    --color-primary: #d4af37; /* Dorado principal */
     --color-secondary: #0a0a0a; /* Negro profundo */
     --color-dark-grey: #1a1a1a;
     --color-light-grey: #f5f5f5;
@@ -20,7 +21,7 @@ html {
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif; /* Usamos Montserrat como en soluciones anteriores */
     background: linear-gradient(180deg, var(--color-secondary) 0%, #1c1c1c 100%);
     color: var(--color-light-grey);
     overflow-x: hidden; /* Evita barras de desplazamiento horizontales */
@@ -85,7 +86,7 @@ nav.scrolled {
 }
 
 .nav-logo {
-    font-family: 'Anton', sans-serif;
+    font-family: 'Anton', sans-serif; /* Usamos Anton como en soluciones anteriores */
     font-size: 1.8rem;
     color: var(--color-primary);
     text-decoration: none;
@@ -165,7 +166,7 @@ header > * {
 }
 
 header h1 {
-    font-family: 'Anton', sans-serif;
+    font-family: 'Anton', sans-serif; /* Usamos Anton como en soluciones anteriores */
     font-size: 5rem;
     letter-spacing: 5px;
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
@@ -232,7 +233,7 @@ section:last-of-type {
 
 h2 {
     text-align: center;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue', sans-serif; /* Usamos Bebas Neue como en soluciones anteriores */
     font-size: 3.5rem;
     margin-bottom: 3rem;
     color: var(--color-primary);
@@ -296,7 +297,7 @@ h2 {
 }
 
 .product h3 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue', sans-serif; /* Usamos Bebas Neue como en soluciones anteriores */
     font-size: 1.6rem;
     margin-bottom: 0.8rem;
     color: var(--color-primary);
@@ -321,10 +322,10 @@ h2 {
     color: #ccc;
     font-size: 1.1rem;
     line-height: 1.8;
-    /* Aseguramos que el texto esté inicialmente oculto pero con transición */
+    /* Estos estilos aseguran que el texto esté inicialmente oculto */
     opacity: 0; 
-    transform: translateY(20px); /* Pequeño desplazamiento inicial */
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transición suave para aparecer */
+    transform: translateY(20px); 
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Una transición por si falla la animación JS */
 }
 
 /* Pie de página (Footer) */
@@ -362,28 +363,31 @@ footer {
     transform: translateY(-5px) scale(1.1); /* Sutil elevación y zoom en hover */
 }
 
-/* Animaciones CSS - Head de página (una vez) */
+/* Animaciones CSS generales */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
 @keyframes slideUp { 
     from { opacity: 0; transform: translateY(80px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
 @keyframes zoomInFade {
     from { opacity: 0; transform: scale(0.5) rotate(-5deg); } /* Más agresivo, con rotación */
     to { opacity: 1; transform: scale(1) rotate(0deg); }
 }
+
 @keyframes slideInFromLeft {
     from { opacity: 0; transform: translateX(-300px) rotate(-15deg); } /* Más agresivo */
     to { opacity: 1; transform: translateX(0) rotate(0deg); }
 }
+
 @keyframes slideInFromRight {
     from { opacity: 0; transform: translateX(300px) rotate(15deg); } /* Más agresivo */
     to { opacity: 1; transform: translateX(0) rotate(0deg); }
 }
-
 
 /* Clases para animación controladas por JS */
 .animated-text {
@@ -394,7 +398,6 @@ footer {
 }
 
 /* Estado inicial (oculto) para elementos que se animarán al scroll */
-/* IMPORTANTE: Hemos movido la definición de opacity y transform para .about-text a su propia regla */
 section h2,
 .products .product,
 footer .socials,
@@ -425,16 +428,13 @@ footer p {
 .visible-section .products .product:nth-child(3) { animation-delay: 0.8s; }
 .visible-section .products .product:nth-child(4) { animation-delay: 1.0s; }
 
-
 /* Animación para el texto de "Quiénes Somos" */
-/* ***** AJUSTE CLAVE AQUÍ: Aplicamos fadeIn directamente al texto cuando la sección es visible ***** */
 .visible-section #about .about-text {
-    opacity: 1; /* Hace que el texto sea visible */
-    transform: translateY(0); /* Lo lleva a su posición final */
-    animation: fadeIn 1.2s ease-out forwards; /* Una animación de desvanecimiento simple */
-    animation-delay: 0.6s; /* Un ligero retraso después del título */
+    animation: fadeIn 1s ease-out forwards; /* Fade in simple */
+    animation-delay: 0.6s; /* Aparece después del título */
+    opacity: 1; /* Asegura que quede visible */
+    transform: translateY(0); /* Asegura que quede en su posición final */
 }
-
 
 /* Animación para el Footer */
 .visible-section #footer-section .socials,
@@ -443,7 +443,6 @@ footer p {
 }
 .visible-section #footer-section .socials { animation-delay: 0.2s; }
 .visible-section #footer-section p { animation-delay: 0.4s; }
-
 
 /* Para que los elementos se oculten de nuevo al salir de vista */
 section:not(.visible-section) h2,
@@ -460,7 +459,6 @@ footer:not(.visible-section) p {
     transform: translateY(20px); /* Vuelve a su estado inicial oculto */
     animation: none;
 }
-
 
 /* Media Queries para Responsive Design */
 @media (max-width: 768px) {
