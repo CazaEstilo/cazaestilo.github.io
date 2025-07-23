@@ -14,7 +14,7 @@
     
     <link rel="icon" href="favicon.png" type="image/png"> 
     
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css"> 
 </head>
 <body>
     <div class="loader-overlay">
@@ -38,7 +38,7 @@
     </header>
 
     <section id="productos" class="hidden-section">
-        <h2>Productos Destacados</h2> 
+        <h2>🔥 Productos Destacados 🔥</h2> 
         <div class="products">
             <div class="product">
                 <img src="mockup1.jpg" alt="Chaqueta Oversized">
@@ -76,9 +76,9 @@
     </section>
 
     <section id="about" class="hidden-section">
-        <h2>Quiénes Somos</h2>
+        <h2>💬 Quiénes Somos</h2>
         <p class="about-text">
-            Somos Caza Estilo: donde el oro no es un metal, sino una actitud. Nacimos de la pasión por la moda urbana y la autenticidad en cada detalle. Cada prenda es seleccionada y diseñada pensando en quienes no temen destacar, en los que forjan su propio camino y transforman la calle en su pasarela personal. Esto no es solo ropa; es energía, elegancia y el poder inconfundible de la presencia callejera. Te invitamos a unirte a nuestra manada y a vestir tu esencia.
+            Somos Caza Estilo: donde el oro no es un metal, sino una actitud. Una marca nacida en las calles para quienes no temen destacar. Cada prenda es energía, elegancia y poder callejero. Esto no es moda: es presencia.
         </p>
     </section>
 
@@ -95,12 +95,12 @@
         document.addEventListener('DOMContentLoaded', () => {
             const loaderOverlay = document.querySelector('.loader-overlay');
             const header = document.querySelector('header');
+            const nav = document.querySelector('nav');
             const headerElements = [
                 document.querySelector('header h1'),
                 document.querySelector('header p'),
                 document.querySelector('header .btn')
             ];
-            const nav = document.querySelector('nav');
 
             // Retraso para el loader y la aparición del contenido
             setTimeout(() => {
@@ -110,26 +110,25 @@
                 header.style.opacity = '1';
 
                 // Aplica las animaciones a los elementos del header con retraso
-                // Cada elemento aparece con un retraso secuencial
                 setTimeout(() => {
                     headerElements[0].classList.add('animated-text', 'show');
-                }, 100); // Pequeño retraso después de que el loader desaparece
+                }, 100); 
 
                 setTimeout(() => {
                     headerElements[1].classList.add('animated-text', 'show');
-                }, 600); // 0.5 segundos después del h1
+                }, 600); 
 
                 setTimeout(() => {
                     headerElements[2].classList.add('animated-text', 'show');
-                }, 1100); // 0.5 segundos después del párrafo
+                }, 1100); 
 
-            }, 1000); // 1 segundo de duración del loader, luego el fade out del loader
+            }, 1000); // 1 segundo de duración del loader
 
             // Smooth scroll para enlaces con la clase 'scroll-to-section'
             const scrollLinks = document.querySelectorAll('.scroll-to-section');
             scrollLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
-                    e.preventDefault(); // Previene el comportamiento de ancla predeterminado
+                    e.preventDefault(); 
                     const targetId = this.getAttribute('href');
                     document.querySelector(targetId).scrollIntoView({
                         behavior: 'smooth'
