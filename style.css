@@ -397,13 +397,15 @@ footer {
 }
 
 /* Estado inicial (oculto) para elementos que se animarán al scroll */
+/* IMPORTANTE: ESTAS REGLAS INICIALES OCULTAN LOS ELEMENTOS */
 section h2,
 .products .product,
 #about .about-text,
-footer .socials, /* Footer animado */
-footer p {      /* Footer animado */
+footer .socials,
+footer p {
     opacity: 0;
-    transform: translateY(100px); /* Punto de partida más bajo */
+    transform: translateY(100px); /* Los eleva desde abajo */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transición suave al aparecer */
 }
 
 /* Cuando la sección es visible, activamos las animaciones */
@@ -426,7 +428,7 @@ footer p {      /* Footer animado */
 .visible-section .products .product:nth-child(2) { animation-delay: 0.6s; }
 .visible-section .products .product:nth-child(3) { animation-delay: 0.8s; }
 .visible-section .products .product:nth-child(4) { animation-delay: 1.0s; }
-/* Añade más si tienes más productos: .visible-section .products .product:nth-child(5) { animation-delay: 1.2s; } */
+
 
 /* Animación para el texto de "Quiénes Somos" */
 .visible-section #about .about-text {
@@ -435,27 +437,26 @@ footer p {      /* Footer animado */
 }
 
 /* Animación para el Footer */
-.visible-section.footer-section .socials {
+.visible-section #footer-section .socials,
+.visible-section #footer-section p {
     animation: slideUp 1s ease-out forwards;
-    animation-delay: 0.2s; /* Un poco de retraso para el footer */
+    /* Retrasos para los elementos del footer */
 }
-
-.visible-section.footer-section footer p {
-    animation: slideUp 1s ease-out forwards;
-    animation-delay: 0.4s; /* Después de los iconos sociales */
-}
+.visible-section #footer-section .socials { animation-delay: 0.2s; }
+.visible-section #footer-section p { animation-delay: 0.4s; }
 
 
-/* Para que los elementos se oculten de nuevo al salir de vista, usamos este truco */
+/* Para que los elementos se oculten de nuevo al salir de vista, SIEMPRE DEBEN ESTAR EN OPACITY 0 INICIALMENTE */
+/* Esta regla asegura que si la sección pierde la visibilidad, se reinicie para una nueva animación al volver a entrar */
 section:not(.visible-section) h2,
 section:not(.visible-section) .product,
 section:not(.visible-section) #about .about-text,
-footer:not(.visible-section) .socials, /* Reset para footer */
-footer:not(.visible-section) p {        /* Reset para footer */
+footer:not(.visible-section) .socials,
+footer:not(.visible-section) p {
     opacity: 0;
-    transform: translateY(100px); /* Restaura la posición inicial oculta */
+    transform: translateY(100px);
     animation: none; /* Detiene cualquier animación activa */
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transición suave al desaparecer */
+    /* No agregamos una transición fuerte aquí para que no interfiera cuando se añade la clase visible-section */
 }
 
 
