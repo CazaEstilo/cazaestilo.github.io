@@ -278,15 +278,10 @@
             transform: translateY(-3px); /* Pequeño efecto al pasar el mouse */
         }
 
-        /* Animaciones CSS */
+        /* Animaciones CSS - Head de página (una vez) */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         
         /* Clases para animación controladas por JS */
@@ -297,30 +292,82 @@
             animation: fadeIn 1.5s ease-out forwards;
         }
 
-        /* Animación de secciones al hacer scroll */
-        .hidden-section h2,
-        .hidden-section .product {
+        /* Animaciones al hacer scroll (secciones y sus contenidos) */
+
+        /* Nuevos Keyframes para efectos de scroll */
+        @keyframes slideInFromLeft {
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInFromRight {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes zoomInFade {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideUp { /* Usado para texto del 'Quiénes Somos' */
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estado inicial (oculto) para elementos que se animarán al scroll */
+        section h2,
+        .products .product,
+        #about .about-text {
             opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transform: translateY(50px); /* Punto de partida para animaciones de subida */
+            /* La transición se aplicará cuando la clase 'visible-section' active la animación */
         }
 
+        /* Cuando la sección es visible, activamos las animaciones */
         .visible-section h2 {
-            opacity: 1;
-            transform: translateY(0);
-            transition-delay: 0.2s; /* H2 aparece ligeramente después de la sección */
+            animation: zoomInFade 1s ease-out forwards;
+            animation-delay: 0.2s;
         }
 
-        .visible-section .product:nth-child(1) { transition-delay: 0.4s; }
-        .visible-section .product:nth-child(2) { transition-delay: 0.6s; }
-        .visible-section .product:nth-child(3) { transition-delay: 0.8s; }
-        .visible-section .product:nth-child(4) { transition-delay: 1.0s; }
-        /* Añade más si tienes más productos: .visible-section .product:nth-child(5) { transition-delay: 1.2s; } */
-        
-        .visible-section .product {
-            opacity: 1;
-            transform: translateY(0);
+        /* Productos: Alternando animaciones desde izquierda y derecha */
+        .visible-section .products .product:nth-child(odd) {
+            animation: slideInFromLeft 0.8s ease-out forwards;
         }
+
+        .visible-section .products .product:nth-child(even) {
+            animation: slideInFromRight 0.8s ease-out forwards;
+        }
+
+        /* Retrasos escalonados para las tarjetas de producto */
+        .visible-section .products .product:nth-child(1) { animation-delay: 0.4s; }
+        .visible-section .products .product:nth-child(2) { animation-delay: 0.6s; }
+        .visible-section .products .product:nth-child(3) { animation-delay: 0.8s; }
+        .visible-section .products .product:nth-child(4) { animation-delay: 1.0s; }
+        /* Añade más si tienes más productos: .visible-section .products .product:nth-child(5) { animation-delay: 1.2s; } */
+
+        .visible-section #about .about-text {
+            animation: slideUp 1s ease-out forwards;
+            animation-delay: 0.4s;
+        }
+
+        /* Configuración para que las secciones en sí mismas no se animen, solo sus hijos */
+        .hidden-section {
+            opacity: 1; /* La sección completa es visible, solo los elementos internos se ocultan */
+            transform: none;
+            transition: none; /* Desactivar la transición de la sección, se manejará por sus hijos */
+        }
+        /* Para que los elementos se oculten de nuevo al salir de vista, necesitamos un truco */
+        /* Al salir de visible-section, los elementos vuelven a su estado inicial invisible */
+        section:not(.visible-section) h2,
+        section:not(.visible-section) .product,
+        section:not(.visible-section) #about .about-text {
+            opacity: 0;
+            transform: translateY(50px); /* Restaura la posición inicial */
+            animation: none; /* Detiene cualquier animación */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transición suave al desaparecer */
+        }
+
 
         /* Media Queries para Responsive Design */
         @media (max-width: 768px) {
@@ -387,7 +434,8 @@
     </header>
 
     <section id="productos" class="hidden-section">
-        <h2>Productos Destacados</h2> <div class="products">
+        <h2>Productos Destacados</h2> 
+        <div class="products">
             <div class="product">
                 <img src="mockup1.jpg" alt="Chaqueta Oversized">
                 <div class="product-info">
@@ -424,7 +472,8 @@
     </section>
 
     <section id="about" class="hidden-section">
-        <h2>Quiénes Somos</h2> <p class="about-text">
+        <h2>Quiénes Somos</h2>
+        <p class="about-text">
             Somos Caza Estilo: donde el oro no es un metal, sino una actitud. Una marca nacida en las calles para quienes no temen destacar. Cada prenda es energía, elegancia y poder callejero. Esto no es moda: es presencia.
         </p>
     </section>
@@ -495,12 +544,8 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible-section');
-                        entry.target.classList.remove('hidden-section'); // Asegura que la clase oculta se elimine
-                        // observer.unobserve(entry.target); // Opcional: para que la animación solo ocurra una vez
                     } else {
-                        // Si quieres que la animación se reinicie cada vez que la sección sale de la vista
                         entry.target.classList.remove('visible-section');
-                        entry.target.classList.add('hidden-section');
                     }
                 });
             }, observerOptions);
