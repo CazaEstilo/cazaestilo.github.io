@@ -1,0 +1,525 @@
+/* Variables CSS para fácil edición de colores */
+:root {
+    --color-primary: #d4af37; /* Dorado principal */
+    --color-secondary: #0a0a0a; /* Negro profundo */
+    --color-dark-grey: #1a1a1a;
+    --color-light-grey: #f5f5f5;
+    --color-white: #fff;
+    --transition-speed: 0.4s;
+    --color-primary-rgb: 212, 175, 55; /* Versión RGB del color primario para sombras */
+}
+
+/* Base global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Desplazamiento suave para anclas */
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(180deg, var(--color-secondary) 0%, #1c1c1c 100%);
+    color: var(--color-light-grey);
+    overflow-x: hidden; /* Evita barras de desplazamiento horizontales */
+    line-height: 1.6;
+}
+
+/* Loader y Overlay de Carga */
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-secondary); /* Negro profundo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Asegura que esté por encima de todo */
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+}
+
+.loader-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Deshabilita interacciones una vez oculto */
+}
+
+.loader {
+    border: 6px solid #2a2a2a; /* Color del borde del círculo */
+    border-top: 6px solid var(--color-primary); /* Color del cargador giratorio */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Barra de Navegación */
+nav {
+    position: fixed; /* Barra de navegación fija en la parte superior */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Fondo semitransparente */
+    padding: 1rem 2rem;
+    z-index: 1000; /* Asegura que esté sobre otros elementos */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s ease; /* Transición para cuando cambia de color al hacer scroll */
+}
+
+nav.scrolled {
+    background: var(--color-secondary); /* Color sólido al hacer scroll */
+}
+
+.nav-logo {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.8rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 2.5rem;
+}
+
+.nav-links a {
+    color: var(--color-light-grey);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    position: relative;
+    transition: color var(--transition-speed) ease;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 3px;
+    background-color: var(--color-primary);
+    bottom: -8px;
+    left: 0;
+    transition: width var(--transition-speed) ease-out;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: var(--color-white);
+}
+
+/* Encabezado (Header) - Hero Section */
+header {
+    background: url('header-bg.jpg') center/cover no-repeat fixed; /* Ruta corregida y parallax */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 2rem;
+    position: relative;
+    overflow: hidden; /* Para animaciones */
+    color: var(--color-white); /* Asegura que el texto blanco se vea bien en el fondo */
+    /* Inicialmente oculto para que aparezca después del loader */
+    opacity: 0; 
+    transition: opacity 1s ease-out;
+}
+
+/* Overlay sutil para el header */
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Oscurece la imagen de fondo */
+    z-index: 1;
+}
+
+header > * {
+    position: relative;
+    z-index: 2; /* Asegura que el contenido esté sobre el overlay */
+}
+
+header h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: 5rem;
+    letter-spacing: 5px;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    margin-bottom: 1rem;
+}
+
+header p {
+    font-size: 1.5rem;
+    color: var(--color-light-grey);
+    margin-top: 0.5rem;
+    max-width: 800px;
+}
+
+/* Botones */
+.btn {
+    background: var(--color-primary);
+    color: var(--color-secondary);
+    padding: 1.2rem 2.5rem;
+    margin-top: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: background var(--transition-speed) ease, transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    text-decoration: none;
+    font-size: 1.1rem;
+    box-shadow: 0 5px 15px rgba(var(--color-primary-rgb), 0.4);
+    display: inline-flex; /* Para alinear icono y texto */
+    align-items: center;
+    justify-content: center;
+}
+
+.btn i {
+    margin-right: 0.8rem; /* Espacio entre icono y texto */
+    font-size: 1.2rem;
+}
+
+.btn:hover {
+    background: var(--color-white);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(var(--color-primary-rgb), 0.6);
+}
+
+.btn-small {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    border-radius: 30px;
+}
+
+/* Secciones generales */
+section {
+    padding: 5rem 2rem;
+    max-width: 1400px;
+    margin: auto;
+    background: var(--color-dark-grey);
+    border-bottom: 1px solid #2a2a2a;
+}
+
+section:last-of-type {
+    border-bottom: none;
+}
+
+h2 {
+    text-align: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    margin-bottom: 3rem;
+    color: var(--color-primary);
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Productos */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+}
+
+.product {
+    background: var(--color-dark-grey);
+    border: 1px solid #444;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Animación de pulso para el hover del producto */
+@keyframes productPulse {
+    0% { transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 25px rgba(var(--color-primary-rgb), 0.5); }
+    50% { transform: translateY(-7px) scale(1.06); box-shadow: 0 12px 30px rgba(var(--color-primary-rgb), 0.6); }
+    100% { transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 25px rgba(var(--color-primary-rgb), 0.5); }
+}
+
+.product:hover {
+    animation: productPulse 1.2s infinite alternate ease-in-out; /* Aplica el pulso */
+}
+
+.product img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #444;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transición para zoom en hover */
+}
+
+.product:hover img {
+    transform: scale(1.08); /* Zoom al pasar el cursor */
+    opacity: 0.9;
+}
+
+.product-info {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: opacity 0.3s ease-in-out; /* Transición para oscurecimiento de texto */
+}
+
+.product:hover .product-info {
+    opacity: 0.9; /* Sutil oscurecimiento del texto al pasar el cursor */
+}
+
+.product h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+    color: var(--color-primary);
+}
+
+.product p {
+    margin-bottom: 1rem;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: var(--color-white);
+}
+
+/* Sección Quiénes Somos */
+#about {
+    background: linear-gradient(180deg, var(--color-dark-grey) 0%, #0d0d0d 100%);
+    text-align: center;
+}
+
+.about-text {
+    max-width: 900px;
+    margin: auto;
+    color: #ccc;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* Pie de página (Footer) */
+footer {
+    background: var(--color-secondary);
+    padding: 3rem 2rem;
+    text-align: center;
+    color: #999;
+    font-size: 0.9rem;
+    border-top: 1px solid #2a2a2a;
+}
+
+.socials {
+    margin-bottom: 1.5rem;
+    display: flex; /* Para centrar íconos */
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Permite que los íconos se envuelvan en pantallas pequeñas */
+}
+
+.socials a {
+    margin: 0 1.2rem; /* Espacio entre los iconos */
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.8rem; /* Tamaño de los iconos */
+    transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
+    display: inline-flex; /* Asegura el tamaño del área de clic */
+    align-items: center;
+    justify-content: center;
+}
+
+.socials a:hover {
+    color: var(--color-white);
+    transform: translateY(-5px) scale(1.1); /* Sutil elevación y zoom en hover */
+}
+
+/* Animaciones CSS - Head de página (una vez) */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Clases para animación controladas por JS */
+.animated-text {
+    opacity: 0;
+}
+.animated-text.show {
+    animation: fadeIn 1.5s ease-out forwards;
+}
+
+/* Animaciones al hacer scroll (secciones y sus contenidos) */
+
+/* Nuevos Keyframes para efectos de scroll */
+@keyframes slideInFromLeft {
+    from { opacity: 0; transform: translateX(-300px) rotate(-15deg); } /* Más agresivo */
+    to { opacity: 1; transform: translateX(0) rotate(0deg); }
+}
+
+@keyframes slideInFromRight {
+    from { opacity: 0; transform: translateX(300px) rotate(15deg); } /* Más agresivo */
+    to { opacity: 1; transform: translateX(0) rotate(0deg); }
+}
+
+@keyframes zoomInFade {
+    from { opacity: 0; transform: scale(0.5) rotate(-5deg); } /* Más agresivo, con rotación */
+    to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes slideUp { 
+    from { opacity: 0; transform: translateY(80px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estado inicial (oculto) para elementos que se animarán al scroll */
+section h2,
+.products .product,
+#about .about-text,
+footer .socials, /* Footer animado */
+footer p {      /* Footer animado */
+    opacity: 0;
+    transform: translateY(100px); /* Punto de partida más bajo */
+}
+
+/* Cuando la sección es visible, activamos las animaciones */
+.visible-section h2 {
+    animation: zoomInFade 1s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+/* Productos: Alternando animaciones desde izquierda y derecha */
+.visible-section .products .product:nth-child(odd) {
+    animation: slideInFromLeft 0.8s ease-out forwards;
+}
+
+.visible-section .products .product:nth-child(even) {
+    animation: slideInFromRight 0.8s ease-out forwards;
+}
+
+/* Retrasos escalonados para las tarjetas de producto */
+.visible-section .products .product:nth-child(1) { animation-delay: 0.4s; }
+.visible-section .products .product:nth-child(2) { animation-delay: 0.6s; }
+.visible-section .products .product:nth-child(3) { animation-delay: 0.8s; }
+.visible-section .products .product:nth-child(4) { animation-delay: 1.0s; }
+/* Añade más si tienes más productos: .visible-section .products .product:nth-child(5) { animation-delay: 1.2s; } */
+
+/* Animación para el texto de "Quiénes Somos" */
+.visible-section #about .about-text {
+    animation: slideUp 1s ease-out forwards;
+    animation-delay: 0.4s; /* Aparece después del título de la sección */
+}
+
+/* Animación para el Footer */
+.visible-section.footer-section .socials {
+    animation: slideUp 1s ease-out forwards;
+    animation-delay: 0.2s; /* Un poco de retraso para el footer */
+}
+
+.visible-section.footer-section footer p {
+    animation: slideUp 1s ease-out forwards;
+    animation-delay: 0.4s; /* Después de los iconos sociales */
+}
+
+
+/* Para que los elementos se oculten de nuevo al salir de vista, usamos este truco */
+section:not(.visible-section) h2,
+section:not(.visible-section) .product,
+section:not(.visible-section) #about .about-text,
+footer:not(.visible-section) .socials, /* Reset para footer */
+footer:not(.visible-section) p {        /* Reset para footer */
+    opacity: 0;
+    transform: translateY(100px); /* Restaura la posición inicial oculta */
+    animation: none; /* Detiene cualquier animación activa */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transición suave al desaparecer */
+}
+
+
+/* Media Queries para Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    .nav-links {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .nav-links li {
+        margin: 0.5rem 1rem;
+    }
+    header h1 {
+        font-size: 3.5rem;
+        letter-spacing: 3px;
+    }
+    header p {
+        font-size: 1.1rem;
+    }
+    h2 {
+        font-size: 2.5rem;
+    }
+    .products {
+        grid-template-columns: 1fr;
+    }
+    .product-info {
+        padding: 1rem;
+    }
+    .product h3 {
+        font-size: 1.4rem;
+    }
+    .product p {
+        font-size: 1.1rem;
+    }
+    .btn {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+    }
+    .socials a {
+        margin: 0 0.8rem;
+        font-size: 1.5rem; /* Ajuste para móviles */
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 2.8rem;
+    }
+    header p {
+        font-size: 1rem;
+    }
+    h2 {
+        font-size: 2rem;
+    }
+    section {
+        padding: 3rem 1rem;
+    }
+    .socials a {
+        margin: 0 0.6rem; /* Más compacto en móviles */
+        font-size: 1.3rem;
+    }
+}
