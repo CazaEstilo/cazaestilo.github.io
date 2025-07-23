@@ -1,188 +1,448 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Caza Estilo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Oswald', sans-serif;
-      background: url('fondo-caza.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caza Estilo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.png" type="image/png"> 
+    <style>
+        /* Variables CSS para fácil edición de colores */
+        :root {
+            --color-primary: #d4af37; /* Dorado principal */
+            --color-secondary: #0a0a0a; /* Negro profundo */
+            --color-dark-grey: #1a1a1a;
+            --color-light-grey: #f5f5f5;
+            --color-white: #fff;
+            --transition-speed: 0.4s;
+        }
 
-    header {
-      text-align: center;
-      padding: 80px 20px 40px;
-      background: rgba(0, 0, 0, 0.7);
-      animation: fadeIn 1.5s ease-in-out;
-    }
+        /* Base global */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    header h1 {
-      font-size: 3.5rem;
-      color: #d4af37;
-      margin: 0;
-      letter-spacing: 2px;
-      text-shadow: 2px 2px #000;
-    }
+        html {
+            scroll-behavior: smooth; /* Desplazamiento suave para anclas */
+        }
 
-    header p {
-      font-size: 1.3rem;
-      color: #ccc;
-      margin: 10px 0;
-    }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(180deg, var(--color-secondary) 0%, #1c1c1c 100%);
+            color: var(--color-light-grey);
+            overflow-x: hidden; /* Evita barras de desplazamiento horizontales */
+            line-height: 1.6;
+        }
 
-    .btn-principal {
-      background-color: #d4af37;
-      color: #000;
-      padding: 12px 28px;
-      border: none;
-      border-radius: 30px;
-      font-size: 1rem;
-      cursor: pointer;
-      text-decoration: none;
-      margin-top: 15px;
-      box-shadow: 0 0 10px #d4af37;
-      transition: 0.3s;
-    }
+        /* Encabezado (Header) - Hero Section */
+        header {
+            background: url('header-bg.jpg') center/cover no-repeat fixed; /* Ruta corregida y parallax */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+            overflow: hidden; /* Para animaciones */
+            color: var(--color-white); /* Asegura que el texto blanco se vea bien en el fondo */
+        }
 
-    .btn-principal:hover {
-      background-color: #fff;
-      color: #000;
-    }
+        /* Overlay sutil para el header */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Oscurece la imagen de fondo */
+            z-index: 1;
+        }
 
-    .productos {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 25px;
-      padding: 40px 20px;
-      background-color: rgba(0, 0, 0, 0.85);
-      animation: fadeInUp 1.5s ease;
-    }
+        header > * {
+            position: relative;
+            z-index: 2; /* Asegura que el contenido esté sobre el overlay */
+        }
 
-    .producto {
-      background-color: #111;
-      border: 1px solid #d4af37;
-      padding: 20px;
-      border-radius: 15px;
-      width: 250px;
-      text-align: center;
-      box-shadow: 0 0 10px #d4af37;
-      transition: transform 0.3s ease;
-    }
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem; /* Un poco más grande */
+            letter-spacing: 5px; /* Más espacio entre letras */
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); /* Sombra más sutil */
+            margin-bottom: 1rem;
+            animation: fadeInScale 1.5s ease-out forwards; /* Animación de carga */
+            opacity: 0; /* Empieza invisible */
+        }
 
-    .producto:hover {
-      transform: scale(1.05);
-    }
+        header p {
+            font-size: 1.5rem; /* Un poco más grande */
+            color: var(--color-light-grey);
+            margin-top: 0.5rem;
+            max-width: 800px;
+            animation: fadeIn 2s ease-out forwards; /* Animación de carga */
+            opacity: 0; /* Empieza invisible */
+            animation-delay: 0.5s; /* Retraso para que aparezca después del título */
+        }
 
-    .producto img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
+        /* Botones */
+        .btn {
+            background: var(--color-primary);
+            color: var(--color-secondary);
+            padding: 1.2rem 2.5rem; /* Más grande */
+            margin-top: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 50px; /* Más redondeado */
+            border: none;
+            cursor: pointer;
+            transition: background var(--transition-speed) ease, transform var(--transition-speed) ease;
+            text-decoration: none; /* Quita el subrayado en los enlaces */
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); /* Sombra para profundidad */
+            animation: fadeIn 2s ease-out forwards; /* Animación de carga */
+            opacity: 0; /* Empieza invisible */
+            animation-delay: 1s; /* Retraso */
+        }
 
-    .producto h3 {
-      margin: 15px 0 5px;
-      color: #fff;
-    }
+        .btn:hover {
+            background: var(--color-white);
+            transform: translateY(-5px) scale(1.02); /* Efecto 3D y ligero escalado */
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.6);
+        }
 
-    .producto p {
-      margin: 0 0 10px;
-      color: #aaa;
-    }
+        .btn-small {
+            padding: 0.8rem 1.5rem;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            border-radius: 30px;
+        }
 
-    .btn-whatsapp {
-      background-color: #d4af37;
-      color: #000;
-      border: none;
-      padding: 8px 18px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-weight: bold;
-      display: inline-block;
-      margin-top: 10px;
-    }
+        /* Secciones generales */
+        section {
+            padding: 5rem 2rem; /* Más padding vertical */
+            max-width: 1400px; /* Más ancho */
+            margin: auto;
+            background: var(--color-dark-grey); /* Fondo oscuro para secciones */
+            border-bottom: 1px solid #2a2a2a; /* Separador sutil */
+        }
 
-    footer {
-      background-color: #000;
-      text-align: center;
-      padding: 40px 20px;
-      color: #ccc;
-      font-size: 0.9rem;
-    }
+        section:last-of-type {
+            border-bottom: none;
+        }
 
-    .redes a {
-      margin: 0 10px;
-      color: #d4af37;
-      text-decoration: none;
-      font-size: 1.2rem;
-    }
+        h2 {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem; /* Más grande */
+            margin-bottom: 3rem;
+            color: var(--color-primary);
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
 
-    @keyframes fadeIn {
-      0% {opacity: 0; transform: translateY(-20px);}
-      100% {opacity: 1; transform: translateY(0);}
-    }
+        /* Productos */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Columnas un poco más grandes */
+            gap: 3rem; /* Más espacio entre productos */
+        }
 
-    @keyframes fadeInUp {
-      0% {opacity: 0; transform: translateY(40px);}
-      100% {opacity: 1; transform: translateY(0);}
-    }
-  </style>
+        .product {
+            background: var(--color-dark-grey);
+            border: 1px solid #444; /* Borde más visible */
+            border-radius: 20px; /* Más redondeado */
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2), 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada */
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            display: flex; /* Para organizar imagen y texto */
+            flex-direction: column;
+        }
+
+        .product:hover {
+            transform: translateY(-10px) scale(1.02); /* Levantar y escalar más al pasar el mouse */
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4), 0 5px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .product img {
+            width: 100%;
+            height: 300px; /* Altura fija para uniformidad */
+            object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+            display: block;
+            border-bottom: 1px solid #444;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1; /* Permite que el contenido ocupe el espacio restante */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Empuja el botón hacia abajo */
+        }
+
+        .product h3 {
+            font-size: 1.6rem; /* Más grande */
+            margin-bottom: 0.8rem;
+            color: var(--color-primary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .product p {
+            margin-bottom: 1rem;
+            font-weight: bold;
+            font-size: 1.3rem; /* Más grande */
+            color: var(--color-white);
+        }
+
+        /* Sección Quiénes Somos */
+        #about {
+            background: linear-gradient(180deg, var(--color-dark-grey) 0%, #0d0d0d 100%);
+            text-align: center;
+        }
+
+        .about-text {
+            max-width: 900px;
+            margin: auto;
+            color: #ccc;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Pie de página (Footer) */
+        footer {
+            background: var(--color-secondary);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        .socials {
+            margin-bottom: 1.5rem;
+        }
+
+        .socials a {
+            margin: 0 1.5rem; /* Más espacio */
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
+        }
+
+        .socials a:hover {
+            color: var(--color-white);
+            transform: translateY(-3px); /* Pequeño efecto al pasar el mouse */
+        }
+
+        /* Animaciones CSS */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1.5s ease-out forwards;
+            opacity: 0; /* Comienza oculto */
+        }
+
+        .fade-in-late {
+            animation: fadeIn 2s ease-out forwards;
+            opacity: 0; /* Comienza oculto */
+            animation-delay: 0.5s; /* Retraso */
+        }
+
+        .slide-up {
+            animation: slideUp 1s ease-out forwards;
+            opacity: 0; /* Comienza oculto */
+        }
+
+        /* Animación de secciones al hacer scroll */
+        .hidden-section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .visible-section {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Media Queries para Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 3.5rem;
+                letter-spacing: 3px;
+            }
+            header p {
+                font-size: 1.1rem;
+            }
+            h2 {
+                font-size: 2.5rem;
+            }
+            .products {
+                grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+            }
+            .product-info {
+                padding: 1rem;
+            }
+            .product h3 {
+                font-size: 1.4rem;
+            }
+            .product p {
+                font-size: 1.1rem;
+            }
+            .btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+            .socials a {
+                margin: 0 0.8rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2.8rem;
+            }
+            header p {
+                font-size: 1rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            section {
+                padding: 3rem 1rem;
+            }
+            .about-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <header class="fade-in">
+        <h1 class="slide-up">CAZA ESTILO</h1>
+        <p class="fade-in-late">Calle. Oro. Estilo. Tu presencia empieza por lo que llevas puesto.</p>
+        <a href="#productos" class="btn scroll-to-section">Explora la colección</a>
+    </header>
 
-  <header>
-    <h1>CAZA ESTILO</h1>
-    <p>Calle, Oro, Estilo</p>
-    <a href="#productos" class="btn-principal">Explora la colección</a>
-  </header>
+    <section id="productos" class="hidden-section">
+        <h2>🔥 Productos Destacados 🔥</h2>
+        <div class="products">
+            <div class="product">
+                <img src="mockup1.jpg" alt="Chaqueta Oversized">
+                <div class="product-info">
+                    <h3>Chaqueta Shein Oversized</h3>
+                    <p>$90.000 COP</p>
+                    <a href="https://wa.me/57XXXXXXXXXX" target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
+                </div>
+            </div>
+            <div class="product">
+                <img src="mockup2.jpg" alt="Sudadera Negra">
+                <div class="product-info">
+                    <h3>Sudadera Negra Gold</h3>
+                    <p>$120.000 COP</p>
+                    <a href="https://wa.me/57XXXXXXXXXX" target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
+                </div>
+            </div>
+            <div class="product">
+                <img src="mockup3.jpg" alt="Camiseta Caza Estilo">
+                <div class="product-info">
+                    <h3>Camiseta Caza Estilo</h3>
+                    <p>$55.000 COP</p>
+                    <a href="https://wa.me/57XXXXXXXXXX" target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
+                </div>
+            </div>
+            <div class="product">
+                <img src="mockup4.jpg" alt="Hoodie Beige">
+                <div class="product-info">
+                    <h3>Hoodie Street Beige</h3>
+                    <p>$110.000 COP</p>
+                    <a href="https://wa.me/57XXXXXXXXXX" target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="productos" class="productos">
-    <div class="producto">
-      <img src="https://via.placeholder.com/250x220" alt="Chaqueta Shein Oversized" />
-      <h3>Chaqueta Shein Oversized</h3>
-      <p>$90.000 COP</p>
-      <a class="btn-whatsapp" href="#">Comprar por WhatsApp</a>
-    </div>
+    <section id="about" class="hidden-section">
+        <h2>💬 Quiénes Somos</h2>
+        <p class="about-text">
+            Somos Caza Estilo: donde el oro no es un metal, sino una actitud. Una marca nacida en las calles para quienes no temen destacar. Cada prenda es energía, elegancia y poder callejero. Esto no es moda: es presencia.
+        </p>
+    </section>
 
-    <div class="producto">
-      <img src="https://via.placeholder.com/250x220" alt="Sudadera Negra Gold" />
-      <h3>Sudadera Negra Gold</h3>
-      <p>$120.000 COP</p>
-      <a class="btn-whatsapp" href="#">Comprar por WhatsApp</a>
-    </div>
+    <footer>
+        <div class="socials">
+            <a href="https://instagram.com/cazaestilo" target="_blank">Instagram</a>
+            <a href="https://wa.me/57XXXXXXXXXX" target="_blank">WhatsApp</a>
+        </div>
+        <p>&copy; 2025 Caza Estilo. Todos los derechos reservados.</p>
+    </footer>
 
-    <div class="producto">
-      <img src="https://via.placeholder.com/250x220" alt="Camiseta Caza Estilo" />
-      <h3>Camiseta Caza Estilo</h3>
-      <p>$55.000 COP</p>
-      <a class="btn-whatsapp" href="#">Comprar por WhatsApp</a>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scroll para enlaces con la clase 'scroll-to-section'
+            const scrollLinks = document.querySelectorAll('.scroll-to-section');
+            scrollLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault(); // Previene el comportamiento de ancla predeterminado
+                    const targetId = this.getAttribute('href');
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
 
-    <div class="producto">
-      <img src="https://via.placeholder.com/250x220" alt="Hoodie Street Beige" />
-      <h3>Hoodie Street Beige</h3>
-      <p>$110.000 COP</p>
-      <a class="btn-whatsapp" href="#">Comprar por WhatsApp</a>
-    </div>
-  </section>
+            // Animación de secciones al hacer scroll (Intersection Observer)
+            const sections = document.querySelectorAll('section');
 
-  <footer>
-    <p>Caza Estilo es una marca nacida en las calles, donde el oro no es un metal, sino una actitud.</p>
-    <p>Vestimos a quienes no se conforman con lo básico. Energía elegante, calle y oro.</p>
-    <div class="redes">
-      <a href="#">Instagram</a>
-      <a href="#">TikTok</a>
-      <a href="#">WhatsApp</a>
-    </div>
-  </footer>
+            const observerOptions = {
+                root: null, // El viewport es el elemento raíz
+                rootMargin: '0px',
+                threshold: 0.1 // La sección se considera visible cuando el 10% de ella está en el viewport
+            };
 
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible-section');
+                        entry.target.classList.remove('hidden-section'); // Asegura que la clase oculta se elimine
+                        // observer.unobserve(entry.target); // Opcional: para que la animación solo ocurra una vez
+                    } else {
+                        // Si quieres que la animación se reinicie cada vez que la sección sale de la vista
+                        entry.target.classList.remove('visible-section');
+                        entry.target.classList.add('hidden-section');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // Asegurar que el header siempre esté visible al cargar
+            const header = document.querySelector('header');
+            if (header) {
+                header.classList.add('fade-in'); // Asegura que la animación del header se dispare
+            }
+        });
+    </script>
 </body>
 </html>
-
 
