@@ -1,74 +1,188 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caza Estilo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="images/favicon.png" type="image/png"> 
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caza Estilo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Oswald', sans-serif;
+      background: url('fondo-caza.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    header {
+      text-align: center;
+      padding: 80px 20px 40px;
+      background: rgba(0, 0, 0, 0.7);
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    header h1 {
+      font-size: 3.5rem;
+      color: #d4af37;
+      margin: 0;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px #000;
+    }
+
+    header p {
+      font-size: 1.3rem;
+      color: #ccc;
+      margin: 10px 0;
+    }
+
+    .btn-principal {
+      background-color: #d4af37;
+      color: #000;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 15px;
+      box-shadow: 0 0 10px #d4af37;
+      transition: 0.3s;
+    }
+
+    .btn-principal:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    .productos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      padding: 40px 20px;
+      background-color: rgba(0, 0, 0, 0.85);
+      animation: fadeInUp 1.5s ease;
+    }
+
+    .producto {
+      background-color: #111;
+      border: 1px solid #d4af37;
+      padding: 20px;
+      border-radius: 15px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 0 10px #d4af37;
+      transition: transform 0.3s ease;
+    }
+
+    .producto:hover {
+      transform: scale(1.05);
+    }
+
+    .producto img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .producto h3 {
+      margin: 15px 0 5px;
+      color: #fff;
+    }
+
+    .producto p {
+      margin: 0 0 10px;
+      color: #aaa;
+    }
+
+    .btn-whatsapp {
+      background-color: #d4af37;
+      color: #000;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    footer {
+      background-color: #000;
+      text-align: center;
+      padding: 40px 20px;
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    .redes a {
+      margin: 0 10px;
+      color: #d4af37;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+
+    @keyframes fadeIn {
+      0% {opacity: 0; transform: translateY(-20px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes fadeInUp {
+      0% {opacity: 0; transform: translateY(40px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+  </style>
 </head>
 <body>
-    <header class="fade-in">
-        <h1 class="slide-up">CAZA ESTILO</h1>
-        <p class="fade-in-late">Calle. Oro. Estilo. Tu presencia empieza por lo que llevas puesto.</p>
-        <a href="#productos" class="btn scroll-to-section">Explora la colección</a>
-    </header>
 
-    <section id="productos" class="hidden-section">
-        <h2>🔥 Productos Destacados 🔥</h2>
-        <div class="products">
-            <div class="product">
-                <img src="images/mockup1.jpg" alt="Chaqueta Oversized">
-                <div class="product-info">
-                    <h3>Chaqueta Shein Oversized</h3>
-                    <p>$90.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX" target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
-                </div>
-            </div>
-            <div class="product">
-                <img src="images/mockup2.jpg" alt="Sudadera Negra">
-                <div class="product-info">
-                    <h3>Sudadera Negra Gold</h3>
-                    <p>$120.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX" target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
-                </div>
-            </div>
-            <div class="product">
-                <img src="images/mockup3.jpg" alt="Camiseta Caza Estilo">
-                <div class="product-info">
-                    <h3>Camiseta Caza Estilo</h3>
-                    <p>$55.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX" target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
-                </div>
-            </div>
-            <div class="product">
-                <img src="images/mockup4.jpg" alt="Hoodie Beige">
-                <div class="product-info">
-                    <h3>Hoodie Street Beige</h3>
-                    <p>$110.000 COP</p>
-                    <a href="https://wa.me/57XXXXXXXXXX" target="_blank" class="btn btn-small">Comprar por WhatsApp</a>
-                </div>
-            </div>
-        </div>
-    </section>
+  <header>
+    <h1>CAZA ESTILO</h1>
+    <p>Calle, Oro, Estilo</p>
+    <a href="#productos" class="btn-principal">Explora la colección</a>
+  </header>
 
-    <section id="about" class="hidden-section">
-        <h2>💬 Quiénes Somos</h2>
-        <p class="about-text">
-            Somos Caza Estilo: donde el oro no es un metal, sino una actitud. Una marca nacida en las calles para quienes no temen destacar. Cada prenda es energía, elegancia y poder callejero. Esto no es moda: es presencia.
-        </p>
-    </section>
+  <section id="productos" class="productos">
+    <div class="producto">
+      <img src="https://via.placeholder.com/250x220" alt="Chaqueta Shein Oversized" />
+      <h3>Chaqueta Shein Oversized</h3>
+      <p>$90.000 COP</p>
+      <a class="btn-whatsapp" href="#">Comprar por WhatsApp</a>
+    </div>
 
-    <footer>
-        <div class="socials">
-            <a href="https://instagram.com/cazaestilo" target="_blank">Instagram</a>
-            <a href="https://wa.me/57XXXXXXXXXX" target="_blank">WhatsApp</a>
-        </div>
-        <p>&copy; 2025 Caza Estilo. Todos los derechos reservados.</p>
-    </footer>
+    <div class="producto">
+      <img src="https://via.placeholder.com/250x220" alt="Sudadera Negra Gold" />
+      <h3>Sudadera Negra Gold</h3>
+      <p>$120.000 COP</p>
+      <a class="btn-whatsapp" href="#">Comprar por WhatsApp</a>
+    </div>
 
-    <script src="js/script.js"></script>
+    <div class="producto">
+      <img src="https://via.placeholder.com/250x220" alt="Camiseta Caza Estilo" />
+      <h3>Camiseta Caza Estilo</h3>
+      <p>$55.000 COP</p>
+      <a class="btn-whatsapp" href="#">Comprar por WhatsApp</a>
+    </div>
+
+    <div class="producto">
+      <img src="https://via.placeholder.com/250x220" alt="Hoodie Street Beige" />
+      <h3>Hoodie Street Beige</h3>
+      <p>$110.000 COP</p>
+      <a class="btn-whatsapp" href="#">Comprar por WhatsApp</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>Caza Estilo es una marca nacida en las calles, donde el oro no es un metal, sino una actitud.</p>
+    <p>Vestimos a quienes no se conforman con lo básico. Energía elegante, calle y oro.</p>
+    <div class="redes">
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+      <a href="#">WhatsApp</a>
+    </div>
+  </footer>
+
 </body>
 </html>
+
 
