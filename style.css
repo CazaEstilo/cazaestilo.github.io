@@ -1,3 +1,4 @@
+/* Variables CSS para colores y transiciones */
 :root {
     --color-primary: #d4af37; /* Dorado principal */
     --color-secondary: #0a0a0a; /* Negro profundo */
@@ -95,17 +96,15 @@ body {
     background-color: var(--color-secondary); /* Totalmente opaco al hacer scroll */
 }
 
-.navbar .logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    color: var(--color-primary);
-    text-decoration: none;
-    letter-spacing: 2px;
-    transition: color 0.3s ease;
+/* ESTILO PARA EL LOGO (IMAGEN) EN LA BARRA DE NAVEGACIÓN */
+.navbar .logo img {
+    max-height: 50px; /* Ajusta este valor para controlar el tamaño de tu logo */
+    vertical-align: middle;
+    transition: transform 0.3s ease; /* Pequeña animación al pasar el mouse */
 }
 
-.navbar .logo:hover {
-    color: var(--color-white);
+.navbar .logo img:hover {
+    transform: scale(1.05); /* Efecto de ligero aumento al pasar el mouse */
 }
 
 .navbar .nav-links {
@@ -156,7 +155,7 @@ body {
 
 /* --- Encabezado (Header) - Hero Section --- */
 header {
-    background: url('header-bg.png') center/cover no-repeat fixed;
+    background: url('header-bg.jpg') center/cover no-repeat fixed;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -621,6 +620,11 @@ footer {
         display: block; /* Muestra el botón de menú */
     }
 
+    /* Ajuste para el logo en móviles */
+    .navbar .logo img {
+        max-height: 40px; /* Un poco más pequeño en móviles */
+    }
+
     header h1 {
         font-size: 3.8rem;
         letter-spacing: 4px;
@@ -679,9 +683,11 @@ footer {
 }
 
 @media (max-width: 480px) {
-    .navbar .logo {
-        font-size: 1.6rem;
+    /* Ajuste para el logo en móviles más pequeños */
+    .navbar .logo img {
+        max-height: 35px; /* Más pequeño aún */
     }
+
     header h1 {
         font-size: 3rem;
         letter-spacing: 3px;
