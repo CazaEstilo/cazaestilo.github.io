@@ -155,7 +155,7 @@ body {
 
 /* --- Encabezado (Header) - Hero Section --- */
 header {
-    background: url('header-bg.jpg') center/cover no-repeat fixed;
+    background: url('header-bg.png') center/cover no-repeat fixed;
     height: 100vh;
     display: flex;
     flex-direction: column;
