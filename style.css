@@ -98,7 +98,7 @@ body {
 
 /* ESTILO PARA EL LOGO (IMAGEN) EN LA BARRA DE NAVEGACIÓN */
 .navbar .logo img {
-    max-height: 40px; /* Ajusta este valor para controlar el tamaño de tu logo */
+    max-height: 50px; /* Ajusta este valor para controlar el tamaño de tu logo */
     vertical-align: middle;
     transition: transform 0.3s ease; /* Pequeña animación al pasar el mouse */
 }
