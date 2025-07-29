@@ -155,7 +155,10 @@ body {
 
 /* --- Encabezado (Header) - Hero Section --- */
 header {
-    background: url('header-bg.jpg') center/cover no-repeat fixed;
+    /* *** CAMBIO CLAVE AQUÍ: QUITAMOS 'fixed' de la declaración principal. ***
+       Esto hace que la imagen se desplace con el scroll por defecto en todos los dispositivos.
+       Lo re-añadiremos solo para PC en una media query más adelante. */
+    background: url('header-bg.jpg') center/cover no-repeat;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -166,7 +169,7 @@ header {
     position: relative;
     overflow: hidden;
     color: var(--color-white);
-    opacity: 0; /* Inicialmente oculto para que aparezca después del loader */
+    opacity: 0;
     transition: opacity 1s ease-out;
 }
 
@@ -200,6 +203,7 @@ header p {
     margin-top: 0.5rem;
     max-width: 900px;
 }
+
 
 /* --- Botones --- */
 .btn {
@@ -625,6 +629,16 @@ footer {
         max-height: 40px; /* Un poco más pequeño en móviles */
     }
 
+    /* ************************************************************* */
+    /* *** AJUSTES PARA LA IMAGEN DEL HEADER DENTRO DEL MEDIA QUERY 768px *** */
+    header {
+        background-attachment: scroll; /* ¡CAMBIO CLAVE! Esto hace que la imagen se mueva con el scroll en móviles. */
+        height: 80vh; /* Ajusta la altura para que no ocupe toda la pantalla vertical en móviles */
+        /* background-position: center center;  Puedes mantenerlo o ajustarlo si la imagen se corta de forma indeseada */
+        /* background-image: url('header-bg-mobile.jpg');  OPCIONAL: si necesitas una imagen diferente para móvil */
+    }
+    /* ************************************************************* */
+
     header h1 {
         font-size: 3.8rem;
         letter-spacing: 4px;
@@ -681,6 +695,18 @@ footer {
         margin: 0 1rem;
     }
 }
+
+/* ************************************************************* */
+/* *** NUEVA MEDIA QUERY: PARA RE-ACTIVAR 'FIXED' EN PANTALLAS GRANDES (PC) *** */
+/* ************************************************************* */
+/* Esta media query se aplica cuando el ancho de la pantalla es MAYOR o igual a 769px. */
+@media (min-width: 769px) {
+    header {
+        background-attachment: fixed; /* Aquí re-activamos el efecto parallax (fixed) solo en PC */
+    }
+}
+/* ************************************************************* */
+
 
 @media (max-width: 480px) {
     /* Ajuste para el logo en móviles más pequeños */
