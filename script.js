@@ -1,111 +1,134 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Loader y Animación inicial del Header ---
+
+    // --- Variables del DOM ---
     const loaderOverlay = document.querySelector('.loader-overlay');
     const header = document.querySelector('header');
-    const headerElements = [
-        document.querySelector('header h1'),
-        document.querySelector('header p'),
-        document.querySelector('header .btn')
-    ];
-
-    setTimeout(() => {
-        loaderOverlay.classList.add('hidden'); // Oculta el overlay
-        
-        // Muestra el header completo con una transición
-        header.style.opacity = '1';
-
-        // Aplica las animaciones a los elementos del header con retraso secuencial
-        setTimeout(() => {
-            if (headerElements[0]) headerElements[0].classList.add('animated-text', 'show');
-        }, 100); 
-
-        setTimeout(() => {
-            if (headerElements[1]) headerElements[1].classList.add('animated-text', 'show');
-        }, 600); 
-
-        setTimeout(() => {
-            if (headerElements[2]) headerElements[2].classList.add('animated-text', 'show');
-        }, 1100); 
-
-    }, 1000); // 1 segundo de duración del loader, luego el fade out del loader
-
-
-    // --- Smooth Scroll para enlaces de navegación ---
-    const scrollLinks = document.querySelectorAll('.scroll-to-section');
-    scrollLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault(); 
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
-                const offsetTop = targetElement.offsetTop;
-                // Ajusta el scroll para tener en cuenta la altura de la barra de navegación
-                const navbarHeight = document.querySelector('.navbar').offsetHeight; 
-                window.scrollTo({
-                    top: offsetTop - navbarHeight - 20, // 20px de padding adicional
-                    behavior: 'smooth'
-                });
-
-                // Cierra el menú hamburguesa si está abierto
-                const navLinks = document.querySelector('.nav-links');
-                if (navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    document.querySelector('.menu-toggle').querySelector('i').classList.replace('fa-times', 'fa-bars');
-                }
-            }
-        });
-    });
-
-    // --- Animación de secciones al hacer scroll (Intersection Observer) ---
+    const animatedTexts = document.querySelectorAll('.animated-text');
     const sections = document.querySelectorAll('section');
-
-    const observerOptions = {
-        root: null, 
-        rootMargin: '0px',
-        threshold: 0.1 // La sección se considera visible cuando el 10% de ella está en el viewport
-    };
-
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible-section');
-                entry.target.classList.remove('hidden-section'); 
-                // observer.unobserve(entry.target); // Descomentar si solo quieres que se anime una vez
-            } else {
-                // Si quieres que la animación se reinicie cada vez que la sección sale de la vista
-                entry.target.classList.remove('visible-section');
-                entry.target.classList.add('hidden-section');
-            }
-        });
-    }, observerOptions);
-
-    sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
-
-    // --- Menú Hamburguesa para Móviles ---
+    const navbar = document.querySelector('.navbar');
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
+    const scrollLinks = document.querySelectorAll('.scroll-to-section');
+    
+    // --- Variables del Modal ---
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.querySelector('.modal-image');
+    const modalTitle = document.querySelector('.modal-title');
+    const modalPrice = document.querySelector('.modal-price');
+    const modalDescription = document.querySelector('.modal-description');
+    const closeButton = document.querySelector('.close-button');
+    const openModalLinks = document.querySelectorAll('.open-modal-link');
 
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        const icon = menuToggle.querySelector('i');
-        if (navLinks.classList.contains('active')) {
-            icon.classList.replace('fa-bars', 'fa-times'); // Cambia a X
-        } else {
-            icon.classList.replace('fa-times', 'fa-bars'); // Vuelve a las barras
+    // --- Funcionalidad 1: Loader de Carga y Animaciones Iniciales ---
+    function hideLoader() {
+        if (loaderOverlay) {
+            loaderOverlay.classList.add('hidden');
         }
+    }
+
+    function showContent() {
+        if (header) {
+            header.style.opacity = 1;
+        }
+        animatedTexts.forEach((text, index) => {
+            text.style.animationDelay = `${0.2 * index}s`;
+            text.classList.add('show');
+        });
+    }
+
+    window.addEventListener('load', () => {
+        hideLoader();
+        setTimeout(showContent, 800); // Pequeño retraso para la animación
     });
 
-    // --- Cambiar estilo de la navbar al hacer scroll ---
-    const navbar = document.querySelector('.navbar');
+    // --- Funcionalidad 2: Detección de Scroll para la Navbar y Secciones ---
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) { // Cuando el usuario ha hecho scroll 50px
+        // Efecto para la Navbar
+        if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
+
+        // Animación al hacer scroll de las secciones
+        sections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top;
+            const screenHeight = window.innerHeight;
+
+            if (sectionTop < screenHeight - 150) {
+                section.classList.remove('hidden-section');
+                section.classList.add('visible-section');
+            }
+        });
     });
 
+    // --- Funcionalidad 3: Toggle del Menú en Móviles ---
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Ocultar menú al hacer clic en un enlace (móviles)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    }
+    
+    // --- Funcionalidad 4: Smooth Scroll ---
+    scrollLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.offsetTop - (navbar.offsetHeight),
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // --- Funcionalidad 5: Lógica del Modal (NUEVA) ---
+    openModalLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault(); // Previene el comportamiento por defecto del enlace
+            
+            // Obtener los datos del producto desde los atributos 'data-'
+            const imgSrc = link.dataset.imgSrc;
+            const title = link.dataset.title;
+            const price = link.dataset.price;
+            const description = link.dataset.description;
+
+            // Rellenar el modal con la información
+            modalImage.src = imgSrc;
+            modalTitle.textContent = title;
+            modalPrice.textContent = price;
+            modalDescription.textContent = description;
+
+            // Mostrar el modal
+            modal.classList.add('open');
+        });
+    });
+
+    // --- Lógica para cerrar el modal ---
+    closeButton.addEventListener('click', () => {
+        modal.classList.remove('open');
+    });
+
+    // Cerrar el modal haciendo clic fuera de la imagen
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.classList.remove('open');
+        }
+    });
+
+    // Cerrar el modal con la tecla ESC
+    document.addEventListener('keydown', (event) => {
+        if (event.key === "Escape") {
+            modal.classList.remove('open');
+        }
+    });
 });
