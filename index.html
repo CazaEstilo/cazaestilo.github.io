@@ -41,7 +41,13 @@
         <h2>Productos Destacados</h2>
         <div class="products">
             <div class="product">
-                <img src="conjunto.jpg" alt="Conjunto Corazon">
+                <a href="#" class="open-modal-link" 
+                   data-img-src="conjunto.jpg"
+                   data-title="Conjunto Corazon"
+                   data-price="$105.900 COP"
+                   data-description="Un conjunto de dos piezas con un diseño único, perfecto para quienes buscan un look atrevido y memorable.">
+                    <img src="conjunto.jpg" alt="Conjunto Corazon">
+                </a>
                 <div class="product-info">
                     <h3>Conjunto Corazon</h3>
                     <p>$105.900 COP</p>
@@ -54,7 +60,13 @@
             </div>
 
             <div class="product">
-                <img src="jeanblanco.jpg" alt="Jean Blanco">
+                <a href="#" class="open-modal-link" 
+                   data-img-src="jeanblanco.jpg"
+                   data-title="Jean Blanco"
+                   data-price="$124.800 COP"
+                   data-description="Un jean blanco de corte moderno, ideal para combinar con cualquier prenda y crear un estilo minimalista y sofisticado.">
+                    <img src="jeanblanco.jpg" alt="Jean Blanco">
+                </a>
                 <div class="product-info">
                     <h3>Jean Blanco</h3>
                     <p>$124.800 COP</p>
@@ -66,7 +78,13 @@
                 </div>
             </div>
             <div class="product">
-                <img src="jeancafe.jpg" alt="Jean Cafe">
+                <a href="#" class="open-modal-link" 
+                   data-img-src="jeancafe.jpg"
+                   data-title="Jean Cafe"
+                   data-price="$150.300 COP"
+                   data-description="Un jean de color café con un fit relajado y cómodo, perfecto para quienes buscan una pieza versátil y con carácter.">
+                    <img src="jeancafe.jpg" alt="Jean Cafe">
+                </a>
                 <div class="product-info">
                     <h3>Jean Cafe</h3>
                     <p>$150.300 COP</p>
@@ -78,7 +96,13 @@
                 </div>
             </div>
             <div class="product">
-                <img src="saco.jpg" alt="Saco">
+                <a href="#" class="open-modal-link" 
+                   data-img-src="saco.jpg"
+                   data-title="Saco"
+                   data-price="$118.200 COP"
+                   data-description="Un saco suave y acogedor, ideal para los días fríos sin sacrificar tu estilo. Un básico imprescindible con un toque especial.">
+                    <img src="saco.jpg" alt="Saco">
+                </a>
                 <div class="product-info">
                     <h3>Saco</h3>
                     <p>$118.200 COP</p>
@@ -90,7 +114,13 @@
                 </div>
             </div>
             <div class="product">
-                <img src="chaqueta.jpg" alt="Chaqueta">
+                <a href="#" class="open-modal-link" 
+                   data-img-src="chaqueta.jpg"
+                   data-title="Chaqueta"
+                   data-price="$108.500 COP"
+                   data-description="Una chaqueta versátil y ligera que complementa cualquier atuendo, aportando un toque de audacia y distinción a tu look.">
+                    <img src="chaqueta.jpg" alt="Chaqueta">
+                </a>
                 <div class="product-info">
                     <h3>Chaqueta</h3>
                     <p>$108.500 COP</p>
@@ -165,9 +195,21 @@
             <a href="https://instagram.com/cazaestiloo" target="_blank" aria-label="Instagram de Caza Estilo"><i class="fab fa-instagram"></i></a>
             <a href="https://wa.me/573012705080" target="_blank" aria-label="WhatsApp de Caza Estilo"><i class="fab fa-whatsapp"></i></a>
             <a href="https://www.tiktok.com/@_cazaestilo" target="_blank" aria-label="TikTok de Caza Estilo"><i class="fab fa-tiktok"></i></a>
-            </div>
+        </div>
         <p>&copy; 2025 Caza Estilo. Todos los derechos reservados.</p>
     </footer>
+
+    <div id="image-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <img src="" alt="Imagen de producto en grande" class="modal-image">
+            <div class="modal-info">
+                <h3 class="modal-title"></h3>
+                <p class="modal-price"></p>
+                <p class="modal-description"></p>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
