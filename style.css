@@ -1,825 +1,92 @@
-/* Variables CSS para colores y transiciones */
-:root {
-    --color-primary: #d4af37; /* Dorado principal */
-    --color-secondary: #0a0a0a; /* Negro profundo */
-    --color-dark-grey: #1a1a1a;
-    --color-light-grey: #f5f5f5;
-    --color-white: #fff;
-    --color-text-light: #ccc; /* Para texto general más suave */
-    --transition-speed: 0.4s;
-    --color-primary-rgb: 212, 175, 55; /* Versión RGB del color primario para sombras */
-}
-
-/* Base global */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth; /* Desplazamiento suave para anclas */
-}
-
-body {
-    font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(180deg, var(--color-secondary) 0%, #1c1c1c 100%);
-    color: var(--color-light-grey);
-    overflow-x: hidden; /* Evita barras de desplazamiento horizontales */
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased; /* Mejor renderizado de fuentes */
-}
-
-/* Contenedor general para centrar contenido */
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-/* --- Loader y Overlay de Carga --- */
-.loader-overlay {
-    position: fixed;
-    top: 0;
+/* --- ESTILOS DEL MODAL DE IMÁGENES --- */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Fijo en la pantalla */
+    z-index: 2000; /* Asegura que esté por encima de todo */
     left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--color-secondary);
-    display: flex;
+    overflow: auto; /* Permite desplazamiento si el contenido es muy grande */
+    background-color: rgba(0, 0, 0, 0.9); /* Fondo oscuro semi-transparente */
     justify-content: center;
     align-items: center;
-    z-index: 9999;
+    padding-top: 50px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Cuando el modal está abierto */
+.modal.open {
+    display: flex;
     opacity: 1;
-    visibility: visible;
-    transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
 }
 
-.loader-overlay.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.loader {
-    border: 6px solid #2a2a2a;
-    border-top: 6px solid var(--color-primary);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* --- Barra de Navegación (Navbar) --- */
-.navbar {
-    background-color: rgba(10, 10, 10, 0.95); /* Semi-transparente para un efecto premium */
-    padding: 1rem 0;
-    position: fixed; /* Fija la barra de navegación en la parte superior */
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000; /* Asegura que esté por encima de otros elementos */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Sombra sutil */
-    transition: background-color 0.3s ease;
-}
-
-.navbar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navbar.scrolled {
-    background-color: var(--color-secondary); /* Totalmente opaco al hacer scroll */
-}
-
-/* ESTILO PARA EL LOGO (IMAGEN) EN LA BARRA DE NAVEGACIÓN */
-.navbar .logo img {
-    max-height: 90px; /* Ajusta este valor para controlar el tamaño de tu logo */
-    vertical-align: middle;
-    transition: transform 0.3s ease; /* Pequeña animación al pasar el mouse */
-}
-
-.navbar .logo img:hover {
-    transform: scale(1.05); /* Efecto de ligero aumento al pasar el mouse */
-}
-
-.navbar .nav-links {
-    list-style: none;
-    display: flex;
-}
-
-.navbar .nav-links li {
-    margin-left: 2.5rem; /* Más espacio entre enlaces */
-}
-
-.navbar .nav-links a {
-    color: var(--color-light-grey);
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1rem;
+.modal-content {
     position: relative;
-    transition: color 0.3s ease;
-}
-
-.navbar .nav-links a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    background-color: var(--color-primary);
-    left: 0;
-    bottom: -5px;
-    transition: width 0.3s ease-out;
-}
-
-.navbar .nav-links a:hover {
-    color: var(--color-primary);
-}
-
-.navbar .nav-links a:hover::after {
-    width: 100%;
-}
-
-.menu-toggle {
-    display: none; /* Oculto por defecto en desktop */
-    background: none;
-    border: none;
-    font-size: 2rem;
-    color: var(--color-primary);
-    cursor: pointer;
-}
-
-/* --- Encabezado (Header) - Hero Section --- */
-header {
-    background: url('header-bg.jpg') center/cover no-repeat;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 2rem;
-    position: relative;
-    overflow: hidden;
-    color: var(--color-white);
-    opacity: 0;
-    transition: opacity 1s ease-out;
-}
-
-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Oscurece la imagen de fondo un poco más */
-    z-index: 1;
-}
-
-header > * {
-    position: relative;
-    z-index: 2;
-}
-
-header h1 {
-    font-family: 'Anton', sans-serif;
-    font-size: 6rem; /* Un poco más grande para impacto */
-    letter-spacing: 8px; /* Más espacio entre letras */
-    text-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.7); /* Sombra de color primario */
-    margin-bottom: 1.5rem;
-}
-
-header p {
-    font-size: 1.8rem; /* Más grande */
-    color: var(--color-light-grey);
-    margin-top: 0.5rem;
-    max-width: 900px;
-}
-
-/* --- Botones --- */
-.btn {
-    background: var(--color-primary);
-    color: var(--color-secondary);
-    padding: 1.4rem 3rem; /* Más grande y con más padding */
-    margin-top: 3rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
-    transition: background var(--transition-speed) ease, transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-    text-decoration: none;
-    font-size: 1.2rem;
-    box-shadow: 0 8px 20px rgba(var(--color-primary-rgb), 0.5);
-}
-
-.btn:hover {
-    background: var(--color-white);
-    transform: translateY(-7px) scale(1.03); /* Efecto 3D más pronunciado y escalado */
-    box-shadow: 0 12px 30px rgba(var(--color-primary-rgb), 0.7);
-    color: var(--color-secondary); /* Cambia el color del texto a negro al hacer hover */
-}
-
-.btn-small {
-    padding: 0.9rem 1.8rem;
-    font-size: 1rem;
-    margin-top: 1.5rem;
-    border-radius: 30px;
-    box-shadow: 0 4px 10px rgba(var(--color-primary-rgb), 0.3);
-}
-
-.btn-small:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 6px 15px rgba(var(--color-primary-rgb), 0.5);
-}
-
-/* --- Secciones generales --- */
-section {
-    padding: 6rem 2rem; /* Más padding vertical */
-    max-width: 1400px;
-    margin: auto;
-    background: var(--color-dark-grey); /* Fondo oscuro para secciones */
-    border-bottom: 1px solid #2a2a2a;
-    position: relative; /* Para animaciones */
-    overflow: hidden; /* Asegura que las animaciones de contenido no se desborden */
-}
-
-section:last-of-type {
-    border-bottom: none;
-}
-
-h2 {
-    text-align: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 4rem; /* Más grande */
-    margin-bottom: 4rem;
-    color: var(--color-primary);
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Sombra más pronunciada */
-    letter-spacing: 3px;
-}
-
-/* --- Productos --- */
-.products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Columnas un poco más grandes */
-    gap: 3.5rem; /* Más espacio entre productos */
-}
-
-.product {
-    background: var(--color-dark-grey);
-    border: 1px solid #333; /* Borde más visible y oscuro */
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Sombra inicial más notoria */
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    display: flex;
-    flex-direction: column;
-}
-
-.product:hover {
-    transform: translateY(-8px) scale(1.04); /* Más elevación, más escalado */
-    box-shadow: 0 15px 35px rgba(var(--color-primary-rgb), 0.6); /* Sombra más enfocada en el color primario */
-}
-
-.product img {
-    width: 100%;
-    height: 320px; /* Altura fija para uniformidad */
-    object-fit: cover;
-    display: block;
-    border-bottom: 1px solid #444;
-    transition: transform 0.5s ease; /* Transición para zoom */
-}
-
-.product:hover img {
-    transform: scale(1.08); /* Efecto zoom al hacer hover */
-}
-
-.product-info {
-    padding: 1.8rem; /* Más padding */
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.product h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem; /* Más grande */
-    margin-bottom: 1rem;
-    color: var(--color-primary);
-    letter-spacing: 1px;
-}
-
-.product p {
-    margin-bottom: 1.5rem; /* Más espacio antes del botón */
-    font-weight: bold;
-    font-size: 1.4rem; /* Más grande */
-    color: var(--color-white);
-}
-
-/* --- Contenedor de Stock y Calidad --- */
-.product-meta {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem; /* Espacio entre los dos elementos */
-    margin-top: -0.5rem; /* Ajusta la posición vertical */
-    margin-bottom: 1rem; /* Añade espacio antes del botón */
-}
-
-/* Estilo para los apartados de stock y calidad */
-.stock-info, .quality-info {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: var(--color-primary);
-    background-color: #2a2a2a;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    display: inline-block;
-}
-
-/* Estilo específico para la calidad */
-.quality-info {
-    background-color: #2a2a2a;
-    color: var(--color-primary);
-}
-
-
-/* --- Sección Quiénes Somos --- */
-#about {
-    background: linear-gradient(180deg, var(--color-dark-grey) 0%, #0d0d0d 100%);
-    text-align: center;
-}
-
-.about-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3rem; /* Espacio entre imagen y texto */
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.about-image img {
-    width: 100%;
-    max-width: 500px; /* Tamaño máximo para la imagen */
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-    transition: transform 0.4s ease-in-out;
-}
-
-.about-image img:hover {
-    transform: scale(1.03);
-}
-
-.about-text-container {
-    text-align: left; /* Alinea el texto a la izquierda */
-    max-width: 700px;
-}
-
-.about-text {
-    color: var(--color-text-light);
-    font-size: 1.2rem; /* Más grande */
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-}
-
-/* --- Sección Envíos y Entregas --- */
-#envios {
-    background: var(--color-dark-grey);
-    text-align: center;
-}
-
-.shipping-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 3rem;
-    margin-top: 2rem;
-}
-
-.shipping-item {
-    background-color: #2a2a2a;
+    background-color: var(--color-dark-grey);
     padding: 2.5rem;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    max-width: 90%;
+    margin: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+    animation: zoomIn 0.3s ease-out;
 }
 
-.shipping-item:hover {
-    transform: translateY(-10px);
-    background-color: #333;
-}
-
-.shipping-item h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    color: var(--color-primary);
-    margin-bottom: 1rem;
-    letter-spacing: 1px;
-}
-
-.shipping-item p {
-    color: var(--color-text-light);
-    font-size: 1.1rem;
-    line-height: 1.7;
-}
-
-/* --- Sección de Contacto --- */
-#contacto {
-    background: linear-gradient(180deg, #0d0d0d 0%, var(--color-secondary) 100%);
-    text-align: center;
-}
-
-.contact-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.contact-text {
-    color: var(--color-text-light);
-    font-size: 1.2rem;
-    margin-bottom: 3rem;
-}
-
-.contact-details {
-    display: flex;
-    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
-    justify-content: center;
-    gap: 2.5rem;
-}
-
-.contact-item {
-    background-color: #2a2a2a;
-    padding: 1.5rem 2.5rem;
+.modal-image {
+    width: 100%;
+    max-height: 70vh; /* Limita la altura de la imagen en el modal */
+    object-fit: contain;
     border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    flex: 1 1 280px; /* Flexbox para distribución, permite crecer/encoger */
-    max-width: 350px; /* Limita el ancho de los ítems */
 }
 
-.contact-item:hover {
-    background-color: #333;
-    transform: translateY(-5px);
+.modal-info {
+    text-align: center;
+    margin-top: 1.5rem;
 }
 
-.contact-item p {
-    margin: 0;
-    font-size: 1.1rem;
-    color: var(--color-light-grey);
-}
-
-.contact-item a {
-    color: var(--color-primary);
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-.contact-item a:hover {
-    color: var(--color-white);
-}
-
-/* Iconos */
-.icon-large {
-    font-size: 3.5rem;
-    color: var(--color-primary);
-    margin-bottom: 1.5rem;
-}
-
-.icon-medium {
+.modal-info h3.modal-title {
+    font-family: 'Bebas Neue', sans-serif;
     font-size: 2.5rem;
     color: var(--color-primary);
+    margin-bottom: 0.5rem;
+}
+
+.modal-info p.modal-price {
+    font-size: 1.5rem;
+    color: var(--color-white);
     margin-bottom: 1rem;
 }
 
-/* --- Pie de página (Footer) --- */
-footer {
-    background: var(--color-secondary);
-    padding: 3.5rem 2rem;
-    text-align: center;
-    color: #999;
-    font-size: 0.95rem;
-    border-top: 1px solid #2a2a2a;
+.modal-info p.modal-description {
+    font-size: 1.1rem;
+    color: var(--color-text-light);
+    line-height: 1.6;
 }
 
-.socials {
-    margin-bottom: 2rem;
-}
-
-.socials a {
-    margin: 0 1.8rem;
+.close-button {
     color: var(--color-primary);
-    text-decoration: none;
-    font-size: 1.8rem; /* Iconos más grandes */
-    transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
-}
-
-.socials a:hover {
-    color: var(--color-white);
-    transform: translateY(-5px) scale(1.1); /* Más efecto al pasar el mouse */
-}
-
-/* --- Animaciones CSS --- */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Clases para animación controladas por JS */
-.animated-text {
-    opacity: 0;
-}
-.animated-text.show {
-    animation: fadeIn 1.5s ease-out forwards;
-}
-
-/* Animación de secciones al hacer scroll */
-.hidden-section h2,
-.hidden-section .product,
-.hidden-section .about-content,
-.hidden-section .shipping-item,
-.hidden-section .contact-text,
-.hidden-section .contact-item {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.visible-section h2 {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.2s;
-}
-
-.visible-section .product:nth-child(1),
-.visible-section .shipping-item:nth-child(1),
-.visible-section .contact-item:nth-child(1) { transition-delay: 0.4s; }
-.visible-section .product:nth-child(2),
-.visible-section .shipping-item:nth-child(2),
-.visible-section .contact-item:nth-child(2) { transition-delay: 0.6s; }
-.visible-section .product:nth-child(3),
-.visible-section .shipping-item:nth-child(3),
-.visible-section .contact-item:nth-child(3) { transition-delay: 0.8s; }
-.visible-section .product:nth-child(4),
-.visible-section .shipping-item:nth-child(4),
-.visible-section .contact-item:nth-child(4) { transition-delay: 1.0s; }
-/* Añade más si tienes más productos/items */
-
-.visible-section .product,
-.visible-section .shipping-item,
-.visible-section .contact-item {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.visible-section .about-content {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.5s; /* La sección "Quiénes Somos" se anima toda junta */
-}
-.visible-section .contact-text {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.2s;
-}
-
-
-/* --- ESTILO PARA PRODUCTOS AGOTADOS (SOLD-OUT) --- */
-.product.sold-out {
-    position: relative;
-    cursor: not-allowed;
-    pointer-events: none; /* Desactiva clics en todo el producto */
-    filter: grayscale(80%); /* Vuelve la imagen a blanco y negro */
-    opacity: 0.8;
-}
-
-/* El texto de agotado encima de la imagen */
-.product.sold-out::before {
-    content: 'AGOTADO';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-10deg); /* Centrado y ligeramente inclinado */
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3.5rem;
+    top: 15px;
+    right: 25px;
+    font-size: 40px;
     font-weight: bold;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
     color: var(--color-white);
-    background: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente */
-    padding: 0.5rem 1.5rem;
-    border: 2px solid var(--color-primary);
-    border-radius: 10px;
-    letter-spacing: 2px;
-    z-index: 5;
-    text-shadow: 0 0 10px var(--color-primary); /* Efecto de brillo sutil */
-    transition: opacity 0.3s ease;
 }
 
-/* Oculta el texto de stock y el botón original */
-.product.sold-out .stock-info {
-    color: #a04444; /* Un color más rojizo para indicar agotado */
-    font-weight: bold;
-}
-
-/* Deshabilita el botón de compra */
-.product.sold-out .btn-small {
-    background: #333;
-    color: #888;
-    cursor: default;
-    box-shadow: none;
-    pointer-events: none; /* Asegura que no se pueda hacer clic */
-}
-
-
-/* --- Media Queries para Responsive Design --- */
-@media (max-width: 1024px) {
-    header h1 {
-        font-size: 5rem;
+@keyframes zoomIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
     }
-    header p {
-        font-size: 1.6rem;
-    }
-    .products {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-    .navbar .nav-links li {
-        margin-left: 2rem;
-    }
-    h2 {
-        font-size: 3.5rem;
-    }
-    .shipping-item, .contact-item {
-        padding: 2rem;
-    }
-    .product-meta {
-        gap: 1rem;
-    }
-    .product.sold-out::before {
-        font-size: 3rem;
-        padding: 0.4rem 1.2rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .navbar .nav-links {
-        display: none; /* Oculta los enlaces en móviles */
-        flex-direction: column;
-        width: 100%;
-        background-color: rgba(10, 10, 10, 0.98);
-        position: absolute;
-        top: 100%; /* Debajo de la barra de navegación */
-        left: 0;
-        padding: 1rem 0;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    }
-
-    .navbar .nav-links.active {
-        display: flex; /* Muestra los enlaces cuando el menú está activo */
-    }
-
-    .navbar .menu-toggle {
-        display: block; /* Muestra el botón de menú */
-    }
-
-    /* Ajuste para el logo en móviles */
-    .navbar .logo img {
-        max-height: 50px; /* Un poco más pequeño en móviles */
-    }
-
-    header {
-        background-attachment: scroll; /* ¡CAMBIO CLAVE! Esto hace que la imagen se mueva con el scroll en móviles. */
-        height: 80vh; /* Ajusta la altura para que no ocupe toda la pantalla vertical en móviles */
-    }
-
-    header h1 {
-        font-size: 3.8rem;
-        letter-spacing: 4px;
-    }
-    header p {
-        font-size: 1.2rem;
-    }
-    .btn {
-        padding: 1.1rem 2.2rem;
-        font-size: 1rem;
-    }
-    h2 {
-        font-size: 2.8rem;
-        margin-bottom: 3rem;
-    }
-    section {
-        padding: 4rem 1.5rem;
-    }
-    .products {
-        grid-template-columns: 1fr;
-    }
-    .product img {
-        height: 250px;
-    }
-    .product-info {
-        padding: 1.2rem;
-    }
-    .product h3 {
-        font-size: 1.5rem;
-    }
-    .product p {
-        font-size: 1.2rem;
-    }
-    .about-content {
-        flex-direction: column; /* Apila la imagen y el texto en móviles */
-    }
-    .about-text {
-        font-size: 1.1rem;
-    }
-    .shipping-info {
-        grid-template-columns: 1fr;
-    }
-    .shipping-item, .contact-item {
-        padding: 1.5rem;
-    }
-    .icon-large {
-        font-size: 3rem;
-    }
-    .icon-medium {
-        font-size: 2rem;
-    }
-    .socials a {
-        font-size: 1.5rem;
-        margin: 0 1rem;
-    }
-    .product-meta {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-    .product.sold-out::before {
-        font-size: 2.5rem;
-        padding: 0.4rem 1rem;
-    }
-}
-
-/* --- NUEVA MEDIA QUERY: PARA RE-ACTIVAR 'FIXED' EN PANTALLAS GRANDES (PC) --- */
-@media (min-width: 769px) {
-    header {
-        background-attachment: fixed; /* Aquí re-activamos el efecto parallax (fixed) solo en PC */
-    }
-}
-
-@media (max-width: 480px) {
-    /* Ajuste para el logo en móviles más pequeños */
-    .navbar .logo img {
-        max-height: 50px; /* Más pequeño aún */
-    }
-
-    header h1 {
-        font-size: 3rem;
-        letter-spacing: 3px;
-    }
-    header p {
-        font-size: 1rem;
-        max-width: 90%;
-    }
-    .btn {
-        padding: 0.9rem 1.8rem;
-        font-size: 0.9rem;
-        margin-top: 2rem;
-    }
-    h2 {
-        font-size: 2.2rem;
-        margin-bottom: 2.5rem;
-    }
-    section {
-        padding: 3rem 1rem;
-    }
-    .about-text {
-        font-size: 1rem;
-    }
-    .shipping-item h3 {
-        font-size: 1.8rem;
-    }
-    .shipping-item p {
-        font-size: 1rem;
-    }
-    .contact-item {
-        flex: 1 1 100%; /* Un solo ítem por fila */
-    }
-    .socials a {
-        font-size: 1.3rem;
-        margin: 0 0.8rem;
-    }
-    footer {
-        padding: 2.5rem 1rem;
-    }
-    .product.sold-out::before {
-        font-size: 2rem;
+    to {
+        transform: scale(1);
+        opacity: 1;
     }
 }
