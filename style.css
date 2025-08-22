@@ -155,9 +155,6 @@ body {
 
 /* --- Encabezado (Header) - Hero Section --- */
 header {
-    /* *** CAMBIO CLAVE AQUÍ: QUITAMOS 'fixed' de la declaración principal. ***
-       Esto hace que la imagen se desplace con el scroll por defecto en todos los dispositivos.
-       Lo re-añadiremos solo para PC en una media query más adelante. */
     background: url('header-bg.jpg') center/cover no-repeat;
     height: 100vh;
     display: flex;
@@ -203,7 +200,6 @@ header p {
     margin-top: 0.5rem;
     max-width: 900px;
 }
-
 
 /* --- Botones --- */
 .btn {
@@ -570,6 +566,29 @@ footer {
     transition-delay: 0.2s;
 }
 
+/* --- ESTILOS ADICIONALES PARA LAS MODIFICACIONES --- */
+
+/* Estilo para el pequeño apartado de stock dentro del producto */
+.stock-info {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    background-color: #2a2a2a; /* Un color de fondo sutil para destacarlo */
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    display: inline-block; /* Para que el fondo solo abarque el texto */
+}
+
+/* Ajuste de márgenes para el stock */
+.product-info p {
+    margin-bottom: 0.5rem; /* Reducimos el margen de abajo del precio para que el stock esté más cerca */
+}
+
+.product-info a.btn-small {
+    margin-top: 1.5rem; /* Ajustamos el margen superior del botón para compensar el espacio del stock */
+}
 
 /* --- Media Queries para Responsive Design --- */
 @media (max-width: 1024px) {
@@ -629,15 +648,10 @@ footer {
         max-height: 40px; /* Un poco más pequeño en móviles */
     }
 
-    /* ************************************************************* */
-    /* *** AJUSTES PARA LA IMAGEN DEL HEADER DENTRO DEL MEDIA QUERY 768px *** */
     header {
         background-attachment: scroll; /* ¡CAMBIO CLAVE! Esto hace que la imagen se mueva con el scroll en móviles. */
         height: 80vh; /* Ajusta la altura para que no ocupe toda la pantalla vertical en móviles */
-        /* background-position: center center;  Puedes mantenerlo o ajustarlo si la imagen se corta de forma indeseada */
-        /* background-image: url('header-bg-mobile.jpg');  OPCIONAL: si necesitas una imagen diferente para móvil */
     }
-    /* ************************************************************* */
 
     header h1 {
         font-size: 3.8rem;
@@ -694,19 +708,19 @@ footer {
         font-size: 1.5rem;
         margin: 0 1rem;
     }
+
+    .stock-info {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
 }
 
-/* ************************************************************* */
-/* *** NUEVA MEDIA QUERY: PARA RE-ACTIVAR 'FIXED' EN PANTALLAS GRANDES (PC) *** */
-/* ************************************************************* */
-/* Esta media query se aplica cuando el ancho de la pantalla es MAYOR o igual a 769px. */
+/* --- NUEVA MEDIA QUERY: PARA RE-ACTIVAR 'FIXED' EN PANTALLAS GRANDES (PC) --- */
 @media (min-width: 769px) {
     header {
         background-attachment: fixed; /* Aquí re-activamos el efecto parallax (fixed) solo en PC */
     }
 }
-/* ************************************************************* */
-
 
 @media (max-width: 480px) {
     /* Ajuste para el logo en móviles más pequeños */
