@@ -775,4 +775,48 @@ footer {
     footer {
         padding: 2.5rem 1rem;
     }
+    /* --- ESTILO PARA PRODUCTOS AGOTADOS (SOLD-OUT) --- */
+.product.sold-out {
+    position: relative;
+    cursor: not-allowed;
+    pointer-events: none; /* Desactiva clics en todo el producto */
+    filter: grayscale(80%); /* Vuelve la imagen a blanco y negro */
+    opacity: 0.8;
+}
+
+/* El texto de agotado encima de la imagen */
+.product.sold-out::before {
+    content: 'AGOTADO';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-10deg); /* Centrado y ligeramente inclinado */
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: var(--color-white);
+    background: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente */
+    padding: 0.5rem 1.5rem;
+    border: 2px solid var(--color-primary);
+    border-radius: 10px;
+    letter-spacing: 2px;
+    z-index: 5;
+    text-shadow: 0 0 10px var(--color-primary); /* Efecto de brillo sutil */
+    transition: opacity 0.3s ease;
+}
+
+/* Oculta el texto de stock y el botón original */
+.product.sold-out .stock-info {
+    color: #a04444; /* Un color más rojizo para indicar agotado */
+    font-weight: bold;
+}
+
+/* Deshabilita el botón de compra */
+.product.sold-out .btn-small {
+    background: #333;
+    color: #888;
+    cursor: default;
+    box-shadow: none;
+    pointer-events: none; /* Asegura que no se pueda hacer clic */
+}
 }
