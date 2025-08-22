@@ -98,7 +98,7 @@ body {
 
 /* ESTILO PARA EL LOGO (IMAGEN) EN LA BARRA DE NAVEGACIÓN */
 .navbar .logo img {
-    max-height: 100px; /* Ajusta este valor para controlar el tamaño de tu logo */
+    max-height: 50px; /* Ajusta este valor para controlar el tamaño de tu logo */
     vertical-align: middle;
     transition: transform 0.3s ease; /* Pequeña animación al pasar el mouse */
 }
@@ -321,6 +321,34 @@ h2 {
     font-size: 1.4rem; /* Más grande */
     color: var(--color-white);
 }
+
+/* --- Contenedor de Stock y Calidad --- */
+.product-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; /* Espacio entre los dos elementos */
+    margin-top: -0.5rem; /* Ajusta la posición vertical */
+    margin-bottom: 1rem; /* Añade espacio antes del botón */
+}
+
+/* Estilo para los apartados de stock y calidad */
+.stock-info, .quality-info {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    background-color: #2a2a2a;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+/* Estilo específico para la calidad */
+.quality-info {
+    background-color: #2a2a2a;
+    color: var(--color-primary);
+}
+
 
 /* --- Sección Quiénes Somos --- */
 #about {
@@ -566,29 +594,6 @@ footer {
     transition-delay: 0.2s;
 }
 
-/* --- ESTILOS ADICIONALES PARA LAS MODIFICACIONES --- */
-
-/* Estilo para el pequeño apartado de stock dentro del producto */
-.stock-info {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: var(--color-primary);
-    background-color: #2a2a2a; /* Un color de fondo sutil para destacarlo */
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    margin-top: 1rem;
-    display: inline-block; /* Para que el fondo solo abarque el texto */
-}
-
-/* Ajuste de márgenes para el stock */
-.product-info p {
-    margin-bottom: 0.5rem; /* Reducimos el margen de abajo del precio para que el stock esté más cerca */
-}
-
-.product-info a.btn-small {
-    margin-top: 1.5rem; /* Ajustamos el margen superior del botón para compensar el espacio del stock */
-}
 
 /* --- Media Queries para Responsive Design --- */
 @media (max-width: 1024px) {
@@ -609,6 +614,9 @@ footer {
     }
     .shipping-item, .contact-item {
         padding: 2rem;
+    }
+    .product-meta {
+        gap: 1rem;
     }
 }
 
@@ -708,10 +716,10 @@ footer {
         font-size: 1.5rem;
         margin: 0 1rem;
     }
-
-    .stock-info {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.8rem;
+    .product-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
     }
 }
 
@@ -725,7 +733,7 @@ footer {
 @media (max-width: 480px) {
     /* Ajuste para el logo en móviles más pequeños */
     .navbar .logo img {
-        max-height: 35px; /* Más pequeño aún */
+        max-height: 50px; /* Más pequeño aún */
     }
 
     header h1 {
