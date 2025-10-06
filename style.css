@@ -98,6 +98,29 @@ body {
     transition: transform 0.3s ease;
 }
 
+/* Estilos de la lista de enlaces (Escritorio) */
+.nav-links {
+    list-style: none;
+    display: none; /* Por defecto oculto en móvil, visible en media query */
+    align-items: center;
+    gap: 2rem;
+    margin: 0; 
+    padding: 0;
+}
+.nav-links a {
+    color: var(--color-light-grey);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.nav-links a:hover {
+    color: var(--color-primary);
+}
+
 /* Botón de Carrito con diseño premium */
 .nav-btn-design {
     background: var(--color-primary);
@@ -125,13 +148,25 @@ body {
     font-size: 1.2rem;
 }
 
+/* Animación de feedback de carrito */
+.cart-feedback {
+    animation: cartBounce 0.5s ease;
+}
+@keyframes cartBounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2) rotate(5deg); color: #00ff62; }
+    100% { transform: scale(1); }
+}
+
 @media (min-width: 992px) {
     .menu-toggle {
         display: none;
     }
     .nav-links {
-        display: flex;
-        list-style: none;
+        display: flex; /* Muestra los enlaces en desktop */
+    }
+    .nav-links li:last-child {
+        margin-left: 1rem; /* Separa el carrito del último enlace */
     }
 }
 
@@ -139,7 +174,7 @@ body {
 /* --- Encabezado (Header) - Video de fondo --- */
 header {
     height: 100vh;
-    display: flex; /* CRÍTICO: Usamos Flexbox para centrar todo */
+    display: flex; 
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -173,22 +208,20 @@ header::before {
     z-index: 1;
 }
 
-/* NUEVO: Contenedor para controlar el ancho del botón (Solución definitiva) */
+/* Contenedor del botón para corrección de ancho */
 .btn-wrapper {
     z-index: 2;
-    /* Esto asegura que el contenedor no se estire */
     width: -moz-fit-content; 
     width: fit-content;      
     margin: 0 auto; 
     
-    /* Mantiene la animación */
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInSlide 1s forwards;
     animation-delay: 0.6s; 
 }
 
-/* CRÍTICO: Estilo del botón "Explora la colección" (Ajuste Final) */
+/* Estilo del botón "Explora la colección" */
 header a.btn {
     background: var(--color-primary);
     color: var(--color-secondary);
@@ -202,7 +235,6 @@ header a.btn {
     box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.5);
     transition: all 0.3s ease;
     
-    /* Con el .btn-wrapper ya no necesitamos width: fit-content aquí, solo display: block */
     display: block; 
     width: auto; 
     margin: 0; 
@@ -272,7 +304,7 @@ h2 {
 }
 
 
-/* --- Productos (Carrusel Integrado y Botones) --- */
+/* --- Productos y Estilos de Carrito (Se mantienen) --- */
 .products {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -453,7 +485,7 @@ h2 {
 }
 
 
-/* --- Sección Quiénes Somos --- */
+/* --- Sección Quiénes Somos (Se mantiene) --- */
 #about {
     text-align: center;
 }
@@ -470,7 +502,48 @@ h2 {
 }
 
 
-/* --- Sección Envíos y Entregas --- */
+/* --- Sección Testimonios (NUEVO) --- */
+#testimonios {
+    background: #101010; /* Un negro más suave */
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+.testimonial-card {
+    background-color: #2a2a2a;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    position: relative;
+    border-left: 5px solid var(--color-primary);
+}
+
+.quote-icon {
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.testimonial-text {
+    font-style: italic;
+    color: var(--color-light-grey);
+    margin-bottom: 1rem;
+}
+
+.testimonial-author {
+    font-weight: bold;
+    color: var(--color-white);
+    text-align: right;
+    display: block;
+    margin-top: 1.5rem;
+}
+
+/* --- Sección Envíos y Entregas (Se mantiene) --- */
 #envios {
     background: var(--color-dark-grey);
     text-align: center;
@@ -517,11 +590,49 @@ h2 {
     50% { transform: translateY(-10px) scale(1.05); }
 }
 
+/* --- Sección Políticas (NUEVO) --- */
+#politicas {
+    background: var(--color-secondary);
+}
+.policies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+.policy-card {
+    background-color: #1a1a1a;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    border: 1px solid #333;
+}
+.policy-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--color-primary);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+.policy-card p {
+    font-size: 0.95rem;
+    color: var(--color-text-light);
+    margin-bottom: 1.5rem;
+}
+.policy-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: text-decoration 0.3s ease;
+}
+.policy-link:hover {
+    text-decoration: underline;
+}
 
-/* --- Sección Contacto --- */
+
+/* --- Sección Contacto (Se mantiene) --- */
 #contacto {
     text-align: center;
-    background: var(--color-secondary);
+    background: var(--color-dark-grey);
 }
 
 .contact-content {
@@ -567,9 +678,9 @@ h2 {
     text-decoration: underline;
 }
 
-/* --- Footer --- */
+/* --- Footer (Añadidos enlaces a políticas) --- */
 footer {
-    background-color: var(--color-dark-grey);
+    background-color: var(--color-secondary);
     color: var(--color-text-light);
     text-align: center;
     padding: 2.5rem 0;
@@ -593,6 +704,24 @@ footer .socials a:hover {
     transform: scale(1.2);
 }
 
+.footer-links {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+.footer-links a {
+    color: var(--color-light-grey);
+    text-decoration: none;
+    margin: 0 0.5rem;
+    transition: color 0.3s ease;
+}
+.footer-links a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+.footer-links span {
+    color: #444; /* Separador */
+}
+
 footer p {
     font-size: 0.9rem;
     color: var(--color-text-light); 
@@ -600,7 +729,7 @@ footer p {
 }
 
 
-/* --- Modal de Resumen del Carrito --- */
+/* --- Modal de Resumen del Carrito (Se mantiene) --- */
 
 .cart-modal-overlay {
     position: fixed;
@@ -768,16 +897,27 @@ footer p {
         left: 0;
         padding-bottom: 1rem;
         transition: all 0.3s ease;
+        gap: 0; /* Quita el gap en móvil */
     }
     .nav-links.active {
         display: flex;
     }
     .nav-links li {
         margin: 0.5rem 0;
+        width: 100%;
+    }
+    .nav-links li a, .nav-links li button {
+        display: block; /* Asegura que los enlaces ocupen todo el ancho */
+        padding: 10px 0;
+        width: 100%;
+    }
+    .nav-links li:last-child {
+        margin-left: 0; 
     }
     .nav-btn-design {
-        width: 80%;
+        width: 90%;
         justify-content: center;
+        margin: 0 auto; 
     }
 }
 
@@ -815,5 +955,13 @@ footer p {
     footer .socials a {
         font-size: 1.5rem;
         margin: 0 0.8rem;
+    }
+    .footer-links {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .footer-links span {
+        display: none; /* Oculta el separador en móvil */
     }
 }
