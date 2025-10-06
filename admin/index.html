@@ -9,18 +9,26 @@
     body { font-family: 'Montserrat', sans-serif; }
   </style>
   
-  <link rel="icon" href="/CazaEstilo/favicon.png" type="image/png">
-  
-</head>
+  </head>
 <body>
+
+  <div id="cms-root"></div> 
 
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   
   <script>
-    // Script limpio sin inicializaciones manuales, confiando en el auto-inicio del CMS
-    if (window.CMS) {
-        // La inicialización del CMS debería haber ocurrido correctamente aquí.
-    }
+    // ** SOLUCIÓN DEFINITIVA PARA EL TYPERROR Y LAS RUTAS **
+    // Inicializar el CMS manualmente y apuntarlo al div y a la ruta base correcta.
+    window.onload = function() {
+        if (window.CMS) {
+            window.CMS.init({
+                config: {
+                    base_url: '/CazaEstilo', // Apunta a la URL base del repositorio
+                    container: '#cms-root'   // Garantiza que el appendChild funcione
+                }
+            });
+        }
+    };
   </script>
 </body>
 </html>
