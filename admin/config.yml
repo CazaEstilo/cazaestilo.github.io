@@ -2,13 +2,13 @@
 
 backend:
   name: git-gateway 
-  repo: cazaestilo/CazaEstilo  
+  repo: CazaEstilo/CazaEstilo  
   branch: main 
 
-# CONFIGURACIÓN DE RUTA BASE MÁS SIMPLE:
 base_url: /CazaEstilo 
 site_url: https://cazaestilo.github.io/CazaEstilo
 
+# ... (resto de la configuración)
 # Media/Public Folder:
 media_folder: "assets/img/products" 
 public_folder: "/CazaEstilo/assets/img/products" # Ruta completa para el público
