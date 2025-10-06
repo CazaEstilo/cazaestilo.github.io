@@ -5,7 +5,7 @@ const productsData = [
         name: "Conjunto Estilo Urbano",
         description: "Comodidad y presencia. Este conjunto de dos piezas te hará destacar sin esfuerzo.",
         price: 180000, // Precio de ejemplo
-        images: ["imagenes/producto1-1.jpg", "imagenes/producto1-2.jpg", "imagenes/producto1-3.jpg"],
+        images: ["imagenes/conjunto.jpg", "imagenes/conjunto.jpg", "imagenes/conjunto.jpg"],
         soldOut: false
     },
     {
@@ -13,7 +13,7 @@ const productsData = [
         name: "Chaqueta Negra Oversize",
         description: "Chaqueta con caída holgada. El toque perfecto para un look imponente y moderno.",
         price: 240000,
-        images: ["imagenes/producto2-1.jpg", "imagenes/producto2-2.jpg"],
+        images: ["imagenes/jeanblanco.jpg", "imagenes/jeanblanco.jpg", "imagenes/jeanblanco.jpg"],
         soldOut: false
     },
     {
@@ -21,7 +21,7 @@ const productsData = [
         name: "Jean Cargo Streetwear",
         description: "Durabilidad y diseño. Bolsillos laterales que redefinen la silueta casual.",
         price: 155000,
-        images: ["imagenes/producto3-1.jpg", "imagenes/producto3-2.jpg", "imagenes/producto3-3.jpg"],
+        images: ["imagenes/jeancafe.jpg", "imagenes/jeancafe.jpg", "imagenes/jeancafe.jpg"],
         soldOut: true // Ejemplo de producto agotado
     },
     {
