@@ -17,7 +17,7 @@
     box-sizing: border-box;
 }
 
-/* CORRECCIÓN CRÍTICA: Asegurar que nada desborde horizontalmente */
+/* CRÍTICO: Asegurar que nada desborde horizontalmente */
 html, body {
     overflow-x: hidden; 
 }
@@ -34,13 +34,14 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* El contenedor limita el ancho del contenido interno, no la sección completa */
 .container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
 }
 
-/* --- Loader y Overlay de Carga --- */
+/* --- Loader, Navbar, Header (Se mantienen optimizados) --- */
 .loader-overlay {
     position: fixed;
     top: 0;
@@ -75,8 +76,6 @@ body {
     to { transform: scale(1.1); opacity: 1; }
 }
 
-
-/* --- Barra de Navegación (Navbar) --- */
 .navbar {
     background-color: rgba(10, 10, 10, 0.95);
     padding: 1rem 0;
@@ -182,7 +181,6 @@ body {
     font-size: 0.8rem;
 }
 
-/* --- Encabezado (Header) - Hero Section con Video --- */
 header {
     background: none; 
     height: 100vh;
@@ -283,9 +281,8 @@ header p {
 
 /* --- Estilos de Secciones y Títulos --- */
 section {
-    padding: 6rem 2rem;
-    max-width: 1400px;
-    margin: auto;
+    padding: 6rem 0; /* padding vertical, el padding horizontal lo da el .container */
+    width: 100%;
     background: var(--color-dark-grey);
     border-bottom: 1px solid #2a2a2a;
     position: relative;
@@ -306,7 +303,7 @@ h2 {
     letter-spacing: 3px;
 }
 
-/* --- Animación de Secciones al Scroll --- */
+/* --- Animación de Secciones (Se mantiene igual) --- */
 .hidden-section {
     opacity: 0;
     transform: translateY(50px);
@@ -331,7 +328,7 @@ h2 {
 
 .about-text-container {
     max-width: 900px;
-    padding: 0 2rem;
+    margin: 0 auto;
 }
 
 .about-text {
@@ -355,7 +352,7 @@ h2 {
 
 .shipping-item {
     flex: 1;
-    min-width: 250px;
+    min-width: 280px; 
     max-width: 400px;
     background: var(--color-secondary);
     padding: 2rem;
@@ -385,7 +382,7 @@ h2 {
     color: var(--color-text-light);
 }
 
-/* --- Estilos para la sección Contacto --- */
+/* --- Estilos para la sección Contacto (Solución de color de enlace) --- */
 .contact-content {
     text-align: center;
     max-width: 700px;
@@ -427,6 +424,7 @@ h2 {
     font-weight: bold;
 }
 
+/* Estilo crucial para que los enlaces no sean azules por defecto */
 .contact-item a {
     color: var(--color-light-grey); 
     text-decoration: none;
@@ -694,45 +692,36 @@ footer {
 }
 
 
-/* --- MEDIA QUERIES (Responsividad Optimizada) --- */
+/* --- MEDIA QUERIES (Responsividad) --- */
 
-/* Pantallas Medianas (Tablets) */
+/* Pantallas Medianas (Tablets y PC pequeños) */
 @media (max-width: 992px) {
+    
+    .container {
+        padding: 0 1.5rem; 
+    }
+    
     header h1 {
         font-size: 4rem;
-        letter-spacing: 5px;
     }
     header p {
         font-size: 1.4rem;
     }
 
-    /* Reducir el espacio entre productos */
+    h2 {
+        font-size: 3.5rem;
+    }
+
     .products {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 2.5rem; 
     }
-    
     .product .open-modal-link img {
-        height: 280px; /* Ajustar altura en tablet */
+        height: 280px;
     }
-
-    /* Ajuste en el modal */
-    .modal-body-container {
-        flex-direction: column;
-        gap: 1.5rem; 
-    }
-    .modal-swiper {
-        max-width: 100%;
-        height: 350px; 
-    }
-    .modal-info {
-        padding: 0;
-    }
-    .modal-title {
-        font-size: 2rem;
-    }
-    .shipping-info {
-        gap: 1.5rem;
+    
+    .about-text {
+        font-size: 1.1rem;
     }
 }
 
@@ -740,11 +729,11 @@ footer {
 @media (max-width: 768px) {
     
     .container {
-        padding: 0 1rem; /* Más espacio en los bordes */
+        padding: 0 1rem; 
     }
 
     header h1 {
-        font-size: 3rem; /* Más pequeño para móvil */
+        font-size: 3rem; 
         letter-spacing: 3px;
     }
     header p {
@@ -752,66 +741,29 @@ footer {
     }
     
     h2 {
-        font-size: 3rem; /* Títulos de sección más pequeños */
+        font-size: 3rem;
         margin-bottom: 2rem;
     }
 
     section {
-        padding: 4rem 1rem; /* Padding de sección reducido */
+        padding: 4rem 0; 
     }
 
-    /* Navegación colapsada */
-    .navbar .container {
-        flex-wrap: wrap;
-    }
-    .navbar .logo {
-        flex-grow: 1;
-    }
-    .menu-toggle {
-        display: block;
-    }
-    .navbar .nav-links {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        text-align: center;
-        background-color: var(--color-secondary);
-        position: absolute;
-        top: 90px;
-        left: 0;
+    .navbar .nav-links.active {
+        top: 90px; 
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
     }
-    .navbar .nav-links.active {
-        display: flex;
-    }
-    .navbar .nav-links li {
-        margin: 1rem 0;
-        justify-content: center;
-    }
-    .btn-cart {
-        width: 100%; 
-        padding: 0.75rem;
-        margin: 0.5rem 0; 
-    }
     
-    /* Productos en una sola columna con tamaño adecuado */
+    /* Productos en una sola columna para verse más grandes */
     .products {
         grid-template-columns: 1fr; 
         gap: 2rem;
     }
     .product .open-modal-link img {
-        height: 300px; 
+        height: 350px; 
     }
     
-    .product-info {
-        padding: 1.5rem;
-    }
-    
-    .btn {
-        padding: 1rem 2rem;
-        font-size: 1rem;
-    }
-    
+    /* Envíos en columna */
     .shipping-info {
         flex-direction: column;
         gap: 2rem;
