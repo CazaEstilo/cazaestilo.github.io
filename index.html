@@ -8,6 +8,12 @@
     
     <link rel="icon" type="image/png" href="imagenes/favicon.png"> 
 
+    <meta property="og:title" content="Caza Estilo - Moda Urbana Premium">
+    <meta property="og:description" content="La ropa no te define, pero tu actitud sí. Explora nuestra colección exclusiva.">
+    <meta property="og:image" content="https://tudominio.com/imagenes/logocompleto.jpg"> 
+    <meta property="og:url" content="https://tudominio.com"> 
+    <meta property="og:type" content="website">
+
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -85,28 +91,28 @@
             <div class="testimonials-carousel swiper-container">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide testimonial-slide">
-                        <img src="imagenes/testimonio1.jpg" alt="Testimonio de Cliente 1" class="testimonial-img">
+                        <img src="imagenes/testimonio1.jpg" alt="Testimonio de Cliente 1" class="testimonial-img" loading="lazy">
                         <div class="testimonial-caption">
                             <p>"La calidad de esta chaqueta superó mis expectativas. El corte es perfecto y el envío fue rapidísimo. Definitivamente mi nueva tienda favorita."</p>
                             <span class="testimonial-author-name">- Mateo R.</span>
                         </div>
                     </div>
                     <div class="swiper-slide testimonial-slide">
-                        <img src="imagenes/testimonio2.jpg" alt="Testimonio de Cliente 2" class="testimonial-img">
+                        <img src="imagenes/testimonio2.jpg" alt="Testimonio de Cliente 2" class="testimonial-img" loading="lazy">
                         <div class="testimonial-caption">
                             <p>"Los jeans son increíblemente cómodos y tienen un diseño único que no encuentro en otro lugar. ¡Ya quiero mi segundo par!"</p>
                             <span class="testimonial-author-name">- Valentina S.</span>
                         </div>
                     </div>
                     <div class="swiper-slide testimonial-slide">
-                        <img src="imagenes/testimonio3.jpg" alt="Testimonio de Cliente 3" class="testimonial-img">
+                        <img src="imagenes/testimonio3.jpg" alt="Testimonio de Cliente 3" class="testimonial-img" loading="lazy">
                         <div class="testimonial-caption">
                             <p>"Excelente atención y el conjunto me queda pintado. Me gustó que me asesoraran con la talla. ¡Recomendados 100%!"</p>
                             <span class="testimonial-author-name">- Juan C.</span>
                         </div>
                     </div>
                     <div class="swiper-slide testimonial-slide">
-                        <img src="imagenes/testimonio4.jpg" alt="Testimonio de Cliente 4" class="testimonial-img">
+                        <img src="imagenes/testimonio4.jpg" alt="Testimonio de Cliente 4" class="testimonial-img" loading="lazy">
                         <div class="testimonial-caption">
                             <p>"La camiseta gráfica es una obra de arte. Se siente el algodón de alta calidad. La mejor compra que he hecho en línea este año."</p>
                             <span class="testimonial-author-name">- Sofía G.</span>
@@ -165,21 +171,30 @@
 
     <section id="contacto">
         <div class="container">
-            <h2>Hablemos</h2>
+            <h2>¿Tienes Dudas? Hablemos Ahora</h2>
             <div class="contact-content">
-                <p class="contact-text">¿Tienes alguna duda sobre una talla, envío o quieres hacernos una propuesta? Contáctanos, estamos listos para atenderte.</p>
+                <p class="contact-text">Si necesitas asesoría inmediata con tallas, colores o tienes una consulta especial, nuestro equipo de estilistas está listo para ayudarte vía WhatsApp.</p>
+                
+                <div class="contact-details cta-final-row">
+                    <div class="contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/573012705080" target="_blank" class="btn btn-whatsapp-confirm">
+                            Chatear con un Asesor
+                        </a>
+                    </div>
+                </div>
+
+                <hr class="separator">
+
+                <p class="contact-text-secondary">O, si lo prefieres, contáctanos por otros medios:</p>
                 <div class="contact-details">
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
                         <a href="mailto:info@cazaestilo.com">info@cazaestilo.com</a>
                     </div>
                     <div class="contact-item">
-                        <i class="fab fa-whatsapp"></i>
-                        <a href="https://wa.me/573012705080" target="_blank">+57 301 270 5080</a>
-                    </div>
-                    <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>Medellín, Colombia</span>
+                        <span>Medellín, Colombia (Venta Online)</span>
                     </div>
                 </div>
             </div>
@@ -206,6 +221,8 @@
         <i class="fab fa-whatsapp"></i>
     </a>
     
+    <button id="back-to-top" aria-label="Volver al inicio"><i class="fas fa-chevron-up"></i></button>
+
     <div id="toast-container">
         </div>
 
@@ -220,6 +237,10 @@
                 <select id="product-size-select" class="size-select-dropdown">
                     </select>
             </div>
+
+            <p class="size-guide-link">
+                <a href="#" target="_blank"><i class="fas fa-ruler-horizontal"></i> ¿No sabes tu talla? Consulta la guía aquí.</a> 
+            </p>
             
             <div class="modal-actions">
                 <button id="close-size-modal-button" class="btn btn-secondary" onclick="closeSizeModal()">Cancelar</button> 
