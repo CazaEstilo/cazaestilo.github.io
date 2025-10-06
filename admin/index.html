@@ -5,38 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Panel de Administración - Caza Estilo</title>
   
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  
-  <link rel="icon" href="CazaEstilo\logo.png" type="image/png">
-  
   <style>
     body { font-family: 'Montserrat', sans-serif; }
   </style>
 </head>
 <body>
 
-  <div id="cms-root"></div> 
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
   <script>
-    // ** SOLO DEJAMOS EL CÓDIGO DE LOGIN Y REDIRECCIÓN **
-    // (El CMS se auto-inicializará al encontrar el config.yml)
+    // Este script se ejecuta justo después de que los scripts de arriba cargan.
+    // Esto asegura que window.CMS exista antes de que cualquier otra cosa falle.
     
-    document.addEventListener('DOMContentLoaded', () => {
-        
-        if (window.netlifyIdentity) {
-            // Aseguramos que el widget de Identity se inicialice
-            window.netlifyIdentity.on("init", user => {
-                if (!user) {
-                    window.netlifyIdentity.on("login", () => {
-                        // Redirecciona a la URL base del panel
-                        document.location.href = "/CazaEstilo/admin"; 
-                    });
-                }
-            });
+    // Lógica del login de Netlify Identity
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            // Redirecciona a la URL base del panel
+            document.location.href = "/CazaEstilo/admin"; 
+          });
         }
-    });
+      });
+    }
   </script>
 </body>
 </html>
