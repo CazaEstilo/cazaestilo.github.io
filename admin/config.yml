@@ -1,0 +1,29 @@
+# CazaEstilo/admin/config.yml
+
+backend:
+  name: github
+  # *** REEMPLAZA CON TU USUARIO/REPOSITORIO REAL ***
+  repo: tu_usuario/CazaEstilo 
+  branch: main 
+
+# Configuraciones de Medios
+media_folder: "assets/img/products" # Dónde guardar las imágenes subidas
+public_folder: "/assets/img/products" # Ruta de acceso pública
+
+# Define la estructura de los productos (Colección 'Productos')
+collections:
+  - name: "productos" 
+    label: "Productos Destacados" 
+    folder: "_productos" 
+    create: true 
+    slug: "{{slug}}"
+    format: "json" # Usamos JSON para facilitar la lectura con JavaScript
+    fields: 
+      - {label: "Nombre del Producto", name: "title", widget: "string"}
+      - {label: "Descripción Corta", name: "body", widget: "markdown", required: true}
+      - {label: "Precio (COP)", name: "price", widget: "number", value_type: "int", min: 0, step: 100}
+      - {label: "Stock Disponible (0 = Agotado)", name: "stock", widget: "number", value_type: "int", min: 0, default: 1}
+      - {label: "Calidad (%)", name: "quality", widget: "number", value_type: "int", min: 0, max: 100, default: 100}
+      - {label: "Imágenes del Carrusel (Max 3)", name: "images", widget: "list", fields:
+          - {label: "Imagen", name: "image", widget: "image", choose_url: false, allow_multiple: false}
+        , max: 3, min: 1, required: true}
