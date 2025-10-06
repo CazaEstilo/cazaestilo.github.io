@@ -1,6 +1,6 @@
 backend:
   name: github                                    
-  repo: cazaestilo/CazaEstilo                     
+  repo: CazaEstilo/CazaEstilo                     
   branch: main
   # Eliminamos auth_url y base_url de backend para evitar conflictos
   
