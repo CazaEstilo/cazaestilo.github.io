@@ -2,18 +2,20 @@
 
 backend:
   name: git-gateway 
-  repo: CazaEstilo/CazaEstilo  
+  repo: cazaestilo/CazaEstilo  
   branch: main 
-  # *** ESTO LE DICE AL CMS DÓNDE ESTÁ EL BACKEND DE AUTENTICACIÓN ***
+  # URL DEL BACKEND DE NETLIFY IDENTITY (CRUCIAL)
   identity_url: https://unique-kitten-d29e0e.netlify.app/.netlify/identity
+  
+# CAMBIOS CLAVE: ELIMINAR /CazaEstilo
+base_url: / # <--- DEJAR SOLO LA BARRA DE LA RAÍZ
+site_url: https://cazaestilo.github.io/ # <--- ELIMINAR EL NOMBRE DEL REPOSITORIO
 
-base_url: /CazaEstilo 
-site_url: https://cazaestilo.github.io/CazaEstilo
-
-# ... (resto de la configuración)
-# Media/Public Folder:
 media_folder: "assets/img/products" 
-public_folder: "/CazaEstilo/assets/img/products" # Ruta completa para el público
+public_folder: "/assets/img/products" # <--- ELIMINAR /CazaEstilo
+
+collections:
+  # ... (El resto de tus colecciones sigue igual)
 
 
 collections:
