@@ -1,14 +1,12 @@
-# Archivo: admin/config.yml (CÓDIGO MODIFICADO)
+# Archivo: admin/config.yml (CÓDIGO FINAL CORREGIDO)
 
 backend:
   # Usamos 'git-gateway' porque activaste Netlify Identity/Git Gateway
   name: git-gateway 
-  # *** ESTA ES LA RUTA EXACTA DE TU REPOSITORIO ***
-  repo: cazaestilo/CazaEstilo 
+  repo: cazaestilo/CazaEstilo  # <--- ASEGURA QUE ESTO ES CORRECTO
   branch: main # o 'master'
 
-# CONFIGURACIÓN DE RUTA BASE (¡ESTO SOLUCIONA EL PROBLEMA!)
-# Netlify usa esto para saber dónde está la raíz real de tu sitio
+# CONFIGURACIÓN DE RUTA BASE PARA GITHUB PAGES
 site_url: https://cazaestilo.github.io/CazaEstilo
 base_url: https://cazaestilo.github.io/CazaEstilo 
 
@@ -30,6 +28,13 @@ collections:
       - {label: "Precio (COP)", name: "price", widget: "number", value_type: "int", min: 0, step: 100}
       - {label: "Stock Disponible (0 = Agotado)", name: "stock", widget: "number", value_type: "int", min: 0, default: 1}
       - {label: "Calidad (%)", name: "quality", widget: "number", value_type: "int", min: 0, max: 100, default: 100}
-      - {label: "Imágenes del Carrusel (Max 3)", name: "images", widget: "list", fields:
+      
+      # BLOQUE DE IMÁGENES CORREGIDO: Usando el formato de indentación estándar
+      - label: "Imágenes del Carrusel (Max 3)"
+        name: "images"
+        widget: "list"
+        max: 3
+        min: 1
+        fields:
+          # Las propiedades están correctamente separadas por comas
           - {label: "Imagen", name: "image", widget: "image", choose_url: false, allow_multiple: false}
-        , max: 3, min: 1, required: true}
