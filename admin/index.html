@@ -19,17 +19,14 @@
 <body>
 
   <script>
-    // ** SOLO LA LÓGICA DE REDIRECCIÓN **
-    // Eliminamos la llamada a init() que causaba el error 'Invalid action'
-
+    // ** SOLAMENTE LÓGICA DE REDIRECCIÓN (LO MÁS LIMPIO) **
+    // Esto es el mínimo código necesario para que el login funcione y redirija.
+    
     if (window.netlifyIdentity) {
         
-        // El widget de Netlify Identity se auto-inicializa y se encarga de mostrar el login.
-        
-        // Lógica de Redirección (para cuando la sesión ya está iniciada)
         window.netlifyIdentity.on("init", user => {
             if (!user) {
-                // Si no hay usuario, el widget muestra el botón de Login.
+                // Si el usuario se loguea, redirige al panel
                 window.netlifyIdentity.on("login", () => {
                     document.location.href = "/CazaEstilo/admin"; 
                 });
