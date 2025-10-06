@@ -5,15 +5,12 @@ backend:
   base_url: https://github.com
   auth_url: /authorize
   
-# CONFIGURACIÓN DE RUTAS SIMPLIFICADAS (Elimina el conflicto de subdirectorio)
-base_url: /
+# ...
+base_url: / # <--- CLAVE
 site_url: https://cazaestilo.github.io/ 
+# ...
+public_folder: "/assets/img/products" # <--- CLAVE
 
-# Configuraciones de Medios
-media_folder: "assets/img/products" 
-public_folder: "/assets/img/products" 
-
-# Define la estructura de los productos
 collections:
   - name: "productos" 
     label: "Productos Destacados" 
