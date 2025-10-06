@@ -9,6 +9,8 @@
   
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   
+  <link rel="icon" href="CazaEstilo\logo.png" type="image/png">
+  
   <style>
     body { font-family: 'Montserrat', sans-serif; }
   </style>
@@ -18,27 +20,21 @@
   <div id="cms-root"></div> 
 
   <script>
-    // ** FUNCIÓN CLAVE: Esperar a que el DOM esté completamente cargado **
+    // ** SOLO DEJAMOS EL CÓDIGO DE LOGIN Y REDIRECCIÓN **
+    // (El CMS se auto-inicializará al encontrar el config.yml)
+    
     document.addEventListener('DOMContentLoaded', () => {
         
-        // Inicialización Explícita del CMS
-        window.CMS.init({
-            config: {
-                base_url: 'https://cazaestilo.github.io/CazaEstilo',
-                // Apuntamos al contenedor explícito
-                container: '#cms-root' 
-            }
-        });
-
-        // Lógica del login de Netlify Identity
         if (window.netlifyIdentity) {
-          window.netlifyIdentity.on("init", user => {
-            if (!user) {
-              window.netlifyIdentity.on("login", () => {
-                document.location.href = "/CazaEstilo/admin"; 
-              });
-            }
-          });
+            // Aseguramos que el widget de Identity se inicialice
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        // Redirecciona a la URL base del panel
+                        document.location.href = "/CazaEstilo/admin"; 
+                    });
+                }
+            });
         }
     });
   </script>
