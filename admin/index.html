@@ -13,42 +13,33 @@
   
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   
-  <link rel="icon" href="/CazaEstilo/logo.png" type="image/png">
+  <link rel="icon" href="/CazaEstilo/favicon.png" type="image/png">
   
 </head>
 <body>
 
-  <div id="cms-root"></div>
-
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    // ** SOLUCIÓN FINAL: Dejar que el widget de Identity haga su trabajo**
+
+    if (window.netlifyIdentity) {
         
-        if (window.netlifyIdentity) {
-            
-            // Lógica de Redirección (para cuando la sesión ya está iniciada)
-            window.netlifyIdentity.on("init", user => {
-                if (!user) {
-                    window.netlifyIdentity.on("login", () => {
-                        document.location.href = "/CazaEstilo/admin"; 
-                    });
-                }
-            });
-            
-            // *** ESTO ES LA SOLUCIÓN AL FALLO DE LOGIN DE GITHUB PAGES ***
-            // Inicializa el widget y lo abre inmediatamente, forzando la conexión.
-            const netlifyAppURL = 'https://unique-kitten-d29e0e.netlify.app/'; 
-            
-            // DEBES REEMPLAZAR LA LÍNEA ANTERIOR CON TU URL DE NETLIFY REAL 
-            // (La que te dio Netlify al desplegar, ej: cazas-estilo-1234.netlify.app)
-            
-            document.querySelector('#cms-root').innerHTML = 
-                '<button id="login-btn">Login with Netlify Identity</button>';
-                
-            document.getElementById('login-btn').addEventListener('click', () => {
-                window.netlifyIdentity.open(netlifyAppURL);
-            });
-        }
-    });
+        // Inicialización de la librería para asegurar que el CMS sepa la URL del backend
+        netlifyIdentity.init({
+            APIUrl: 'https://unique-kitten-d29e0e.netlify.app/.netlify/identity'
+            // DEBES REEMPLAZAR LA URL ANTERIOR CON TU URL DE NETLIFY REAL 
+            // (La que te dio Netlify al desplegar)
+        });
+        
+        // Lógica de Redirección (para cuando la sesión ya está iniciada)
+        window.netlifyIdentity.on("init", user => {
+            if (!user) {
+                // Si no hay usuario, el widget muestra el botón "Login with Netlify Identity"
+                window.netlifyIdentity.on("login", () => {
+                    document.location.href = "/CazaEstilo/admin"; 
+                });
+            }
+        });
+    }
   </script>
 </body>
 </html>
