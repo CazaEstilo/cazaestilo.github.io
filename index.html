@@ -34,7 +34,12 @@
                 <li><a href="#about" class="scroll-to-section">Quiénes Somos</a></li>
                 <li><a href="#envios" class="scroll-to-section">Envíos y Entregas</a></li>
                 <li><a href="#contacto" class="scroll-to-section">Contacto</a></li>
-            </ul>
+                <li>
+                    <button id="view-cart-button" class="btn-cart">
+                        <i class="fas fa-shopping-cart"></i> Carrito (<span id="cart-count">0</span>)
+                    </button>
+                </li>
+                </ul>
         </div>
     </nav>
 
@@ -49,7 +54,6 @@
         <div class="products" id="products-container">
         </div>
     </section>
-
     <section id="about" class="hidden-section">
         <h2>Quiénes Somos</h2>
         <div class="about-content">
@@ -132,7 +136,8 @@
                     <h3 class="modal-title"></h3>
                     <p class="modal-price"></p>
                     <p class="modal-description"></p>
-                    <a id="modal-whatsapp-link" href="#" target="_blank" class="btn">¡Lo quiero! Cazalo aquí</a>
+                    <button id="modal-add-to-cart" class="btn btn-small">Añadir al Carrito</button>
+                    <a id="modal-whatsapp-link" href="#" target="_blank" class="btn">Comprar Ya (WhatsApp)</a>
                 </div>
             </div>
         </div>
