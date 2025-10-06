@@ -101,7 +101,7 @@ body {
 /* Estilos de la lista de enlaces (Escritorio) */
 .nav-links {
     list-style: none;
-    display: none; /* Por defecto oculto en móvil, visible en media query */
+    display: none; 
     align-items: center;
     gap: 2rem;
     margin: 0; 
@@ -163,10 +163,10 @@ body {
         display: none;
     }
     .nav-links {
-        display: flex; /* Muestra los enlaces en desktop */
+        display: flex; 
     }
     .nav-links li:last-child {
-        margin-left: 1rem; /* Separa el carrito del último enlace */
+        margin-left: 1rem; 
     }
 }
 
@@ -208,7 +208,7 @@ header::before {
     z-index: 1;
 }
 
-/* CRÍTICO: Contenedor del botón para corrección de ancho (Solución definitiva) */
+/* Contenedor del botón */
 .btn-wrapper {
     z-index: 2;
     width: fit-content;      
@@ -516,9 +516,9 @@ h2 {
 }
 
 .testimonials-carousel {
-    max-width: 900px; /* Ancho máximo para el carrusel */
+    max-width: 900px; 
     margin: 0 auto;
-    padding-bottom: 3rem; /* Espacio para la paginación */
+    padding-bottom: 3rem; 
 }
 
 .testimonial-slide {
@@ -529,17 +529,14 @@ h2 {
     transition: transform 0.3s ease;
     display: flex;
     flex-direction: column;
-    /* CORRECCIÓN DE ALTURA */
     min-height: 500px; 
 }
 
 .testimonial-img {
     width: 100%;
-    /* CORRECCIÓN DE ALTURA */
     height: 400px; 
-    /* CRÍTICO: Muestra la imagen completa sin cortarla */
-    object-fit: contain; 
-    background-color: var(--color-secondary); /* Fondo para cuando la imagen no llena todo el espacio */
+    object-fit: contain; /* CRÍTICO: Muestra la imagen completa sin cortar */
+    background-color: var(--color-secondary); /* Fondo negro para el 'contain' */
     display: block;
 }
 
@@ -587,13 +584,12 @@ h2 {
     font-size: 1rem !important;
 }
 
-/* Aseguramos que solo se muestre una foto a la vez en móvil */
 @media (max-width: 768px) {
     .testimonial-slide {
-        min-height: 450px; /* Corregido para móviles */
+        min-height: 450px;
     }
     .testimonial-img {
-        height: 350px; /* Corregido para móviles */
+        height: 350px; 
     }
 }
 
@@ -645,7 +641,7 @@ h2 {
     50% { transform: translateY(-10px) scale(1.05); }
 }
 
-/* --- Sección Políticas (Ajuste para quitar el enlace) --- */
+/* --- Sección Políticas --- */
 #politicas {
     background: var(--color-secondary);
 }
@@ -660,7 +656,7 @@ h2 {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     border: 1px solid #333;
-    text-align: center; /* Centramos el texto de la política */
+    text-align: center; 
 }
 .policy-card h3 {
     font-family: 'Bebas Neue', sans-serif;
@@ -724,7 +720,7 @@ h2 {
     text-decoration: underline;
 }
 
-/* --- Footer (Añadidos enlaces a políticas) --- */
+/* --- Footer --- */
 footer {
     background-color: var(--color-secondary);
     color: var(--color-text-light);
@@ -765,7 +761,7 @@ footer .socials a:hover {
     text-decoration: underline;
 }
 .footer-links span {
-    color: #444; /* Separador */
+    color: #444; 
 }
 
 footer p {
@@ -829,9 +825,13 @@ footer p {
     margin-bottom: 1.5rem;
 }
 
+
+/* --- ESTILOS DE GESTIÓN DE CARRITO (NUEVO) --- */
+
 .cart-item {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 2.5fr 1fr 1fr auto; 
+    gap: 10px;
     align-items: center;
     padding: 0.75rem 0;
     border-bottom: 1px dashed #333;
@@ -841,22 +841,111 @@ footer p {
     border-bottom: none;
 }
 
+.item-title-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
 .item-title {
     font-weight: 700;
-    flex: 2;
     color: var(--color-light-grey);
 }
+.item-size {
+    font-size: 0.9rem;
+    color: var(--color-primary);
+    font-style: italic;
+}
+
+.item-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.control-btn {
+    background: #333;
+    color: var(--color-white);
+    border: 1px solid #555;
+    width: 25px;
+    height: 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-weight: bold;
+    line-height: 1;
+}
+.control-btn:hover {
+    background: #555;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: #ff5555;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: color 0.2s;
+    padding: 5px;
+}
+.remove-btn:hover {
+    color: #ff0000;
+}
 .item-quantity {
-    flex: 0 0 15%;
     text-align: center;
     color: var(--color-primary);
 }
 .item-price {
-    flex: 1;
     text-align: right;
     font-weight: 700;
     color: var(--color-white);
 }
+
+/* --- ESTILOS DE MODAL DE TALLAS (NUEVO) --- */
+.size-modal-content {
+    max-width: 400px;
+    padding: 2rem;
+    text-align: center;
+}
+.size-modal-content h3 {
+    margin-bottom: 1rem;
+}
+.size-selection-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5rem 0;
+    font-size: 1.1rem;
+    color: var(--color-light-grey);
+}
+.size-select-dropdown {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid var(--color-primary);
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    font-size: 1rem;
+    appearance: none; 
+    cursor: pointer;
+}
+
+/* Botón de confirmación en modal de tallas */
+.btn-primary-confirm {
+    background: var(--color-primary);
+    color: var(--color-secondary);
+    border: 2px solid var(--color-primary);
+    padding: 12px 20px;
+    font-weight: 700;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    flex-grow: 1;
+}
+.btn-primary-confirm:hover {
+    background: var(--color-white);
+    transform: translateY(-2px);
+}
+/* --- FIN ESTILOS MODAL TALLAS --- */
+
 
 .cart-total {
     display: flex;
@@ -1009,5 +1098,35 @@ footer p {
     }
     .footer-links span {
         display: none; 
+    }
+    
+    /* Responsive del Carrito */
+    .cart-item {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "title"
+            "controls"
+            "price";
+        text-align: center;
+        padding-bottom: 1.5rem;
+        position: relative;
+    }
+    .item-title-group {
+        grid-area: title;
+        text-align: center;
+    }
+    .item-controls {
+        grid-area: controls;
+        margin: 5px auto;
+    }
+    .item-price {
+        grid-area: price;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+    .remove-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
     }
 }
