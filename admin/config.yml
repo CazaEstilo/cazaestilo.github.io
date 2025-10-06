@@ -1,20 +1,21 @@
-# Archivo: admin/config.yml (CÓDIGO FINAL CORREGIDO)
+# Archivo: admin/config.yml (VERSIÓN FINAL)
 
 backend:
-  # Usamos 'git-gateway' porque activaste Netlify Identity/Git Gateway
   name: git-gateway 
-  repo: cazaestilo/CazaEstilo  # <--- ASEGURA QUE ESTO ES CORRECTO
-  branch: main # o 'master'
+  repo: cazaestilo/CazaEstilo  
+  branch: main 
 
-# CONFIGURACIÓN DE RUTA BASE PARA GITHUB PAGES
+# ESTO ES CRUCIAL PARA GITHUB PAGES:
+# Usamos el nombre del repositorio como ruta base
+base_url: /CazaEstilo 
 site_url: https://cazaestilo.github.io/CazaEstilo
-base_url: https://cazaestilo.github.io/CazaEstilo 
+display_url: https://cazaestilo.github.io/CazaEstilo
 
 # Configuraciones de Medios
 media_folder: "assets/img/products" 
-public_folder: "/assets/img/products" 
+# Usamos la ruta completa para la carpeta pública
+public_folder: "/CazaEstilo/assets/img/products" 
 
-# Define la estructura de los productos
 collections:
   - name: "productos" 
     label: "Productos Destacados" 
