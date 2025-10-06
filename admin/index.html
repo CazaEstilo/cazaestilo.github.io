@@ -19,21 +19,17 @@
 <body>
 
   <script>
-    // ** SOLUCIÓN FINAL: Dejar que el widget de Identity haga su trabajo**
+    // ** SOLO LA LÓGICA DE REDIRECCIÓN **
+    // Eliminamos la llamada a init() que causaba el error 'Invalid action'
 
     if (window.netlifyIdentity) {
         
-        // Inicialización de la librería para asegurar que el CMS sepa la URL del backend
-        netlifyIdentity.init({
-            APIUrl: 'https://unique-kitten-d29e0e.netlify.app/.netlify/identity'
-            // DEBES REEMPLAZAR LA URL ANTERIOR CON TU URL DE NETLIFY REAL 
-            // (La que te dio Netlify al desplegar)
-        });
+        // El widget de Netlify Identity se auto-inicializa y se encarga de mostrar el login.
         
         // Lógica de Redirección (para cuando la sesión ya está iniciada)
         window.netlifyIdentity.on("init", user => {
             if (!user) {
-                // Si no hay usuario, el widget muestra el botón "Login with Netlify Identity"
+                // Si no hay usuario, el widget muestra el botón de Login.
                 window.netlifyIdentity.on("login", () => {
                     document.location.href = "/CazaEstilo/admin"; 
                 });
