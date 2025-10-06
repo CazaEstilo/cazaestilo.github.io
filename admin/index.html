@@ -6,7 +6,6 @@
   <title>Panel de Administración - Caza Estilo</title>
   
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   
   <style>
@@ -16,12 +15,21 @@
 <body>
   
   <script>
+    // 1. Inicializar el CMS con la ruta base correcta para GitHub Pages
+    // Esto es un intento de solucionar el TypeError
+    window.CMS.init({
+        config: {
+            base_url: 'https://cazaestilo.github.io/CazaEstilo' 
+        }
+    });
+    
+    // 2. Lógica del login de Netlify Identity
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
         if (!user) {
           window.netlifyIdentity.on("login", () => {
-            // Redirecciona al panel después de iniciar sesión
-            document.location.href = "/admin/";
+            // Redirecciona a la raíz del panel (sin el #/ que da problemas)
+            document.location.href = "/CazaEstilo/admin"; 
           });
         }
       });
