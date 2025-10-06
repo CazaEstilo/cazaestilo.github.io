@@ -1,15 +1,15 @@
 backend:
-  name: github                                    # <--- CLAVE: Usar GitHub
-  repo: CazaEstilo/CazaEstilo                     # Tu repositorio
+  name: github
+  repo: CazaEstilo/CazaEstilo
   branch: main
-  base_url: https://github.com
-  auth_url: /authorize
-  
-# ...
-base_url: / # <--- CLAVE
+  # ...
+
+# RUTAS SIMPLIFICADAS
+base_url: /
 site_url: https://cazaestilo.github.io/ 
 # ...
-public_folder: "/assets/img/products" # <--- CLAVE
+public_folder: "/assets/img/products" 
+# ...
 
 collections:
   - name: "productos" 
