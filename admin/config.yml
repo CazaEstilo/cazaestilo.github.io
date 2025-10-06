@@ -1,13 +1,17 @@
 backend:
   name: github                                    
-  repo: CazaEstilo/CazaEstilo                     
+  repo: cazaestilo/CazaEstilo                     
   branch: main
+  # Eliminamos auth_url y base_url de backend para evitar conflictos
   
-# RUTAS SIMPLIFICADAS
-base_url: / # <--- CLAVE
-site_url: https://cazaestilo.github.io/CazaEstilo
-# ...
-public_folder: "/assets/img/products" # <--- CLAVE
+# CORRECCIÓN CLAVE: INCLUIR EL NOMBRE DEL REPOSITORIO
+base_url: /CazaEstilo/ 
+site_url: https://cazaestilo.github.io/CazaEstilo/  # <-- ¡USAR ESTA URL COMPLETA!
+
+media_folder: "assets/img/products" 
+public_folder: "/CazaEstilo/assets/img/products" # Asegurar que la ruta pública incluya el subdirectorio
+
+# ... (resto de las collections)
 # ...
 
 collections:
