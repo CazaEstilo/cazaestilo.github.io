@@ -1,23 +1,20 @@
-# Archivo: admin/config.yml (VERSIÓN FINAL)
-
 backend:
-  name: git-gateway 
-  repo: cazaestilo/CazaEstilo  
-  branch: main 
-  # URL DEL BACKEND DE NETLIFY IDENTITY (CRUCIAL)
-  identity_url: https://unique-kitten-d29e0e.netlify.app/.netlify/identity
+  name: github                                    # <--- CLAVE: Usar GitHub
+  repo: cazaestilo/CazaEstilo                     # Tu repositorio
+  branch: main
+  base_url: https://github.com
+  auth_url: /authorize
   
-# CAMBIOS CLAVE: ELIMINAR /CazaEstilo
-base_url: / # <--- DEJAR SOLO LA BARRA DE LA RAÍZ
-site_url: https://cazaestilo.github.io/ # <--- ELIMINAR EL NOMBRE DEL REPOSITORIO
+# CONFIGURACIÓN DE RUTAS SIMPLIFICADAS (Elimina el conflicto de subdirectorio)
+# Esto le dice al CMS que el sitio está en la raíz, resolviendo el TypeError.
+base_url: /
+site_url: https://cazaestilo.github.io/ 
 
+# Configuraciones de Medios
 media_folder: "assets/img/products" 
-public_folder: "/assets/img/products" # <--- ELIMINAR /CazaEstilo
+public_folder: "/assets/img/products" 
 
-collections:
-  # ... (El resto de tus colecciones sigue igual)
-
-
+# Define la estructura de los productos
 collections:
   - name: "productos" 
     label: "Productos Destacados" 
@@ -31,13 +28,10 @@ collections:
       - {label: "Precio (COP)", name: "price", widget: "number", value_type: "int", min: 0, step: 100}
       - {label: "Stock Disponible (0 = Agotado)", name: "stock", widget: "number", value_type: "int", min: 0, default: 1}
       - {label: "Calidad (%)", name: "quality", widget: "number", value_type: "int", min: 0, max: 100, default: 100}
-      
-      # BLOQUE DE IMÁGENES CORREGIDO: Usando el formato de indentación estándar
       - label: "Imágenes del Carrusel (Max 3)"
         name: "images"
         widget: "list"
         max: 3
         min: 1
         fields:
-          # Las propiedades están correctamente separadas por comas
           - {label: "Imagen", name: "image", widget: "image", choose_url: false, allow_multiple: false}
