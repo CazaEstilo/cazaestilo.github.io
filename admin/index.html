@@ -14,28 +14,32 @@
 </head>
 <body>
 
-  <div id="cms-root"></div>
-  <script>
-    // 1. Inicialización Explícita del CMS
-    // Le decimos que inicie en el contenedor 'cms-root'
-    window.CMS.init({
-        config: {
-            base_url: 'https://cazaestilo.github.io/CazaEstilo',
-            // NUEVO: Apuntamos el CMS al elemento DOM
-            container: '#cms-root' 
-        }
-    });
+  <div id="cms-root"></div> 
 
-    // 2. Lógica del login de Netlify Identity
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/CazaEstilo/admin"; 
+  <script>
+    // **FUNCIÓN CLAVE: Esperar a que el DOM esté completamente cargado**
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // Inicialización Explícita del CMS
+        window.CMS.init({
+            config: {
+                base_url: 'https://cazaestilo.github.io/CazaEstilo',
+                // Apuntamos al contenedor explícito
+                container: '#cms-root' 
+            }
+        });
+
+        // Lógica del login de Netlify Identity
+        if (window.netlifyIdentity) {
+          window.netlifyIdentity.on("init", user => {
+            if (!user) {
+              window.netlifyIdentity.on("login", () => {
+                document.location.href = "/CazaEstilo/admin"; 
+              });
+            }
           });
         }
-      });
-    }
+    });
   </script>
 </body>
 </html>
