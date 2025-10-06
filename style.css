@@ -187,7 +187,11 @@ header a.btn {
     border-radius: 50px; /* Forma de píldora */
     box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.5);
     transition: all 0.3s ease;
-    display: inline-block; /* ESTO LO SOLUCIONA: Fuerza a que solo ocupe el espacio necesario */
+    
+    /* CORRECCIÓN FINAL PARA EL BOTÓN ESTIRADO */
+    display: inline-block; 
+    width: fit-content; /* Fuerza a que ocupe solo el ancho del contenido */
+    margin: 0 auto; /* Centra el botón si el header es display: flex; */
 }
 header a.btn:hover {
     background: var(--color-white);
@@ -702,4 +706,53 @@ h2 {
     .btn-whatsapp-confirm {
         flex-grow: 1;
     }
+}
+/* --- Sección Contacto --- */
+#contacto {
+    text-align: center;
+    background: var(--color-secondary);
+}
+
+.contact-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contact-text {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: var(--color-text-light);
+}
+
+.contact-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    min-width: 250px;
+    text-align: left;
+}
+
+.contact-item i {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+}
+
+.contact-item a {
+    color: var(--color-light-grey);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-item a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
 }
