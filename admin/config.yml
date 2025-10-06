@@ -6,7 +6,6 @@ backend:
   auth_url: /authorize
   
 # CONFIGURACIÓN DE RUTAS SIMPLIFICADAS (Elimina el conflicto de subdirectorio)
-# Esto le dice al CMS que el sitio está en la raíz, resolviendo el TypeError.
 base_url: /
 site_url: https://cazaestilo.github.io/ 
 
