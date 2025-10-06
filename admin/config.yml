@@ -5,7 +5,7 @@ backend:
   
 # RUTAS SIMPLIFICADAS
 base_url: / # <--- CLAVE
-site_url: https://cazaestilo.github.io/ 
+site_url: https://cazaestilo.github.io/CazaEstilo
 # ...
 public_folder: "/assets/img/products" # <--- CLAVE
 # ...
