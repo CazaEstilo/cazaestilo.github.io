@@ -13,22 +13,42 @@
   
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   
-  <link rel="icon" href="/CazaEstilo/logo.png" type="image/png">
+  <link rel="icon" href="/CazaEstilo/favicon.png" type="image/png">
   
 </head>
 <body>
 
+  <div id="cms-root"></div>
+
   <script>
-    // ÚNICA LÓGICA: SÓLO REDIRECCIÓN (Sin ninguna llamada a 'init' o 'appendChild')
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/CazaEstilo/admin"; 
-          });
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        if (window.netlifyIdentity) {
+            
+            // Lógica de Redirección (para cuando la sesión ya está iniciada)
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/CazaEstilo/admin"; 
+                    });
+                }
+            });
+            
+            // *** ESTO ES LA SOLUCIÓN AL FALLO DE LOGIN DE GITHUB PAGES ***
+            // Inicializa el widget y lo abre inmediatamente, forzando la conexión.
+            const netlifyAppURL = 'https://[el-nombre-de-tu-sitio].netlify.app'; 
+            
+            // DEBES REEMPLAZAR LA LÍNEA ANTERIOR CON TU URL DE NETLIFY REAL 
+            // (La que te dio Netlify al desplegar, ej: cazas-estilo-1234.netlify.app)
+            
+            document.querySelector('#cms-root').innerHTML = 
+                '<button id="login-btn">Login with Netlify Identity</button>';
+                
+            document.getElementById('login-btn').addEventListener('click', () => {
+                window.netlifyIdentity.open(netlifyAppURL);
+            });
         }
-      });
-    }
+    });
   </script>
 </body>
 </html>
