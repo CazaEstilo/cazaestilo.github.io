@@ -3,31 +3,40 @@
 import { defineConfig } from 'tinacms';
 
 export default defineConfig({
-  // CONFIGURACIÓN DE IDENTIFICACIÓN DE GITHUB
-  branch: 'main', // La rama donde está tu código
+  // *** 1. AUTENTICACIÓN DE GITHUB (DEBES EDITAR ESTO) ***
   
-  clientId: 'reemplaza_con_client_id_github', // (Necesitarás un GitHub OAuth App, ver paso 3)
-  token: 'reemplaza_con_el_token_de_tu_app', // (Necesitarás un GitHub OAuth App, ver paso 3)
+  // Esto se obtiene al crear la aplicación OAuth en GitHub
+  clientId: 'Ov23li52LeFt3hEh6BuD', 
+  token: 'ef8d4a122a576728a5d61081da44f655dd5432dd', 
+  
+  // La rama donde Tina hará las ediciones (debe ser 'main')
+  branch: 'main', 
 
+  // *** 2. CONFIGURACIÓN DEL SITIO Y RUTAS ***
+  
+  // Tina usa 'public' como la carpeta raíz para los assets
   build: {
-    publicFolder: 'public', // Carpeta donde Tina buscará los archivos públicos (assets/img, etc)
-    outputFolder: 'tina-output', // Carpeta de salida del CMS (no es crítica ahora)
+    publicFolder: 'public', 
+    outputFolder: 'tina-output',
   },
 
+  // Configuración de la carpeta de medios
   media: {
     tina: {
-      mediaRoot: 'assets/img/products',
-      publicFolder: 'public/CazaEstilo', // Rutas públicas para las imágenes
+      // Ruta dentro del repositorio donde se guardan las imágenes subidas
+      mediaRoot: 'assets/img/products', 
+      // Ruta pública para acceder a esas imágenes (Asegúrate de que 'public' sea la raíz)
+      publicFolder: 'public/CazaEstilo', 
     },
   },
 
-  // DEFINICIÓN DE COLECCIONES (Tus productos)
+  // *** 3. DEFINICIÓN DE COLECCIONES (Tus productos) ***
   schema: {
     collections: [
       {
         name: 'productos',
         label: 'Productos Destacados',
-        path: '_productos', // Carpeta donde se guardan tus archivos de contenido
+        path: '_productos', // Carpeta donde se encuentran tus archivos .json
         format: 'json',
         fields: [
           { name: 'title', label: 'Nombre del Producto', type: 'string' },
