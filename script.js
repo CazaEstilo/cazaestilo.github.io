@@ -20,13 +20,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewCartButton = document.getElementById('view-cart-button');
     const WHATSAPP_NUMBER = '573012705080';
 
-    // NUEVO: Variables para el modal de resumen
     let cartModal = null; 
 
     function updateCartCount() {
         if (cartCountElement) {
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             cartCountElement.textContent = totalItems;
+        }
+    }
+
+    // MODIFICADO: Añadida función de feedback visual
+    function triggerCartFeedback() {
+        if (viewCartButton) {
+            viewCartButton.classList.add('cart-feedback');
+            setTimeout(() => {
+                viewCartButton.classList.remove('cart-feedback');
+            }, 500); // Duración de la animación en CSS
         }
     }
 
@@ -48,10 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         localStorage.setItem('cazaestilo_cart', JSON.stringify(cart));
         updateCartCount();
+        triggerCartFeedback(); // Llama a la animación de feedback
         alert(`"${product.title}" añadido al carrito de cotización.`);
     }
 
-    // FUNCIÓN PARA GENERAR EL MENSAJE DE WHATSAPP (Aislada para ser llamada al confirmar)
     function generateWhatsappMessage() {
         if (cart.length === 0) {
             return null;
@@ -75,21 +84,19 @@ document.addEventListener('DOMContentLoaded', () => {
         return message;
     }
 
-    // NUEVO: Función para vaciar el carrito
     function clearCart() {
         if (confirm("¿Estás seguro de que quieres vaciar tu carrito de cotización?")) {
             cart = [];
             localStorage.removeItem('cazaestilo_cart');
             updateCartCount();
             if (cartModal) {
-                 cartModal.remove(); // Cierra y elimina el modal
+                 cartModal.remove(); 
                  cartModal = null;
             }
             alert("El carrito ha sido vaciado.");
         }
     }
 
-    // MODIFICADO: Muestra el resumen del carrito en un modal
     function viewCart() {
         if (cart.length === 0) {
             alert("Tu carrito de cotización está vacío.");
@@ -97,7 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         if (cartModal) {
-            // Si el modal ya existe, lo eliminamos antes de crear uno nuevo para refrescarlo
             cartModal.remove();
             cartModal = null;
         }
@@ -116,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toLocaleString('es-CO');
 
-        // Estructura del modal (Se necesita CSS para estilizar esto)
         cartModal = document.createElement('div');
         cartModal.classList.add('cart-modal-overlay');
         cartModal.innerHTML = `
@@ -140,7 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.body.appendChild(cartModal);
         
-        // Añadir listeners del modal
         document.getElementById('close-cart-modal').addEventListener('click', () => {
             cartModal.remove();
             cartModal = null;
@@ -155,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
                 window.open(whatsappURL, '_blank');
                 
-                // Cierra el modal después de la redirección
                 if (cartModal) {
                     cartModal.remove();
                     cartModal = null;
@@ -163,7 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Permitir cerrar al hacer clic en el overlay
         cartModal.addEventListener('click', (e) => {
             if (e.target === cartModal) {
                 cartModal.remove();
@@ -181,14 +183,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const productDataCache = {}; 
     
-    // Función para renderizar un producto SIN STOCK NI CALIDAD
     function renderProduct(product) {
         const slug = product.slug;
         const title = product.title || 'Producto Sin Título';
         const price_num = product.price || 0;
         const price = `$${price_num.toLocaleString('es-CO')} COP`;
         
-        // Mantener la lógica de agotado basada en la data, pero sin mostrar el número
         const stock = product.stock !== undefined ? product.stock : 1;
         const soldOutClass = stock === 0 ? 'sold-out' : '';
         const buttonText = stock > 0 ? 'Añadir al Carrito' : 'Agotado';
@@ -196,10 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const encodedTitle = encodeURIComponent(title);
         const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=%C2%A1Hola!%20Me%20interesa%20el%20${encodedTitle}%20(Precio%3A%20${price}).%20Quiero%20ordenar%20ya%20mismo%20%F0%9F%92%96.`;
 
-        // Guardar la data completa en caché
         productDataCache[slug] = { ...product, price_formatted: price, whatsapp_link: whatsappLink };
         
-        // Generar slides del carrusel
         let slidesHTML = product.images.map(img => `
             <div class="swiper-slide">
                 <img src="${img.image}" alt="${title}">
@@ -222,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>${product.body}</p> 
                     <div class="product-price-meta">
                         <p class="price-tag">${price}</p>
-                        </div>
+                    </div>
                     
                     <div class="product-actions">
                         <button class="btn add-to-cart-btn" data-slug="${slug}" ${stock === 0 ? 'disabled' : ''}>
@@ -241,9 +239,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // ** SIMULACIÓN DE DATOS DE PRODUCTOS (¡Ajusta tus datos y las imágenes!) **
+    // ** SIMULACIÓN DE DATOS DE PRODUCTOS (Mantener data para la demo) **
     async function loadProducts() {
-        // La data sigue conteniendo stock para la lógica de agotado, pero no se muestra
         const productsData = [
             {
                 slug: "conjunto-corazon",
@@ -276,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: "Saco Exclusivo",
                 body: "Saco suave y acogedor, perfecto para días fríos sin sacrificar tu estilo. Pieza de colección. ¡Últimas unidades!",
                 price: 105900,
-                stock: 0, // Agotado
+                stock: 0, 
                 quality: 100,
                 images: [
                     { image: "saco.jpg" },
@@ -291,7 +288,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeProductListeners();
     }
     
-    // --- LÓGICA DE INICIALIZACIÓN DE SWIPERS EN CADA PRODUCTO ---
     function initializeSwipers() {
         document.querySelectorAll('.product-carousel').forEach(carouselEl => {
             new Swiper(carouselEl, {
@@ -300,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 fadeEffect: {
                     crossFade: true,
                 },
-                autoplay: { // Transición automática
+                autoplay: { 
                     delay: 4000,
                     disableOnInteraction: false,
                 },
@@ -322,7 +318,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializeProductListeners() {
         const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
         
-        // Listeners para AÑADIR AL CARRITO
         addToCartButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const slug = button.dataset.slug;
@@ -380,11 +375,11 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.classList.remove('scrolled');
         }
 
-        // Animación de secciones al hacer scroll (Mejora la detección)
+        // Animación de secciones al hacer scroll 
         sections.forEach(section => {
             const sectionTop = section.getBoundingClientRect().top;
             const screenHeight = window.innerHeight;
-            if (sectionTop < screenHeight - 200) { // Se activa antes
+            if (sectionTop < screenHeight - 200) { 
                 section.classList.add('visible-section');
             } else {
                 section.classList.remove('visible-section');
@@ -400,7 +395,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         navLinks.querySelectorAll('a, button').forEach(el => {
             el.addEventListener('click', () => {
-                if (!el.classList.contains('btn-cart')) { 
+                // Cierra el menú móvil al hacer clic en un enlace (excepto el botón de carrito)
+                if (!el.classList.contains('btn-cart') && navLinks.classList.contains('active')) { 
                     navLinks.classList.remove('active');
                 }
             });
@@ -414,7 +410,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetId = link.getAttribute('href').substring(1);
             const targetSection = document.getElementById(targetId);
             if (targetSection) {
-                // Ajustamos el scroll para llevar al usuario a la sección, a pesar de que los enlaces están ocultos
                 window.scrollTo({
                     top: targetSection.offsetTop - (navbar.offsetHeight),
                     behavior: 'smooth'
