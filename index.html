@@ -230,17 +230,30 @@
         <div class="cart-modal-content size-modal-content">
             <h3 id="size-modal-title">Selecciona la Talla</h3>
             
-            <p>Por favor, elige la talla para agregar este artículo a tu cotización:</p>
-            
-            <div class="size-selection-group">
-                <label for="product-size-select">Talla:</label>
-                <select id="product-size-select" class="size-select-dropdown">
-                    </select>
+            <div id="size-selector-view">
+                <p>Por favor, elige la talla para agregar este artículo a tu cotización:</p>
+                
+                <div class="size-selection-group">
+                    <label for="product-size-select">Talla:</label>
+                    <select id="product-size-select" class="size-select-dropdown"></select>
+                </div>
+
+                <p class="size-guide-link">
+                    <a href="#" onclick="showSizeGuide(event)"><i class="fas fa-ruler-horizontal"></i> ¿No sabes tu talla? Consulta la guía aquí.</a> 
+                </p>
             </div>
 
-            <p class="size-guide-link">
-                <a href="#" target="_blank"><i class="fas fa-ruler-horizontal"></i> ¿No sabes tu talla? Consulta la guía aquí.</a> 
-            </p>
+            <div id="size-guide-view" style="display: none;">
+                <h4 class="modal-subtitle">Guía de Tallas: Medidas en Centímetros (CM)</h4>
+                
+                <div id="size-guide-table-container">
+                    <p>Cargando guía específica...</p>
+                </div>
+                
+                <button class="btn btn-secondary" onclick="hideSizeGuide()">
+                    <i class="fas fa-arrow-left"></i> Volver a Seleccionar Talla
+                </button>
+            </div>
             
             <div class="modal-actions">
                 <button id="close-size-modal-button" class="btn btn-secondary" onclick="closeSizeModal()">Cancelar</button> 
