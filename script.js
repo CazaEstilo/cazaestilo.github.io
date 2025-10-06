@@ -86,17 +86,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const productDataCache = {}; 
     
-    // Función para renderizar un producto con su carrusel
+    // Función para renderizar un producto SIN STOCK NI CALIDAD
     function renderProduct(product) {
         const slug = product.slug;
         const title = product.title || 'Producto Sin Título';
         const price_num = product.price || 0;
         const price = `$${price_num.toLocaleString('es-CO')} COP`;
-        const stock = product.stock !== undefined ? product.stock : 1;
-        const quality = product.quality !== undefined ? product.quality : 100;
         
+        // Mantener la lógica de agotado basada en la data, pero sin mostrar el número
+        const stock = product.stock !== undefined ? product.stock : 1;
         const soldOutClass = stock === 0 ? 'sold-out' : '';
-        const stockText = stock > 0 ? `Stock: ${stock} unid.` : '¡AGOTADO!';
         const buttonText = stock > 0 ? 'Añadir al Carrito' : 'Agotado';
         
         const encodedTitle = encodeURIComponent(title);
@@ -128,17 +127,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>${product.body}</p> 
                     <div class="product-price-meta">
                         <p class="price-tag">${price}</p>
-                        <div class="product-meta">
-                            <div class="stock-info">${stockText}</div>
-                            <div class="quality-info">Calidad: ${quality}%</div>
                         </div>
+                    
+                    <div class="product-actions">
+                        <button class="btn add-to-cart-btn" data-slug="${slug}" ${stock === 0 ? 'disabled' : ''}>
+                            <i class="fas fa-cart-plus"></i> ${buttonText}
+                        </button>
+                        <a href="${whatsappLink}" target="_blank" class="btn btn-whatsapp" ${stock === 0 ? 'style="display:none;"' : ''}>
+                             <i class="fab fa-whatsapp"></i> Cazala Ya
+                        </a>
                     </div>
-                    <button class="btn btn-small add-to-cart-btn" data-slug="${slug}" ${stock === 0 ? 'disabled' : ''}>
-                        ${buttonText}
-                    </button>
-                    <a href="${whatsappLink}" target="_blank" class="btn btn-small btn-whatsapp" ${stock === 0 ? 'style="display:none;"' : ''}>
-                         <i class="fab fa-whatsapp"></i> Cazala aqui
-                    </a>
                 </div>
             </div>
         `;
@@ -150,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // ** SIMULACIÓN DE DATOS DE PRODUCTOS (¡Ajusta tus datos y las imágenes!) **
     async function loadProducts() {
+        // La data sigue conteniendo stock para la lógica de agotado, pero no se muestra
         const productsData = [
             {
                 slug: "conjunto-corazon",
@@ -206,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 fadeEffect: {
                     crossFade: true,
                 },
-                autoplay: { // CRÍTICO: Transición automática
+                autoplay: { // Transición automática
                     delay: 4000,
                     disableOnInteraction: false,
                 },
@@ -219,7 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',
                 },
-                // Deshabilitar la navegación en dispositivos táctiles si es necesario
                 simulateTouch: false,
                 touchStartPreventDefault: false,
             });
@@ -235,7 +233,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const slug = button.dataset.slug;
                 const product = productDataCache[slug];
                 if (product && product.stock > 0) {
-                    // El campo 'price' es numérico en la caché
                     addToCart({
                         slug: product.slug,
                         title: product.title,
@@ -276,7 +273,6 @@ document.addEventListener('DOMContentLoaded', () => {
         loadProducts(); 
 
         if (headerVideo) {
-             // Intenta reproducir el video, ignorando errores de autoplay
              headerVideo.play().catch(error => {});
         }
     });
@@ -323,6 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetId = link.getAttribute('href').substring(1);
             const targetSection = document.getElementById(targetId);
             if (targetSection) {
+                // Ajustamos el scroll para llevar al usuario a la sección, a pesar de que los enlaces están ocultos
                 window.scrollTo({
                     top: targetSection.offsetTop - (navbar.offsetHeight),
                     behavior: 'smooth'
