@@ -7,7 +7,16 @@ const productsData = [
         price: 180000,
         images: ["imagenes/conjunto.jpg", "imagenes/producto1-2.jpg", "imagenes/producto1-3.jpg"], 
         sizes: ["S", "M", "L", "XL"], 
-        soldOut: false
+        soldOut: false,
+        sizeGuide: { // Guía para Chaquetas/Conjuntos
+            headers: ["Talla", "Pecho (CM)", "Largo (CM)"],
+            data: [
+                ["S", "96-100", "68"],
+                ["M", "101-105", "70"],
+                ["L", "106-110", "72"],
+                ["XL", "111-115", "74"]
+            ]
+        }
     },
     {
         id: 2,
@@ -16,7 +25,15 @@ const productsData = [
         price: 240000,
         images: ["imagenes/jeanblanco.jpg", "imagenes/producto2-2.jpg"],
         sizes: ["S", "M", "L"], 
-        soldOut: false
+        soldOut: false,
+        sizeGuide: { // Guía para Chaquetas/Conjuntos
+            headers: ["Talla", "Pecho (CM)", "Largo (CM)"],
+            data: [
+                ["S", "98", "65"],
+                ["M", "103", "67"],
+                ["L", "108", "69"]
+            ]
+        }
     },
     {
         id: 3,
@@ -25,7 +42,16 @@ const productsData = [
         price: 155000,
         images: ["imagenes/jeancafe.jpg", "imagenes/producto3-2.jpg", "imagenes/producto3-3.jpg"],
         sizes: ["28", "30", "32", "34"], 
-        soldOut: true 
+        soldOut: true, // Aún agotado
+        sizeGuide: { // Guía para Jeans
+            headers: ["Talla", "Cintura (CM)", "Cadera (CM)"],
+            data: [
+                ["28", "72", "92"],
+                ["30", "77", "97"],
+                ["32", "82", "102"],
+                ["34", "87", "107"]
+            ]
+        }
     },
     {
         id: 4,
@@ -34,11 +60,22 @@ const productsData = [
         price: 90000,
         images: ["imagenes/producto4-1.jpg", "imagenes/producto4-2.jpg"],
         sizes: ["XS", "S", "M", "L", "XL"], 
-        soldOut: false
+        soldOut: false,
+        sizeGuide: { // Guía para Camisetas
+            headers: ["Talla", "Pecho (CM)", "Hombro (CM)"],
+            data: [
+                ["XS", "90", "40"],
+                ["S", "95", "42"],
+                ["M", "100", "44"],
+                ["L", "105", "46"],
+                ["XL", "110", "48"]
+            ]
+        }
     }
 ];
 
 let cart = JSON.parse(localStorage.getItem('cazaEstiloCart')) || [];
+let currentProductId = null; // Almacena el ID del producto que abrió el modal
 
 // --- UTILITIES Y FEEDBACK VISUAL ---
 
@@ -74,7 +111,7 @@ function updateCartCount() {
     countElement.textContent = totalItems;
 }
 
-// --- CARRUSELES ---
+// --- CARRUSELES Y RENDERIZADO (Se mantienen igual) ---
 
 function initializeSwipers() {
     document.querySelectorAll('.product-carousel').forEach(carouselElement => {
@@ -123,8 +160,6 @@ function initializeTestimonialCarousel() {
     });
 }
 
-// --- FUNCIÓN DE RENDERIZADO PRINCIPAL (PRODUCTOS) ---
-
 function loadProducts() {
     const container = document.getElementById('products-container');
     container.innerHTML = productsData.map(product => {
@@ -172,7 +207,7 @@ function loadProducts() {
     initializeSwipers();
 }
 
-// --- LÓGICA DEL CARRITO CON TALLAS Y GESTIÓN ---
+// --- LÓGICA DEL MODAL Y GUÍA DE TALLAS (CORREGIDO) ---
 
 /**
  * Abre un modal para seleccionar la talla.
@@ -180,6 +215,8 @@ function loadProducts() {
 function openSizeModal(productId) {
     const product = productsData.find(p => p.id === productId);
     if (!product || product.soldOut) return;
+
+    currentProductId = productId; // Almacena el ID actual
 
     const modal = document.getElementById('size-modal');
     const modalTitle = document.getElementById('size-modal-title');
@@ -192,6 +229,9 @@ function openSizeModal(productId) {
     sizeSelect.innerHTML = product.sizes.map(size => 
         `<option value="${size}">${size}</option>`
     ).join('');
+
+    // Reestablece la vista al selector antes de abrir
+    hideSizeGuide();
 
     // Se usa una función anónima para pasar el ID del producto y la talla
     confirmButton.onclick = () => {
@@ -210,8 +250,59 @@ function openSizeModal(productId) {
  */
 function closeSizeModal() {
     document.getElementById('size-modal').style.display = 'none';
+    currentProductId = null;
 }
 
+/**
+ * Genera la tabla de tallas y muestra la vista de guía.
+ */
+function showSizeGuide(event) {
+    event.preventDefault(); // Evita que el link recargue la página
+    
+    const product = productsData.find(p => p.id === currentProductId);
+    const guideContainer = document.getElementById('size-guide-table-container');
+    
+    if (!product || !product.sizeGuide) {
+        guideContainer.innerHTML = '<p>Lo sentimos, la guía de tallas para este producto no está disponible. Por favor, contáctanos para asesoría.</p>';
+        showToast('Guía no disponible.', 'error');
+        return;
+    }
+
+    const guide = product.sizeGuide;
+    let tableHTML = '<table><thead><tr>';
+    
+    // Encabezados
+    guide.headers.forEach(header => {
+        tableHTML += `<th>${header}</th>`;
+    });
+    tableHTML += '</tr></thead><tbody>';
+
+    // Datos
+    guide.data.forEach(row => {
+        tableHTML += '<tr>';
+        row.forEach(cell => {
+            tableHTML += `<td>${cell}</td>`;
+        });
+        tableHTML += '</tr>';
+    });
+    tableHTML += '</tbody></table>';
+
+    guideContainer.innerHTML = tableHTML;
+    
+    // Muestra la vista de la guía y oculta el selector
+    document.getElementById('size-selector-view').style.display = 'none';
+    document.getElementById('size-guide-view').style.display = 'block';
+}
+
+/**
+ * Oculta la tabla de tallas y muestra la vista de selección.
+ */
+function hideSizeGuide() {
+    document.getElementById('size-selector-view').style.display = 'block';
+    document.getElementById('size-guide-view').style.display = 'none';
+}
+
+// --- LÓGICA DEL CARRITO (Se mantiene igual) ---
 
 /**
  * Añade un producto al carrito, incluyendo la talla y un ID único.
@@ -256,7 +347,7 @@ function updateItemQuantity(uniqueId, change) {
         cart[itemIndex].quantity += change;
         
         if (cart[itemIndex].quantity <= 0) {
-            removeItem(uniqueId, false); // No mostrar toast de eliminación si es solo decremento a 0
+            removeItem(uniqueId, false); 
             return;
         }
 
@@ -353,7 +444,7 @@ function getWhatsAppMessage() {
 }
 
 
-/* --- EVENT LISTENERS Y LÓGICA DE LA PÁGINA --- */
+/* --- EVENT LISTENERS Y LÓGICA DE LA PÁGINA (Se mantiene igual) --- */
 
 // LÓGICA PARA EL BOTÓN VOLVER ARRIBA
 const backToTopButton = document.getElementById('back-to-top');
@@ -384,8 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sizeModal = document.getElementById('size-modal');
     const viewCartButton = document.getElementById('view-cart-button');
     const confirmWhatsappButton = document.getElementById('confirm-whatsapp');
-    const closeSizeModalButton = document.getElementById('close-size-modal-button');
-
+    
     // Toggle de menú móvil
     menuToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
@@ -406,11 +496,6 @@ document.addEventListener('DOMContentLoaded', () => {
         cartModal.style.display = 'flex';
     });
     
-    // Cerrar modal de tallas con el botón 'Cancelar'
-    if (closeSizeModalButton) {
-        closeSizeModalButton.addEventListener('click', closeSizeModal);
-    }
-
     // Enviar a WhatsApp desde el modal
     confirmWhatsappButton.addEventListener('click', () => {
         if (cart.length > 0) {
@@ -434,6 +519,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sizeModal.addEventListener('click', (e) => {
             if (e.target.classList.contains('cart-modal-overlay')) {
                 sizeModal.style.display = 'none';
+                hideSizeGuide(); // Asegura que se vuelva al selector al cerrar
             }
         });
     }
