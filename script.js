@@ -22,14 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalWhatsappLink = document.getElementById('modal-whatsapp-link');
     const modalAddToCartButton = document.getElementById('modal-add-to-cart'); 
     const closeButton = document.querySelector('.close-button');
-    let productDataCache = {}; 
+    let productDataCache = {}; // Cache para guardar la data completa del producto
     let currentProductSlug = null; 
 
-    // --- VARIABLES Y LÓGICA DEL CARRITO DE WHATSAPP ---
+    // --- VARIABLES Y LÓGICA DEL CARRITO DE WHATSAPP (COTZACIÓN) ---
     let cart = JSON.parse(localStorage.getItem('cazaestilo_cart')) || [];
     const cartCountElement = document.getElementById('cart-count');
     const viewCartButton = document.getElementById('view-cart-button');
-    const WHATSAPP_NUMBER = '573012705080'; // <-- ¡IMPORTANTE: REEMPLAZA CON TU NÚMERO!
+    const WHATSAPP_NUMBER = '573012705080'; // <--- ¡Tu número de WhatsApp!
 
     function updateCartCount() {
         if (cartCountElement) {
@@ -106,8 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // --- LÓGICA CMS Y CARGA DINÁMICA DE PRODUCTOS ---
+    // --- LÓGICA CMS Y CARGA DINÁMICA DE PRODUCTOS (SIMULACIÓN) ---
     
+    // Función para renderizar un producto en el DOM
     function renderProduct(product) {
         const slug = product.slug;
         const title = product.title || 'Producto Sin Título';
@@ -125,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const encodedTitle = encodeURIComponent(title);
         const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=%C2%A1Hola!%20Me%20interesa%20el%20${encodedTitle}%20(Precio%3A%20${price}).%20Quiero%20ordenar%20ya%20mismo%20%F0%9F%92%96.`;
 
+        // Guardar la data completa en caché (incluyendo imágenes)
         productDataCache[slug] = { ...product, price_formatted: price, whatsapp_link: whatsappLink };
         
         const productHTML = `
@@ -155,9 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // Función para cargar los datos (SIMULACIÓN DE JSON)
+    // ** SIMULACIÓN DE DATOS DE PRODUCTOS (¡Ajusta tus datos y las imágenes!) **
     async function loadProducts() {
-        // *** CAMBIA ESTOS DATOS POR TUS PRODUCTOS REALES ***
         const productsData = [
             {
                 slug: "conjunto-corazon",
@@ -166,7 +167,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 price: 94900,
                 stock: 5,
                 quality: 95,
-                images: [{ image: "conjunto.jpg" }, { image: "conjunto2.jpg" }, { image: "conjunto3.jpg" }],
+                images: [
+                    { image: "conjunto.jpg" }, // Foto 1
+                    { image: "conjunto2.jpg" }, // Foto 2
+                    { image: "conjunto3.jpg" }  // Foto 3
+                ],
             },
             {
                 slug: "jean-blanco",
@@ -175,7 +180,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 price: 110900,
                 stock: 3,
                 quality: 100,
-                images: [{ image: "jeanblanco.jpg" }, { image: "jeanblanco2.jpg" }, { image: "jeanblanco3.jpg" }],
+                images: [
+                    { image: "jeanblanco.jpg" },
+                    { image: "jeanblanco2.jpg" },
+                    { image: "jeanblanco3.jpg" }
+                ],
             },
             {
                 slug: "saco-exclusivo",
@@ -184,7 +193,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 price: 105900,
                 stock: 0, 
                 quality: 100,
-                images: [{ image: "saco.jpg" }, { image: "saco2.jpg" }],
+                images: [
+                    { image: "saco.jpg" },
+                    { image: "saco2.jpg" },
+                    { image: "saco.jpg" } // Usamos la misma si no hay 3 distintas
+                ],
             }
         ];
         
@@ -192,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeProductListeners();
     }
     
+    // --- LÓGICA DEL CARRUSEL SWIPER ---
     function initializeSwiper(images) {
         modalSwiperWrapper.innerHTML = ''; 
 
@@ -202,12 +216,19 @@ document.addEventListener('DOMContentLoaded', () => {
             modalSwiperWrapper.appendChild(slide);
         });
 
+        // Destruir instancia anterior si existe
         if (modal.swiperInstance) {
             modal.swiperInstance.destroy(true, true);
         }
 
+        // Inicializar Swiper con transiciones dinámicas
         modal.swiperInstance = new Swiper('.modal-swiper', {
             loop: true,
+            effect: 'fade', // Transición suave entre imágenes
+            fadeEffect: {
+                crossFade: true,
+            },
+            speed: 500,
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
@@ -216,11 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
-            effect: 'fade', 
-            fadeEffect: {
-                crossFade: true,
-            },
-            speed: 500,
         });
     }
 
@@ -248,13 +264,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     modalAddToCartButton.textContent = isAvailable ? 'Añadir al Carrito' : 'Agotado';
                     modalWhatsappLink.style.display = isAvailable ? 'block' : 'none'; 
                     
+                    // CRÍTICO: Inicializa el carrusel con las imágenes del producto
                     initializeSwiper(product.images);
+                    
                     modal.classList.add('open');
                 }
             });
         });
 
-        // 2. Listeners para AÑADIR AL CARRITO desde la vista de lista
+        // 2. Listeners para AÑADIR AL CARRITO
         addToCartButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const slug = button.dataset.slug;
