@@ -139,7 +139,7 @@ body {
 /* --- Encabezado (Header) - Video de fondo --- */
 header {
     height: 100vh;
-    display: flex;
+    display: flex; /* CRÍTICO: Usamos Flexbox para centrar todo */
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -173,11 +173,23 @@ header::before {
     z-index: 1;
 }
 
-/* CRÍTICO: Estilo del botón "Explora la colección" (Solución definitiva para el estiramiento) */
-/* CRÍTICO: Estilo del botón "Explora la colección" (Solución definitiva para el estiramiento) */
+/* NUEVO: Contenedor para controlar el ancho del botón (Solución definitiva) */
+.btn-wrapper {
+    z-index: 2;
+    /* Esto asegura que el contenedor no se estire */
+    width: -moz-fit-content; 
+    width: fit-content;      
+    margin: 0 auto; 
+    
+    /* Mantiene la animación */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInSlide 1s forwards;
+    animation-delay: 0.6s; 
+}
+
 /* CRÍTICO: Estilo del botón "Explora la colección" (Ajuste Final) */
 header a.btn {
-    z-index: 2;
     background: var(--color-primary);
     color: var(--color-secondary);
     border: 2px solid var(--color-primary);
@@ -190,14 +202,10 @@ header a.btn {
     box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.5);
     transition: all 0.3s ease;
     
-    /* SOLUCIÓN AGRESIVA PARA EL ANCHO */
-    display: inline-block; 
-    
-    /* Compatibilidad para asegurar el ancho del contenido */
-    width: -moz-fit-content; /* Para Firefox */
-    width: fit-content;      /* Estándar moderno */
-    
-    margin: 0 auto; 
+    /* Con el .btn-wrapper ya no necesitamos width: fit-content aquí, solo display: block */
+    display: block; 
+    width: auto; 
+    margin: 0; 
 }
 header a.btn:hover {
     background: var(--color-white);
@@ -445,12 +453,11 @@ h2 {
 }
 
 
-/* --- Sección Quiénes Somos (Ajuste del Botón) --- */
+/* --- Sección Quiénes Somos --- */
 #about {
     text-align: center;
 }
 #about a.btn {
-    /* Mantenemos el estilo de botón compacto aquí también */
     display: inline-block;
     width: fit-content;
     background: var(--color-secondary);
@@ -463,7 +470,7 @@ h2 {
 }
 
 
-/* --- Sección Envíos y Entregas (Corrección de íconos/diseño) --- */
+/* --- Sección Envíos y Entregas --- */
 #envios {
     background: var(--color-dark-grey);
     text-align: center;
@@ -493,8 +500,8 @@ h2 {
 }
 
 .icon-large {
-    font-size: 3.5rem; /* Hace los íconos grandes */
-    color: var(--color-primary); /* Les da el color dorado */
+    font-size: 3.5rem; 
+    color: var(--color-primary); 
     margin-bottom: 1rem;
 }
 
@@ -511,7 +518,7 @@ h2 {
 }
 
 
-/* --- Sección Contacto (Corrección de diseño de lista) --- */
+/* --- Sección Contacto --- */
 #contacto {
     text-align: center;
     background: var(--color-secondary);
@@ -529,7 +536,6 @@ h2 {
 }
 
 .contact-details {
-    /* Usa flex para organizar los items lado a lado/debajo en móvil */
     display: flex;
     flex-wrap: wrap; 
     justify-content: center;
@@ -561,13 +567,13 @@ h2 {
     text-decoration: underline;
 }
 
-/* --- Footer (Estilos corregidos para Derechos Reservados) --- */
+/* --- Footer --- */
 footer {
     background-color: var(--color-dark-grey);
     color: var(--color-text-light);
     text-align: center;
     padding: 2.5rem 0;
-    border-top: 1px solid var(--color-primary); /* Línea divisoria dorada */
+    border-top: 1px solid var(--color-primary); 
 }
 
 footer .socials {
@@ -589,7 +595,7 @@ footer .socials a:hover {
 
 footer p {
     font-size: 0.9rem;
-    color: var(--color-text-light); /* Le da un color claro para que se vea */
+    color: var(--color-text-light); 
     margin: 0;
 }
 
@@ -716,7 +722,7 @@ footer p {
 }
 
 .btn-warning {
-    background: #b50909; /* Rojo para vaciar */
+    background: #b50909; 
     color: var(--color-white);
     border-color: #b50909;
     flex-grow: 1;
@@ -731,7 +737,7 @@ footer p {
     color: var(--color-white);
     border-color: #25D366;
     font-weight: 700;
-    flex-grow: 2; /* Más grande que los otros dos */
+    flex-grow: 2; 
 }
 .btn-whatsapp-confirm:hover {
     background: #128C7E;
@@ -799,7 +805,7 @@ footer p {
     }
     
     .modal-actions {
-        flex-direction: column; /* Apilar botones en móvil */
+        flex-direction: column; 
     }
     .btn-whatsapp-confirm {
         flex-grow: 1;
