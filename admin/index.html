@@ -9,19 +9,18 @@
     body { font-family: 'Montserrat', sans-serif; }
   </style>
   
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  
   <link rel="icon" href="/CazaEstilo/favicon.png" type="image/png">
   
 </head>
 <body>
 
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  
   <script>
-    // ** FORZAMOS LA ESPERA DEL DOM **
-    document.addEventListener('DOMContentLoaded', function() {
-        // La inicialización ocurre aquí, después de que el <body> esté listo.
-        // NO agregamos código extra, solo la función de espera.
-    });
+    // Script de redirección limpio
+    if (window.CMS) {
+        // Si el CMS carga, el TypeError ha desaparecido.
+    }
   </script>
 </body>
 </html>
