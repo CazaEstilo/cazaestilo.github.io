@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewCartButton = document.getElementById('view-cart-button');
     const WHATSAPP_NUMBER = '573012705080';
 
+    // NUEVO: Variables para el modal de resumen
+    let cartModal = null; 
+
     function updateCartCount() {
         if (cartCountElement) {
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -48,19 +51,17 @@ document.addEventListener('DOMContentLoaded', () => {
         alert(`"${product.title}" añadido al carrito de cotización.`);
     }
 
-    function viewCart() {
+    // FUNCIÓN PARA GENERAR EL MENSAJE DE WHATSAPP (Aislada para ser llamada al confirmar)
+    function generateWhatsappMessage() {
         if (cart.length === 0) {
-            alert("Tu carrito de cotización está vacío.");
-            return;
+            return null;
         }
         
         let message = "¡Hola Caza Estilo! Estoy interesado(a) en cotizar los siguientes productos:\n\n";
         let total = 0;
 
         cart.forEach(item => {
-            // Asumiendo que price ya es numérico y está en la unidad más pequeña (ej. COP)
             const itemTotal = item.price * item.quantity; 
-            const itemTotalFormatted = itemTotal.toLocaleString('es-CO');
             const priceUnitFormatted = item.price.toLocaleString('es-CO');
 
             message += `* ${item.title} (Cant: ${item.quantity}) - Precio Unit: $${priceUnitFormatted} COP\n`;
@@ -71,10 +72,104 @@ document.addEventListener('DOMContentLoaded', () => {
         message += `\nTotal estimado: $${totalFormatted} COP`;
         message += `\n\nPor favor, confírmenme disponibilidad, talla y proceso de pago.`;
 
-        const encodedMessage = encodeURIComponent(message);
-        const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+        return message;
+    }
 
-        window.open(whatsappURL, '_blank');
+    // NUEVO: Función para vaciar el carrito
+    function clearCart() {
+        if (confirm("¿Estás seguro de que quieres vaciar tu carrito de cotización?")) {
+            cart = [];
+            localStorage.removeItem('cazaestilo_cart');
+            updateCartCount();
+            if (cartModal) {
+                 cartModal.remove(); // Cierra y elimina el modal
+                 cartModal = null;
+            }
+            alert("El carrito ha sido vaciado.");
+        }
+    }
+
+    // MODIFICADO: Muestra el resumen del carrito en un modal
+    function viewCart() {
+        if (cart.length === 0) {
+            alert("Tu carrito de cotización está vacío.");
+            return;
+        }
+        
+        if (cartModal) {
+            // Si el modal ya existe, lo eliminamos antes de crear uno nuevo para refrescarlo
+            cartModal.remove();
+            cartModal = null;
+        }
+
+        const cartItemsHTML = cart.map(item => {
+            const itemTotal = (item.price * item.quantity).toLocaleString('es-CO');
+            const priceUnitFormatted = item.price.toLocaleString('es-CO');
+            return `
+                <div class="cart-item">
+                    <span class="item-title">${item.title}</span>
+                    <span class="item-quantity">x ${item.quantity}</span>
+                    <span class="item-price">$${itemTotal} COP</span>
+                </div>
+            `;
+        }).join('');
+
+        const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toLocaleString('es-CO');
+
+        // Estructura del modal (Se necesita CSS para estilizar esto)
+        cartModal = document.createElement('div');
+        cartModal.classList.add('cart-modal-overlay');
+        cartModal.innerHTML = `
+            <div class="cart-modal-content">
+                <h3>Tu Pedido de Cotización</h3>
+                <div class="cart-items-list">
+                    ${cartItemsHTML}
+                </div>
+                <div class="cart-total">
+                    <span>Total Estimado:</span>
+                    <span class="total-price">$${total} COP</span>
+                </div>
+                <p class="modal-info">Al confirmar, serás redirigido a WhatsApp con tu pedido listo para enviar.</p>
+                <div class="modal-actions">
+                    <button id="close-cart-modal" class="btn btn-secondary">Seguir Comprando</button>
+                    <button id="clear-cart-btn" class="btn btn-warning">Vaciar Carrito</button>
+                    <button id="confirm-whatsapp-btn" class="btn btn-whatsapp-confirm"><i class="fab fa-whatsapp"></i> Confirmar Pedido</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(cartModal);
+        
+        // Añadir listeners del modal
+        document.getElementById('close-cart-modal').addEventListener('click', () => {
+            cartModal.remove();
+            cartModal = null;
+        });
+        
+        document.getElementById('clear-cart-btn').addEventListener('click', clearCart);
+
+        document.getElementById('confirm-whatsapp-btn').addEventListener('click', () => {
+            const message = generateWhatsappMessage();
+            if (message) {
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+                window.open(whatsappURL, '_blank');
+                
+                // Cierra el modal después de la redirección
+                if (cartModal) {
+                    cartModal.remove();
+                    cartModal = null;
+                }
+            }
+        });
+
+        // Permitir cerrar al hacer clic en el overlay
+        cartModal.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.remove();
+                cartModal = null;
+            }
+        });
     }
     
     if (viewCartButton) {
