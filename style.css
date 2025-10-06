@@ -208,7 +208,7 @@ header::before {
     z-index: 1;
 }
 
-/* Contenedor del botón para corrección de ancho */
+/* CRÍTICO: Contenedor del botón para corrección de ancho (Solución definitiva) */
 .btn-wrapper {
     z-index: 2;
     width: -moz-fit-content; 
@@ -304,7 +304,7 @@ h2 {
 }
 
 
-/* --- Productos y Estilos de Carrito (Se mantienen) --- */
+/* --- Productos y Estilos de Carrito --- */
 .products {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -485,7 +485,7 @@ h2 {
 }
 
 
-/* --- Sección Quiénes Somos (Se mantiene) --- */
+/* --- Sección Quiénes Somos --- */
 #about {
     text-align: center;
 }
@@ -502,9 +502,10 @@ h2 {
 }
 
 
-/* --- Sección Testimonios (NUEVO) --- */
+/* --- Sección Testimonios (Simulación de Chat Real) --- */
+
 #testimonios {
-    background: #101010; /* Un negro más suave */
+    background: #101010; 
 }
 
 .testimonials-grid {
@@ -514,98 +515,104 @@ h2 {
 }
 
 .testimonial-card {
-    background-color: #2a2a2a;
-    padding: 2rem;
+    /* Base para todas las tarjetas */
     border-radius: 15px;
+    overflow: hidden; 
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
     position: relative;
-    border-left: 5px solid var(--color-primary);
+    border: none;
 }
 
-.quote-icon {
-    font-size: 2rem;
-    color: var(--color-primary);
-    margin-bottom: 1rem;
-    display: block;
+.whatsapp-card {
+    background-color: #ECE5DD; /* Fondo de chat de WhatsApp */
+    display: flex;
+    flex-direction: column;
+    min-height: 250px;
 }
 
-.testimonial-text {
-    font-style: italic;
-    color: var(--color-light-grey);
-    margin-bottom: 1rem;
-}
-
-.testimonial-author {
-    font-weight: bold;
-    color: var(--color-white);
-    text-align: right;
-    display: block;
-    margin-top: 1.5rem;
-}
-/* --- Sección Testimonios (Simulación de Chat) --- */
-
-.chat-simulation {
-    border-left: none; /* Elimina el borde anterior */
-    background-color: #0d1217; /* Fondo oscuro de chat */
-    padding: 1.5rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
-}
-
-.chat-header {
+/* Barra Superior de la Simulación */
+.chat-top-bar {
+    background-color: #075E54; /* Color de encabezado de WhatsApp */
+    padding: 10px 15px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 1rem;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #333;
-}
-
-.chat-header i {
-    font-size: 1.8rem;
-    color: #4CAF50; /* Icono de perfil de WhatsApp */
-}
-
-.chat-header span {
-    font-weight: bold;
     color: var(--color-white);
+    position: relative;
+    z-index: 10;
+}
+
+.chat-top-bar i {
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: var(--color-white);
+}
+
+.contact-photo {
+    font-size: 2rem !important; 
+    margin-right: 15px !important;
+}
+
+.contact-name {
+    font-weight: bold;
+    flex-grow: 1;
     font-size: 1.1rem;
 }
 
-.chat-bubble {
-    background-color: #262D31; /* Fondo de burbuja de chat (recibido) */
-    color: var(--color-light-grey);
-    padding: 12px 15px;
-    border-radius: 10px 10px 10px 0; /* Borde de burbuja */
-    line-height: 1.5;
-    font-style: normal;
-    font-size: 0.95rem;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+.chat-icons i {
+    font-size: 1.2rem;
+    margin-left: 15px;
 }
 
+/* Cuerpo donde van las burbujas */
+.chat-body {
+    padding: 15px;
+    /* Opcional: background-image: url('chat-bg.jpg'); */
+    background-size: cover;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.chat-bubble {
+    padding: 10px 12px;
+    border-radius: 10px;
+    max-width: 90%;
+    margin-bottom: 5px;
+    position: relative;
+    line-height: 1.4;
+    font-style: normal;
+    font-size: 0.95rem;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word; 
+}
+
+.chat-bubble.received {
+    background-color: var(--color-light-grey); 
+    color: #000;
+    align-self: flex-start;
+    border-radius: 0 10px 10px 10px;
+}
+
+/* Metadatos (Hora y Checks) */
 .chat-meta {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    font-size: 0.8rem;
-    color: #888;
-    margin-top: 5px;
+    font-size: 0.75rem;
+    color: #667781; 
+    margin-top: -5px;
+    align-self: flex-start;
 }
 
 .chat-meta i {
-    color: #34B7F1; /* Checkmarks de WhatsApp (azul) */
-    margin-left: 5px;
+    color: #34B7F1; 
+    margin-left: 3px;
+    font-size: 0.8rem;
 }
 
-/* Modificación de la sección políticas para que se vea mejor sin enlaces */
-#politicas .policy-card {
-    padding: 2.5rem; /* Más espacio */
-    text-align: center;
-}
-#politicas .policy-card p {
-    margin-bottom: 0;
-}
 
-/* --- Sección Envíos y Entregas (Se mantiene) --- */
+/* --- Sección Envíos y Entregas --- */
 #envios {
     background: var(--color-dark-grey);
     text-align: center;
@@ -652,7 +659,7 @@ h2 {
     50% { transform: translateY(-10px) scale(1.05); }
 }
 
-/* --- Sección Políticas (NUEVO) --- */
+/* --- Sección Políticas (Ajuste para quitar el enlace) --- */
 #politicas {
     background: var(--color-secondary);
 }
@@ -663,10 +670,11 @@ h2 {
 }
 .policy-card {
     background-color: #1a1a1a;
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     border: 1px solid #333;
+    text-align: center; /* Centramos el texto de la política */
 }
 .policy-card h3 {
     font-family: 'Bebas Neue', sans-serif;
@@ -677,21 +685,11 @@ h2 {
 .policy-card p {
     font-size: 0.95rem;
     color: var(--color-text-light);
-    margin-bottom: 1.5rem;
-}
-.policy-link {
-    color: var(--color-primary);
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 0.9rem;
-    transition: text-decoration 0.3s ease;
-}
-.policy-link:hover {
-    text-decoration: underline;
+    margin-bottom: 0;
 }
 
 
-/* --- Sección Contacto (Se mantiene) --- */
+/* --- Sección Contacto --- */
 #contacto {
     text-align: center;
     background: var(--color-dark-grey);
@@ -791,7 +789,7 @@ footer p {
 }
 
 
-/* --- Modal de Resumen del Carrito (Se mantiene) --- */
+/* --- Modal de Resumen del Carrito --- */
 
 .cart-modal-overlay {
     position: fixed;
@@ -959,7 +957,7 @@ footer p {
         left: 0;
         padding-bottom: 1rem;
         transition: all 0.3s ease;
-        gap: 0; /* Quita el gap en móvil */
+        gap: 0; 
     }
     .nav-links.active {
         display: flex;
@@ -969,7 +967,7 @@ footer p {
         width: 100%;
     }
     .nav-links li a, .nav-links li button {
-        display: block; /* Asegura que los enlaces ocupen todo el ancho */
+        display: block; 
         padding: 10px 0;
         width: 100%;
     }
@@ -1024,6 +1022,6 @@ footer p {
         gap: 5px;
     }
     .footer-links span {
-        display: none; /* Oculta el separador en móvil */
+        display: none; 
     }
 }
