@@ -1,13 +1,12 @@
-// --- CONFIGURACIÓN DE PRODUCTOS (AÑADIDAS TALLAS PARA MEJOR USABILIDAD) ---
+// --- CONFIGURACIÓN DE PRODUCTOS ---
 const productsData = [
     {
         id: 1,
         name: "Conjunto Estilo Urbano",
         description: "Comodidad y presencia. Este conjunto de dos piezas te hará destacar sin esfuerzo.",
         price: 180000,
-        // **IMPORTANTE:** He corregido las rutas de las imágenes para que sean diferentes.
         images: ["imagenes/conjunto.jpg", "imagenes/producto1-2.jpg", "imagenes/producto1-3.jpg"], 
-        sizes: ["S", "M", "L", "XL"], // AÑADIDO: Tallas disponibles
+        sizes: ["S", "M", "L", "XL"], 
         soldOut: false
     },
     {
@@ -16,7 +15,7 @@ const productsData = [
         description: "Chaqueta con caída holgada. El toque perfecto para un look imponente y moderno.",
         price: 240000,
         images: ["imagenes/jeanblanco.jpg", "imagenes/producto2-2.jpg"],
-        sizes: ["S", "M", "L"], // AÑADIDO: Tallas disponibles
+        sizes: ["S", "M", "L"], 
         soldOut: false
     },
     {
@@ -25,8 +24,8 @@ const productsData = [
         description: "Durabilidad y diseño. Bolsillos laterales que redefinen la silueta casual.",
         price: 155000,
         images: ["imagenes/jeancafe.jpg", "imagenes/producto3-2.jpg", "imagenes/producto3-3.jpg"],
-        sizes: ["28", "30", "32", "34"], // AÑADIDO: Tallas disponibles (para jeans)
-        soldOut: true // Ejemplo de producto agotado
+        sizes: ["28", "30", "32", "34"], 
+        soldOut: true 
     },
     {
         id: 4,
@@ -34,21 +33,21 @@ const productsData = [
         description: "Algodón premium con diseño exclusivo. Arte callejero para tu día a día.",
         price: 90000,
         images: ["imagenes/producto4-1.jpg", "imagenes/producto4-2.jpg"],
-        sizes: ["XS", "S", "M", "L", "XL"], // AÑADIDO: Tallas disponibles
+        sizes: ["XS", "S", "M", "L", "XL"], 
         soldOut: false
     }
 ];
 
 let cart = JSON.parse(localStorage.getItem('cazaEstiloCart')) || [];
 
-// --- UTILITIES ---
+// --- UTILITIES Y FEEDBACK VISUAL ---
 
 function formatPrice(price) {
     return `$${price.toLocaleString('es-CO')} COP`;
 }
 
 /**
- * NUEVA FUNCIÓN: Muestra un toast de notificación (UX)
+ * Muestra un toast de notificación (UX)
  */
 function showToast(message, type = 'success') {
     const container = document.getElementById('toast-container');
@@ -63,10 +62,9 @@ function showToast(message, type = 'success') {
     
     container.appendChild(toast);
 
-    // Ocultar y eliminar después de 3 segundos (tiempo de la animación 'toastOut')
     setTimeout(() => {
         toast.style.opacity = '0';
-        setTimeout(() => toast.remove(), 500); // Espera a que termine la animación
+        setTimeout(() => toast.remove(), 500); 
     }, 3000); 
 }
 
@@ -75,6 +73,8 @@ function updateCartCount() {
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     countElement.textContent = totalItems;
 }
+
+// --- CARRUSELES ---
 
 function initializeSwipers() {
     document.querySelectorAll('.product-carousel').forEach(carouselElement => {
@@ -175,7 +175,7 @@ function loadProducts() {
 // --- LÓGICA DEL CARRITO CON TALLAS Y GESTIÓN ---
 
 /**
- * Abre un modal para seleccionar la talla antes de añadir al carrito.
+ * Abre un modal para seleccionar la talla.
  */
 function openSizeModal(productId) {
     const product = productsData.find(p => p.id === productId);
@@ -193,13 +193,12 @@ function openSizeModal(productId) {
         `<option value="${size}">${size}</option>`
     ).join('');
 
-    // Limpiar listener previo y añadir el nuevo con la talla seleccionada
     // Se usa una función anónima para pasar el ID del producto y la talla
     confirmButton.onclick = () => {
         const selectedSize = sizeSelect.value;
         if (selectedSize) {
             addItemToCart(productId, selectedSize);
-            modal.style.display = 'none'; // Cierra el modal de talla
+            closeSizeModal();
         }
     };
 
@@ -207,7 +206,7 @@ function openSizeModal(productId) {
 }
 
 /**
- * NUEVA FUNCIÓN: Cierra el modal de tallas
+ * Cierra el modal de tallas
  */
 function closeSizeModal() {
     document.getElementById('size-modal').style.display = 'none';
@@ -221,19 +220,17 @@ function addItemToCart(productId, size) {
     const product = productsData.find(p => p.id === productId);
     if (!product) return;
 
-    // Generar un ID único basado en producto+talla para poder agruparlos
     const uniqueId = `${productId}-${size}`;
-
     const existingItem = cart.find(item => item.uniqueId === uniqueId);
 
     if (existingItem) {
         existingItem.quantity++;
     } else {
         cart.push({
-            uniqueId: uniqueId, // ID Único para gestionar en el carrito
+            uniqueId: uniqueId, 
             id: productId,
             name: product.name,
-            size: size, // CRÍTICO: guardamos la talla
+            size: size, 
             price: product.price,
             quantity: 1
         });
@@ -250,7 +247,7 @@ function addItemToCart(productId, size) {
 }
 
 /**
- * Gestiona la cantidad de un artículo en el carrito (+ o -)
+ * Gestiona la cantidad de un artículo en el carrito.
  */
 function updateItemQuantity(uniqueId, change) {
     const itemIndex = cart.findIndex(item => item.uniqueId === uniqueId);
@@ -259,22 +256,23 @@ function updateItemQuantity(uniqueId, change) {
         cart[itemIndex].quantity += change;
         
         if (cart[itemIndex].quantity <= 0) {
-            // Eliminar si la cantidad llega a 0
-            cart.splice(itemIndex, 1);
+            removeItem(uniqueId, false); // No mostrar toast de eliminación si es solo decremento a 0
+            return;
         }
 
         localStorage.setItem('cazaEstiloCart', JSON.stringify(cart));
         updateCartCount();
-        renderCartModal(); // Volver a dibujar el modal para reflejar los cambios
+        renderCartModal(); 
     }
 }
 
 /**
  * Elimina un artículo completo del carrito
  */
-function removeItem(uniqueId) {
+function removeItem(uniqueId, showFeedback = true) {
     const item = cart.find(item => item.uniqueId === uniqueId);
-    if (item) {
+    
+    if (item && showFeedback) {
         showToast(`"${item.name}" (Talla: ${item.size}) eliminado.`, 'error');
     }
     
@@ -285,7 +283,7 @@ function removeItem(uniqueId) {
 }
 
 /**
- * Renderiza el contenido del modal del carrito con controles de cantidad y eliminación.
+ * Renderiza el contenido del modal del carrito.
  */
 function renderCartModal() {
     const listElement = document.getElementById('cart-items-list');
@@ -300,9 +298,8 @@ function renderCartModal() {
         return;
     }
     
-    confirmButton.disabled = false; // Habilitar si hay productos
+    confirmButton.disabled = false;
 
-    // Usamos el nuevo formato de renderizado con botones de control
     const itemsHtml = cart.map(item => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
@@ -337,7 +334,7 @@ function clearCart() {
 }
 
 
-// Función para generar el mensaje de WhatsApp, ahora incluye la talla.
+// Función para generar el mensaje de WhatsApp.
 function getWhatsAppMessage() {
     const phone = '573012705080'; 
     let message = '¡Hola Caza Estilo! Estoy listo para confirmar mi cotización:\n\n';
@@ -346,7 +343,6 @@ function getWhatsAppMessage() {
     cart.forEach(item => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
-        // CRÍTICO: Incluimos la talla en el mensaje
         message += `* ${item.name} (Talla: ${item.size || 'N/A'}) x${item.quantity} (${formatPrice(itemTotal)})\n`;
     });
 
@@ -359,8 +355,29 @@ function getWhatsAppMessage() {
 
 /* --- EVENT LISTENERS Y LÓGICA DE LA PÁGINA --- */
 
+// LÓGICA PARA EL BOTÓN VOLVER ARRIBA
+const backToTopButton = document.getElementById('back-to-top');
+
+if (backToTopButton) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopButton.classList.add('visible');
+        } else {
+            backToTopButton.classList.remove('visible');
+        }
+    });
+
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicialización del menú móvil
+    // Inicialización de menús y modales
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     const cartModal = document.getElementById('cart-modal');
@@ -369,6 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmWhatsappButton = document.getElementById('confirm-whatsapp');
     const closeSizeModalButton = document.getElementById('close-size-modal-button');
 
+    // Toggle de menú móvil
     menuToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
     });
@@ -389,34 +407,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Cerrar modal de tallas con el botón 'Cancelar'
-    closeSizeModalButton.addEventListener('click', closeSizeModal);
+    if (closeSizeModalButton) {
+        closeSizeModalButton.addEventListener('click', closeSizeModal);
+    }
 
     // Enviar a WhatsApp desde el modal
     confirmWhatsappButton.addEventListener('click', () => {
         if (cart.length > 0) {
             window.open(getWhatsAppMessage(), '_blank');
-            cartModal.style.display = 'none'; // Cerrar modal al confirmar
-            clearCart(); // Opcional: vaciar carrito después de cotizar
+            cartModal.style.display = 'none'; 
+            clearCart(); // Vaciar carrito después de cotizar
         } else {
             showToast('Tu carrito está vacío. Agrega productos antes de cotizar.', 'error');
         }
     });
 
-    // Lógica para que los modales se cierren al hacer clic fuera del contenido
-    cartModal.addEventListener('click', (e) => {
-        if (e.target.classList.contains('cart-modal-overlay')) {
-            cartModal.style.display = 'none';
-        }
-    });
-    // ¡CRÍTICO! Añadir listener para el nuevo modal de tallas
-    sizeModal.addEventListener('click', (e) => {
-        if (e.target.classList.contains('cart-modal-overlay')) {
-            sizeModal.style.display = 'none';
-        }
-    });
+    // Cierre de modales al hacer clic fuera
+    if (cartModal) {
+        cartModal.addEventListener('click', (e) => {
+            if (e.target.classList.contains('cart-modal-overlay')) {
+                cartModal.style.display = 'none';
+            }
+        });
+    }
+    if (sizeModal) {
+        sizeModal.addEventListener('click', (e) => {
+            if (e.target.classList.contains('cart-modal-overlay')) {
+                sizeModal.style.display = 'none';
+            }
+        });
+    }
 
-    // Lógica de Scroll para efectos visuales (se mantiene igual)
-    const header = document.querySelector('header');
+    // Lógica de Scroll para efectos visuales
     const sections = document.querySelectorAll('section');
     const navbar = document.querySelector('.navbar');
 
@@ -438,12 +460,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', checkScroll);
     
-    updateCartCount(); // Asegurarse de que el contador se actualice al cargar
-    header.style.opacity = 1; 
+    updateCartCount(); 
+    document.querySelector('header').style.opacity = 1; 
 });
 
 
-// Lógica del Loader y carga de productos (se mantiene igual)
+// Lógica del Loader y carga de productos
 const headerVideo = document.getElementById('header-video');
 
 window.addEventListener('load', () => {
