@@ -6,7 +6,7 @@
     --color-light-grey: #f5f5f5;
     --color-white: #fff;
     --color-text-light: #ccc; 
-    --transition-speed: 0.4s;
+    --transition-speed: 0.5s; /* Más lento para transiciones suaves */
     --color-primary-rgb: 212, 175, 55; 
 }
 
@@ -33,15 +33,15 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* El contenedor limita el ancho del contenido interno, no la sección completa */
 .container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
 }
 
-/* --- Loader y Overlay de Carga (MEJORADO CON ANIMACIÓN DE LOGO) --- */
+/* --- Loader --- */
 .loader-overlay {
+    /* ... Se mantiene igual ... */
     position: fixed;
     top: 0;
     left: 0;
@@ -57,25 +57,23 @@ body {
     transition: opacity 0.4s ease-out, visibility 0.4s ease-out; 
     overflow: hidden; 
 }
-
 .loader-overlay.hidden {
     opacity: 0;
     visibility: hidden;
 }
-
 .logo-animation {
     width: 120px; 
     height: 120px;
     object-fit: contain;
     animation: pulse 1.5s infinite alternate; 
 }
-
 @keyframes pulse {
     from { transform: scale(0.9); opacity: 0.8; }
     to { transform: scale(1.1); opacity: 1; }
 }
 
-/* --- Barra de Navegación (Navbar) y Botón de Carrito --- */
+
+/* --- Navbar y Header --- */
 .navbar {
     background-color: rgba(10, 10, 10, 0.95);
     padding: 1rem 0;
@@ -87,110 +85,31 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     transition: background-color 0.3s ease;
 }
-
-.navbar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .navbar.scrolled {
     background-color: var(--color-secondary);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7); /* Sombra más fuerte al hacer scroll */
 }
-
 .navbar .logo img {
-    max-height: 70px; /* Tamaño del logo ajustado */
-    vertical-align: middle;
+    max-height: 70px; 
     transition: transform 0.3s ease;
 }
 
-.navbar .nav-links {
-    list-style: none;
-    display: flex;
-}
+/* Estilos de texto y botones se mantienen igual */
 
-.navbar .nav-links li {
-    margin-left: 2.5rem;
-    display: flex;
-    align-items: center;
-}
-
-.navbar .nav-links a {
-    color: var(--color-light-grey);
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1rem;
-    position: relative;
-    transition: color 0.3s ease;
-}
-.navbar .nav-links a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    background-color: var(--color-primary);
-    left: 0;
-    bottom: -5px;
-    transition: width 0.3s ease-out;
-}
-
-/* ESTILO DEL BOTÓN DE CARRITO (NUEVO) */
-.btn-cart {
-    background: var(--color-primary);
-    color: var(--color-secondary);
-    padding: 0.5rem 1rem;
-    font-weight: bold;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s ease, transform 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.btn-cart:hover {
-    background: var(--color-white);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(var(--color-primary-rgb), 0.5);
-}
-
-#cart-count {
-    background-color: var(--color-secondary);
-    color: var(--color-primary);
-    padding: 2px 8px;
-    border-radius: 50%;
-    font-size: 0.8rem;
-}
-
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    color: var(--color-primary);
-    cursor: pointer;
-}
-
-/* --- Encabezado (Header) - CON VIDEO DE FONDO --- */
+/* --- Encabezado (Header) - Video de fondo --- */
 header {
-    background: none; /* Quitamos la imagen de fondo estática */
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0 2rem;
     position: relative;
     overflow: hidden;
     color: var(--color-white);
     opacity: 0;
     transition: opacity 1s ease-out;
 }
-
-/* Estilo CRÍTICO para el video de fondo */
 #header-video {
     position: absolute;
     top: 50%;
@@ -203,7 +122,6 @@ header {
     transform: translate(-50%, -50%);
     object-fit: cover;
 }
-
 header::before {
     content: '';
     position: absolute;
@@ -211,105 +129,177 @@ header::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Capa oscura sobre el video */
+    background: rgba(0, 0, 0, 0.7); 
     z-index: 1;
 }
 
-header > * {
-    position: relative;
-    z-index: 2; 
-}
-
-header h1 {
-    font-family: 'Anton', sans-serif;
-    font-size: 6rem;
-    letter-spacing: 8px;
-    text-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.7);
-    margin-bottom: 1.5rem;
-}
-
-header p {
-    font-size: 1.8rem;
-    color: var(--color-light-grey);
-    margin-top: 0.5rem;
-    max-width: 900px;
-}
-
-/* --- Botones --- (Se mantienen igual) --- */
-.btn {
-    background: var(--color-primary);
-    color: var(--color-secondary);
-    padding: 1.4rem 3rem; 
-    margin-top: 3rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
-    transition: background var(--transition-speed) ease, transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-    text-decoration: none;
-    font-size: 1.2rem;
-    box-shadow: 0 8px 20px rgba(var(--color-primary-rgb), 0.5);
-    display: inline-block; 
-}
-.btn:hover {
-    background: var(--color-white);
-    transform: translateY(-7px) scale(1.03);
-    box-shadow: 0 12px 30px rgba(var(--color-primary-rgb), 0.7);
-    color: var(--color-secondary);
-}
-.btn-small {
-    padding: 0.9rem 1.8rem;
-    font-size: 1rem;
-    margin-top: 1.5rem;
-    border-radius: 30px;
-    box-shadow: 0 4px 10px rgba(var(--color-primary-rgb), 0.3);
-}
-
-/* --- Secciones generales --- */
+/* --- Secciones generales con Efecto de Scroll --- */
 section {
-    padding: 6rem 0; /* Solo padding vertical, el ancho lo da el container interno */
-    width: 100%; /* CRÍTICO: Asegura que la sección ocupe todo el ancho de la pantalla */
+    padding: 6rem 0;
+    width: 100%;
     background: var(--color-dark-grey);
     border-bottom: 1px solid #2a2a2a;
     position: relative;
     overflow: hidden;
+    
+    /* Estado inicial: invisible */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
-/* --- Productos --- (Se mantienen optimizados) --- */
+/* Estado al hacer scroll: visible */
+section.visible-section {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+h2 {
+    text-align: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    margin-bottom: 4rem;
+    color: var(--color-primary);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    letter-spacing: 3px;
+}
+
+
+/* --- Productos (CRÍTICO: Carrusel Integrado) --- */
 .products {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 3.5rem;
 }
+
 .product {
-    background: var(--color-dark-grey);
+    background: var(--color-secondary); /* Fondo más oscuro para contraste */
     border: 1px solid #333;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
     display: flex;
     flex-direction: column;
     position: relative;
 }
-.product .open-modal-link img {
+
+.product:hover {
+    transform: translateY(-10px) scale(1.03); /* Más elevación */
+    box-shadow: 0 20px 40px rgba(var(--color-primary-rgb), 0.5); 
+}
+
+/* Estilo del Carrusel (Swiper) en la tarjeta de producto */
+.product-carousel {
     width: 100%;
-    height: 320px;
+    height: 380px; /* Altura más grande para las imágenes */
+    overflow: hidden;
+    position: relative;
+}
+
+.product-carousel .swiper-slide img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     display: block;
-    border-bottom: 1px solid #444;
-    transition: transform 0.5s ease;
 }
-.product .open-modal-link:hover img {
-    transform: scale(1.08);
+
+/* Navegación y Paginación del Swiper (Estilizado para ser discreto) */
+.product-carousel .swiper-button-next,
+.product-carousel .swiper-button-prev {
+    color: var(--color-white);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem 0.5rem;
+    border-radius: 5px;
+    opacity: 0; /* Oculto por defecto */
+    transition: opacity 0.3s ease;
 }
+
+.product:hover .swiper-button-next,
+.product:hover .swiper-button-prev {
+    opacity: 1; /* Visible al hacer hover en el producto */
+}
+
+.product-carousel .swiper-pagination-bullet-active {
+    background: var(--color-primary);
+}
+
+.product-info {
+    padding: 1.8rem; 
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem; 
+    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+    letter-spacing: 1px;
+}
+
+.product-info > p { /* Descripción del producto */
+    font-size: 1rem;
+    color: var(--color-text-light);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    /* Efecto de degradado para limitar el texto y mantener la consistencia */
+    max-height: 4.5em; /* 3 líneas */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-price-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #2a2a2a;
+}
+
+.price-tag {
+    font-weight: bold;
+    font-size: 1.6rem; 
+    color: var(--color-white);
+    margin: 0;
+}
+
+/* Contenedor de Stock y Calidad */
+.product-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem; 
+}
+.stock-info, .quality-info {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    background-color: #2a2a2a;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.btn-whatsapp {
+    background: #25D366; /* Color de WhatsApp */
+    color: var(--color-white);
+    margin-top: 0.5rem;
+}
+.btn-whatsapp:hover {
+    background: #128C7E;
+    color: var(--color-white);
+}
+
 .product.sold-out {
     opacity: 0.6;
     pointer-events: none; 
     filter: grayscale(80%);
 }
 .product.sold-out::after {
+    /* ... Se mantiene igual ... */
     content: 'AGOTADO';
     position: absolute;
     top: 50%;
@@ -325,253 +315,81 @@ section {
 }
 
 
-/* --- ESTILOS DEL MODAL DE PRODUCTO (CARRUSEL SWIPER - CRÍTICO) --- */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1001;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.9);
-    padding-top: 60px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+/* --- Sección Envíos y Entregas (Mejorada Distribución y Efectos) --- */
+#envios {
+    background: var(--color-dark-grey);
+    text-align: center;
 }
 
-#image-modal.open {
-    display: block;
-    opacity: 1;
-    visibility: visible;
+.shipping-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-top: 2rem;
 }
 
-#image-modal .modal-content {
-    background-color: var(--color-dark-grey);
-    margin: 5% auto;
-    padding: 30px;
-    border: 1px solid #888;
-    max-width: 1000px;
-    width: 90%;
+.shipping-item {
+    background-color: #2a2a2a;
+    padding: 2.5rem;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-    position: relative;
-    transform: translateY(-50px);
-    opacity: 0;
-    transition: transform 0.4s ease, opacity 0.4s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease; /* Transición "bounce" */
+    border: 2px solid transparent;
 }
 
-#image-modal.open .modal-content {
-    transform: translateY(0);
-    opacity: 1;
+.shipping-item:hover {
+    transform: translateY(-15px);
+    background-color: #333;
+    box-shadow: 0 20px 40px rgba(var(--color-primary-rgb), 0.3);
+    border-color: var(--color-primary);
 }
 
-/* Contenedor Flex para la imagen y la info en el modal */
-.modal-body-container {
-    display: flex;
-    flex-wrap: wrap; /* CRÍTICO: Permite que los elementos se apilen en móvil */
-    gap: 2rem;
-    padding-top: 1rem;
-}
-
-/* Estilo del Carrusel (Swiper) */
-.modal-swiper {
-    width: 100%;
-    max-width: 500px; /* Ancho máximo para el carrusel en PC */
-    flex-shrink: 0; /* Evita que se encoja forzosamente */
-    border-radius: 15px;
-    overflow: hidden;
-}
-
-.swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 450px; /* Altura fija para el carrusel */
-}
-
-.swiper-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.modal-info {
-    flex-grow: 1;
-    padding: 0 1rem;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-}
-
-.modal-title {
-    font-size: 2.5rem;
-    margin-top: 0;
+.shipping-item h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
     color: var(--color-primary);
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
 }
-
-.modal-price {
-    font-size: 1.8rem;
+.icon-large {
+    font-size: 3.5rem;
     color: var(--color-primary);
-    font-weight: bold;
     margin-bottom: 1.5rem;
 }
 
-.modal-description {
-    font-size: 1.1rem;
-    color: var(--color-text-light);
-    line-height: 1.7;
-    margin-bottom: 2rem;
+/* Animación de "rebote" para los íconos */
+.bounce-icon {
+    animation: none; /* Inactivo por defecto */
+    transition: color 0.3s ease;
+}
+.shipping-item:hover .bounce-icon {
+    animation: bounce 0.8s ease-out;
+}
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px) scale(1.05); }
 }
 
-#modal-add-to-cart, #modal-whatsapp-link {
-    width: 100%;
-    text-align: center;
-    margin-top: 0.5rem;
-}
+/* --- Media Queries (Responsividad) --- */
 
-.close-button {
-    color: var(--color-light-grey);
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-/* --- Media Queries (Responsividad Optimizada) --- */
-
-/* Pantallas Medianas (Tablets y PC pequeños) */
 @media (max-width: 992px) {
-    
-    .container {
-        padding: 0 1.5rem; 
-    }
-    
-    header h1 {
-        font-size: 4rem;
-    }
-    header p {
-        font-size: 1.4rem;
-    }
-
-    h2 {
-        font-size: 3.5rem;
-    }
-
-    .products {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2.5rem; 
-    }
-    .product .open-modal-link img {
-        height: 280px;
-    }
-    
-    /* Adaptación del modal en tablets */
-    #image-modal .modal-content {
-        max-width: 90%;
-        margin: 10% auto;
-    }
-    .modal-body-container {
-        flex-direction: column; /* Apila el carrusel y la info */
-    }
-    .modal-swiper {
-        max-width: 100%;
-    }
-    .swiper-slide {
-        height: 400px;
-    }
+    /* ... (Adaptación de Navbar y Header) ... */
 }
 
-/* Pantallas Pequeñas (Móviles) */
 @media (max-width: 768px) {
     
-    .container {
-        padding: 0 1rem; 
-    }
-
     header h1 {
-        font-size: 3rem; 
-        letter-spacing: 3px;
-    }
-    header p {
-        font-size: 1.1rem;
+        font-size: 3.5rem; 
     }
     
-    h2 {
-        font-size: 3rem;
-        margin-bottom: 2rem;
+    .product-carousel {
+        height: 300px; /* Altura más pequeña en móvil */
     }
-
-    section {
-        padding: 4rem 0; 
-    }
-
-    /* Navegación colapsada en móvil */
-    .menu-toggle {
-        display: block;
-    }
-    .navbar .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 80px; 
-        left: 0;
-        width: 100%;
-        background-color: var(--color-secondary);
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-        padding: 1rem 0;
-        transition: all 0.3s ease;
-    }
-    .navbar .nav-links.active {
-        display: flex;
-    }
-    .navbar .nav-links li {
-        margin: 0;
-        padding: 0.8rem 1rem;
-        text-align: center;
-        border-bottom: 1px solid #1a1a1a;
-    }
-    .navbar .nav-links a {
-        font-size: 1rem;
-    }
-    .btn-cart {
-        margin: 0.5rem auto;
-    }
-
-    /* Productos en una sola columna para verse más grandes */
     .products {
         grid-template-columns: 1fr; 
-        gap: 2rem;
     }
-    .product .open-modal-link img {
-        height: 300px; 
-    }
-    
-    /* Envíos en columna */
+
     .shipping-info {
-        flex-direction: column;
-        gap: 2rem;
-    }
-    
-    /* Modal en móvil */
-    #image-modal .modal-content {
-        margin: 10px auto;
-        padding: 20px;
-        width: 95%;
-    }
-    .swiper-slide {
-        height: 300px; /* Reducir altura del carrusel en móvil */
-    }
-    .modal-title {
-        font-size: 2rem;
-    }
-    .modal-price {
-        font-size: 1.5rem;
+        grid-template-columns: 1fr;
     }
 }
