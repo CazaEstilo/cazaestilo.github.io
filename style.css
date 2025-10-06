@@ -187,7 +187,7 @@ header a.btn {
     border-radius: 50px; /* Forma de píldora */
     box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.5);
     transition: all 0.3s ease;
-    display: inline-block; /* CRÍTICO: Esto evita que se estire al 100% de la altura/ancho */
+    display: inline-block; /* ESTO LO SOLUCIONA: Fuerza a que solo ocupe el espacio necesario */
 }
 header a.btn:hover {
     background: var(--color-white);
