@@ -1,36 +1,32 @@
 backend:
+  # USAR EL NUEVO NOMBRE DEL REPOSITORIO
   name: github                                    
-  repo: CazaEstilo/CazaEstilo                     
+  repo: cazaestilo/cazaestilo.github.io           
   branch: main
-  # Eliminamos auth_url y base_url de backend para evitar conflictos
   
-# CORRECCIÓN CLAVE: INCLUIR EL NOMBRE DEL REPOSITORIO
-base_url: /CazaEstilo/ 
-site_url: https://cazaestilo.github.io/CazaEstilo/  # <-- ¡USAR ESTA URL COMPLETA!
+# RUTAS DE PUBLICACIÓN EN LA RAÍZ (Las más simples posibles)
+base_url: /  
+site_url: https://cazaestilo.github.io/ 
 
+# RUTAS DE MEDIOS (sin subdirectorio)
 media_folder: "assets/img/products" 
-public_folder: "/CazaEstilo/assets/img/products" # Asegurar que la ruta pública incluya el subdirectorio
+public_folder: "/assets/img/products" 
 
-# ... (resto de las collections)
-# ...
-
+# DEFINICIÓN DE COLECCIONES (AJUSTAR ESTO SI ES NECESARIO)
 collections:
-  - name: "productos" 
-    label: "Productos Destacados" 
-    folder: "_productos" 
-    create: true 
-    slug: "{{slug}}"
-    format: "json" 
-    fields: 
+  - name: "productos"
+    label: "Productos Destacados"
+    folder: "_productos"
+    create: true
+    slug: "{{title}}"
+    fields:
       - {label: "Nombre del Producto", name: "title", widget: "string"}
-      - {label: "Descripción Detallada", name: "body", widget: "markdown", required: true}
-      - {label: "Precio (COP)", name: "price", widget: "number", value_type: "int", min: 0, step: 100}
-      - {label: "Stock Disponible (0 = Agotado)", name: "stock", widget: "number", value_type: "int", min: 0, default: 1}
-      - {label: "Calidad (%)", name: "quality", widget: "number", value_type: "int", min: 0, max: 100, default: 100}
-      - label: "Imágenes del Carrusel (Max 3)"
+      - {label: "Descripción Detallada", name: "body", widget: "markdown"}
+      - {label: "Precio (COP)", name: "price", widget: "number"}
+      - {label: "Stock Disponible", name: "stock", widget: "number"}
+      - {label: "Calidad (%)", name: "quality", widget: "number"}
+      - label: "Imágenes del Carrusel"
         name: "images"
         widget: "list"
-        max: 3
-        min: 1
         fields:
-          - {label: "Imagen", name: "image", widget: "image", choose_url: false, allow_multiple: false}
+          - {label: "Imagen", name: "image", widget: "image"}
