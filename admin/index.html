@@ -13,27 +13,28 @@
   </style>
 </head>
 <body>
-  
+
   <script>
-    // 1. Inicializar el CMS con la ruta base correcta para GitHub Pages
-    // Esto es un intento de solucionar el TypeError
-    window.CMS.init({
-        config: {
-            base_url: 'https://cazaestilo.github.io/CazaEstilo' 
-        }
-    });
-    
-    // 2. Lógica del login de Netlify Identity
+    // 1. Inicialización de Netlify Identity (se recomienda que esté aquí)
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
         if (!user) {
           window.netlifyIdentity.on("login", () => {
-            // Redirecciona a la raíz del panel (sin el #/ que da problemas)
+            // Redirecciona a la URL base del panel
             document.location.href = "/CazaEstilo/admin"; 
           });
         }
       });
     }
+
+    // 2. Inicialización Explícita del CMS
+    // Esta llamada es a veces necesaria para que el CMS sepa cuándo empezar a construir el DOM.
+    window.CMS.init({
+        config: {
+            // Pasamos la ruta base que le ayuda a resolver el conflicto de subdirectorio en GitHub Pages
+            base_url: 'https://cazaestilo.github.io/CazaEstilo' 
+        }
+    });
   </script>
 </body>
 </html>
