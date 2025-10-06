@@ -5,16 +5,14 @@ backend:
   repo: cazaestilo/CazaEstilo  
   branch: main 
 
-# ESTO ES CRUCIAL PARA GITHUB PAGES:
-# Usamos el nombre del repositorio como ruta base
+# CONFIGURACIÓN DE RUTA BASE MÁS SIMPLE:
 base_url: /CazaEstilo 
 site_url: https://cazaestilo.github.io/CazaEstilo
-display_url: https://cazaestilo.github.io/CazaEstilo
 
-# Configuraciones de Medios
+# Media/Public Folder:
 media_folder: "assets/img/products" 
-# Usamos la ruta completa para la carpeta pública
-public_folder: "/CazaEstilo/assets/img/products" 
+public_folder: "/CazaEstilo/assets/img/products" # Ruta completa para el público
+
 
 collections:
   - name: "productos" 
