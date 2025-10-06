@@ -1,420 +1,334 @@
-// script.js
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    // --- VARIABLES GLOBALES DEL DOM ---
-    const loaderOverlay = document.querySelector('.loader-overlay');
-    const header = document.querySelector('header');
-    const animatedTexts = document.querySelectorAll('.animated-text');
-    const sections = document.querySelectorAll('section');
-    const navbar = document.querySelector('.navbar');
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    const scrollLinks = document.querySelectorAll('.scroll-to-section');
-    const headerVideo = document.getElementById('header-video'); 
-    const productsContainer = document.getElementById('products-container');
-
-    // --- VARIABLES Y LÓGICA DEL CARRITO DE WHATSAPP (COTZACIÓN) ---
-    let cart = JSON.parse(localStorage.getItem('cazaestilo_cart')) || [];
-    const cartCountElement = document.getElementById('cart-count');
-    const viewCartButton = document.getElementById('view-cart-button');
-    const WHATSAPP_NUMBER = '573012705080';
-
-    let cartModal = null; 
-
-    function updateCartCount() {
-        if (cartCountElement) {
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCountElement.textContent = totalItems;
-        }
+// Data de productos (ARRAY DE OBJETOS)
+const productsData = [
+    {
+        id: 1,
+        name: "Conjunto Estilo Urbano",
+        description: "Comodidad y presencia. Este conjunto de dos piezas te hará destacar sin esfuerzo.",
+        price: 180000, // Precio de ejemplo
+        images: ["imagenes/producto1-1.jpg", "imagenes/producto1-2.jpg", "imagenes/producto1-3.jpg"],
+        soldOut: false
+    },
+    {
+        id: 2,
+        name: "Chaqueta Negra Oversize",
+        description: "Chaqueta con caída holgada. El toque perfecto para un look imponente y moderno.",
+        price: 240000,
+        images: ["imagenes/producto2-1.jpg", "imagenes/producto2-2.jpg"],
+        soldOut: false
+    },
+    {
+        id: 3,
+        name: "Jean Cargo Streetwear",
+        description: "Durabilidad y diseño. Bolsillos laterales que redefinen la silueta casual.",
+        price: 155000,
+        images: ["imagenes/producto3-1.jpg", "imagenes/producto3-2.jpg", "imagenes/producto3-3.jpg"],
+        soldOut: true // Ejemplo de producto agotado
+    },
+    {
+        id: 4,
+        name: "Camiseta Gráfica Vintage",
+        description: "Algodón premium con diseño exclusivo. Arte callejero para tu día a día.",
+        price: 90000,
+        images: ["imagenes/producto4-1.jpg", "imagenes/producto4-2.jpg"],
+        soldOut: false
     }
+];
 
-    // MODIFICADO: Añadida función de feedback visual
-    function triggerCartFeedback() {
-        if (viewCartButton) {
-            viewCartButton.classList.add('cart-feedback');
-            setTimeout(() => {
-                viewCartButton.classList.remove('cart-feedback');
-            }, 500); // Duración de la animación en CSS
-        }
-    }
+let cart = JSON.parse(localStorage.getItem('cazaEstiloCart')) || [];
 
-    function addToCart(product) {
-        const productId = product.slug; 
-        
-        const existingItem = cart.find(item => item.id === productId);
-        
-        if (existingItem) {
-            existingItem.quantity += 1; 
-        } else {
-            cart.push({
-                id: productId, 
-                title: product.title, 
-                price: product.price,
-                quantity: 1
-            }); 
-        }
-        
-        localStorage.setItem('cazaestilo_cart', JSON.stringify(cart));
-        updateCartCount();
-        triggerCartFeedback(); // Llama a la animación de feedback
-        alert(`"${product.title}" añadido al carrito de cotización.`);
-    }
-
-    function generateWhatsappMessage() {
-        if (cart.length === 0) {
-            return null;
-        }
-        
-        let message = "¡Hola Caza Estilo! Estoy interesado(a) en cotizar los siguientes productos:\n\n";
-        let total = 0;
-
-        cart.forEach(item => {
-            const itemTotal = item.price * item.quantity; 
-            const priceUnitFormatted = item.price.toLocaleString('es-CO');
-
-            message += `* ${item.title} (Cant: ${item.quantity}) - Precio Unit: $${priceUnitFormatted} COP\n`;
-            total += itemTotal;
+// Función para inicializar los carruseles de imágenes de cada producto
+function initializeSwipers() {
+    document.querySelectorAll('.product-carousel').forEach(carouselElement => {
+        const productID = carouselElement.closest('.product').dataset.id;
+        new Swiper(carouselElement, {
+            slidesPerView: 1,
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: `.swiper-pagination[data-product-id="${productID}"]`,
+                clickable: true,
+            },
+            navigation: {
+                nextEl: `.swiper-button-next[data-product-id="${productID}"]`,
+                prevEl: `.swiper-button-prev[data-product-id="${productID}"]`,
+            },
         });
+    });
+}
 
-        const totalFormatted = total.toLocaleString('es-CO');
-        message += `\nTotal estimado: $${totalFormatted} COP`;
-        message += `\n\nPor favor, confírmenme disponibilidad, talla y proceso de pago.`;
-
-        return message;
-    }
-
-    function clearCart() {
-        if (confirm("¿Estás seguro de que quieres vaciar tu carrito de cotización?")) {
-            cart = [];
-            localStorage.removeItem('cazaestilo_cart');
-            updateCartCount();
-            if (cartModal) {
-                 cartModal.remove(); 
-                 cartModal = null;
+// Función para inicializar el carrusel de testimonios
+function initializeTestimonialCarousel() {
+    new Swiper('.testimonials-carousel', {
+        slidesPerView: 1, // Muestra 1 slide en móvil
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+            delay: 5000, // Cambia cada 5 segundos
+            disableOnInteraction: false,
+        },
+        speed: 800,
+        pagination: {
+            el: '.testimonial-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.testimonial-next',
+            prevEl: '.testimonial-prev',
+        },
+        breakpoints: {
+            // Cuando la pantalla es de 768px o más, muestra 2 slides
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 30,
+            },
+            // Cuando la pantalla es de 1024px o más, muestra 3 slides
+            1024: {
+                slidesPerView: 3,
+                spaceBetween: 40,
             }
-            alert("El carrito ha sido vaciado.");
         }
-    }
+    });
+}
 
-    function viewCart() {
-        if (cart.length === 0) {
-            alert("Tu carrito de cotización está vacío.");
-            return;
-        }
+// Función para cargar productos en el DOM
+function loadProducts() {
+    const container = document.getElementById('products-container');
+    container.innerHTML = productsData.map(product => {
+        const isSoldOut = product.soldOut ? 'sold-out' : '';
         
-        if (cartModal) {
-            cartModal.remove();
-            cartModal = null;
-        }
-
-        const cartItemsHTML = cart.map(item => {
-            const itemTotal = (item.price * item.quantity).toLocaleString('es-CO');
-            const priceUnitFormatted = item.price.toLocaleString('es-CO');
-            return `
-                <div class="cart-item">
-                    <span class="item-title">${item.title}</span>
-                    <span class="item-quantity">x ${item.quantity}</span>
-                    <span class="item-price">$${itemTotal} COP</span>
-                </div>
-            `;
-        }).join('');
-
-        const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toLocaleString('es-CO');
-
-        cartModal = document.createElement('div');
-        cartModal.classList.add('cart-modal-overlay');
-        cartModal.innerHTML = `
-            <div class="cart-modal-content">
-                <h3>Tu Pedido de Cotización</h3>
-                <div class="cart-items-list">
-                    ${cartItemsHTML}
-                </div>
-                <div class="cart-total">
-                    <span>Total Estimado:</span>
-                    <span class="total-price">$${total} COP</span>
-                </div>
-                <p class="modal-info">Al confirmar, serás redirigido a WhatsApp con tu pedido listo para enviar.</p>
-                <div class="modal-actions">
-                    <button id="close-cart-modal" class="btn btn-secondary">Seguir Comprando</button>
-                    <button id="clear-cart-btn" class="btn btn-warning">Vaciar Carrito</button>
-                    <button id="confirm-whatsapp-btn" class="btn btn-whatsapp-confirm"><i class="fab fa-whatsapp"></i> Confirmar Pedido</button>
-                </div>
-            </div>
-        `;
-
-        document.body.appendChild(cartModal);
-        
-        document.getElementById('close-cart-modal').addEventListener('click', () => {
-            cartModal.remove();
-            cartModal = null;
-        });
-        
-        document.getElementById('clear-cart-btn').addEventListener('click', clearCart);
-
-        document.getElementById('confirm-whatsapp-btn').addEventListener('click', () => {
-            const message = generateWhatsappMessage();
-            if (message) {
-                const encodedMessage = encodeURIComponent(message);
-                const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-                window.open(whatsappURL, '_blank');
-                
-                if (cartModal) {
-                    cartModal.remove();
-                    cartModal = null;
-                }
-            }
-        });
-
-        cartModal.addEventListener('click', (e) => {
-            if (e.target === cartModal) {
-                cartModal.remove();
-                cartModal = null;
-            }
-        });
-    }
-    
-    if (viewCartButton) {
-        viewCartButton.addEventListener('click', viewCart);
-    }
-    updateCartCount();
-
-    // --- LÓGICA CMS Y CARGA DINÁMICA DE PRODUCTOS (SIMULACIÓN) ---
-    
-    const productDataCache = {}; 
-    
-    function renderProduct(product) {
-        const slug = product.slug;
-        const title = product.title || 'Producto Sin Título';
-        const price_num = product.price || 0;
-        const price = `$${price_num.toLocaleString('es-CO')} COP`;
-        
-        const stock = product.stock !== undefined ? product.stock : 1;
-        const soldOutClass = stock === 0 ? 'sold-out' : '';
-        const buttonText = stock > 0 ? 'Añadir al Carrito' : 'Agotado';
-        
-        const encodedTitle = encodeURIComponent(title);
-        const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=%C2%A1Hola!%20Me%20interesa%20el%20${encodedTitle}%20(Precio%3A%20${price}).%20Quiero%20ordenar%20ya%20mismo%20%F0%9F%92%96.`;
-
-        productDataCache[slug] = { ...product, price_formatted: price, whatsapp_link: whatsappLink };
-        
-        let slidesHTML = product.images.map(img => `
+        // Generar la estructura del carrusel de imágenes
+        const imagesHtml = product.images.map(image => `
             <div class="swiper-slide">
-                <img src="${img.image}" alt="${title}">
+                <img src="${image}" alt="${product.name}">
             </div>
         `).join('');
 
-        const productHTML = `
-            <div class="product ${soldOutClass}">
-                <div class="product-carousel swiper-container" data-slug="${slug}">
-                    <div class="swiper-wrapper">
-                        ${slidesHTML}
-                    </div>
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div>
+        return `
+            <div class="product ${isSoldOut}" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">
                 
-                <div class="product-info">
-                    <h3>${title}</h3>
-                    <p>${product.body}</p> 
-                    <div class="product-price-meta">
-                        <p class="price-tag">${price}</p>
+                <div class="product-carousel swiper-container">
+                    <div class="swiper-wrapper">
+                        ${imagesHtml}
                     </div>
-                    
+                    <div class="swiper-pagination" data-product-id="${product.id}"></div>
+                    <div class="swiper-button-prev" data-product-id="${product.id}"></div>
+                    <div class="swiper-button-next" data-product-id="${product.id}"></div>
+                </div>
+
+                <div class="product-info">
+                    <div>
+                        <h3>${product.name}</h3>
+                        <p>${product.description}</p>
+                    </div>
+                    <div class="product-price-meta">
+                        <span class="price-tag">$${product.price.toLocaleString('es-CO')} COP</span>
+                    </div>
                     <div class="product-actions">
-                        <button class="btn add-to-cart-btn" data-slug="${slug}" ${stock === 0 ? 'disabled' : ''}>
-                            <i class="fas fa-cart-plus"></i> ${buttonText}
+                        <button class="btn add-to-cart-btn" onclick="addToCart(${product.id})" ${product.soldOut ? 'disabled' : ''}>
+                            <i class="fas fa-shopping-cart"></i> Añadir al Carrito
                         </button>
-                        <a href="${whatsappLink}" target="_blank" class="btn btn-whatsapp" ${stock === 0 ? 'style="display:none;"' : ''}>
-                             <i class="fab fa-whatsapp"></i> Cazala Ya
+                        <a href="https://wa.me/573012705080?text=${encodeURIComponent(`Hola, me interesa el producto: ${product.name} ($${product.price.toLocaleString('es-CO')} COP).`)}" target="_blank" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Cazala Ya
                         </a>
                     </div>
                 </div>
             </div>
         `;
+    }).join('');
 
-        if (productsContainer) {
-            productsContainer.insertAdjacentHTML('beforeend', productHTML);
-        }
+    // Inicializar Swipers después de cargar el contenido
+    initializeSwipers();
+}
+
+// Función para añadir productos al carrito (solo cotización)
+function addToCart(productId) {
+    const product = productsData.find(p => p.id === productId);
+    if (!product) return;
+
+    const existingItem = cart.find(item => item.id === productId);
+
+    if (existingItem) {
+        existingItem.quantity++;
+    } else {
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            quantity: 1
+        });
     }
+
+    localStorage.setItem('cazaEstiloCart', JSON.stringify(cart));
+    updateCartCount();
     
-    // ** SIMULACIÓN DE DATOS DE PRODUCTOS (Mantener data para la demo) **
-    async function loadProducts() {
-        const productsData = [
-            {
-                slug: "conjunto-corazon",
-                title: "Conjunto Corazón",
-                body: "Conjunto de dos piezas con diseño único. Look atrevido y memorable. Tela suave con caída y detalles exclusivos.",
-                price: 94900,
-                stock: 5,
-                quality: 95,
-                images: [
-                    { image: "conjunto.jpg" }, 
-                    { image: "conjunto2.jpg" }, 
-                    { image: "conjunto3.jpg" } 
-                ],
-            },
-            {
-                slug: "jean-blanco",
-                title: "Jean Blanco",
-                body: "Jean blanco de corte moderno, ideal para un estilo minimalista y sofisticado. Material resistente con 2% de stretch. Tallas 28-34.",
-                price: 110900,
-                stock: 3,
-                quality: 100,
-                images: [
-                    { image: "jeanblanco.jpg" },
-                    { image: "jeanblanco2.jpg" },
-                    { image: "jeanblanco3.jpg" }
-                ],
-            },
-            {
-                slug: "saco-exclusivo",
-                title: "Saco Exclusivo",
-                body: "Saco suave y acogedor, perfecto para días fríos sin sacrificar tu estilo. Pieza de colección. ¡Últimas unidades!",
-                price: 105900,
-                stock: 0, 
-                quality: 100,
-                images: [
-                    { image: "saco.jpg" },
-                    { image: "saco2.jpg" },
-                    { image: "saco.jpg" } 
-                ],
+    // Feedback visual
+    const cartButton = document.getElementById('view-cart-button');
+    cartButton.classList.add('cart-feedback');
+    setTimeout(() => cartButton.classList.remove('cart-feedback'), 500);
+}
+
+// Función para actualizar el contador del carrito
+function updateCartCount() {
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById('cart-count').textContent = count;
+}
+
+// Función para renderizar el contenido del modal del carrito
+function renderCartModal() {
+    const listElement = document.getElementById('cart-items-list');
+    const totalElement = document.getElementById('cart-modal-total');
+    let total = 0;
+
+    if (cart.length === 0) {
+        listElement.innerHTML = '<p>El carrito de cotización está vacío.</p>';
+        totalElement.textContent = '$0';
+        return;
+    }
+
+    const itemsHtml = cart.map(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        return `
+            <div class="cart-item">
+                <span class="item-title">${item.name}</span>
+                <span class="item-quantity">x${item.quantity}</span>
+                <span class="item-price">$${itemTotal.toLocaleString('es-CO')} COP</span>
+            </div>
+        `;
+    }).join('');
+
+    listElement.innerHTML = itemsHtml;
+    totalElement.textContent = `$${total.toLocaleString('es-CO')} COP`;
+}
+
+// Función para vaciar el carrito
+function clearCart() {
+    cart = [];
+    localStorage.removeItem('cazaEstiloCart');
+    updateCartCount();
+    renderCartModal();
+}
+
+// Función para generar el mensaje de WhatsApp
+function getWhatsAppMessage() {
+    const phone = '573012705080'; 
+    let message = '¡Hola Caza Estilo! Me gustaría cotizar los siguientes productos:\n\n';
+    let total = 0;
+
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        message += `* ${item.name} x${item.quantity} ($${itemTotal.toLocaleString('es-CO')} COP)\n`;
+    });
+
+    message += `\n*TOTAL ESTIMADO:* $${total.toLocaleString('es-CO')} COP\n\n`;
+    message += 'Por favor, confírmenme la disponibilidad y el costo total con envío. ¡Gracias!';
+
+    return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+}
+
+
+/* --- EVENT LISTENERS Y LÓGICA DE LA PÁGINA --- */
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Inicialización del menú móvil
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    // Cerrar menú móvil al hacer clic en un enlace
+    document.querySelectorAll('.scroll-to-section').forEach(link => {
+        link.addEventListener('click', () => {
+            if (navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
             }
-        ];
-        
-        productsData.forEach(renderProduct);
-        initializeSwipers();
-        initializeProductListeners();
-    }
-    
-    function initializeSwipers() {
-        document.querySelectorAll('.product-carousel').forEach(carouselEl => {
-            new Swiper(carouselEl, {
-                loop: true,
-                effect: 'fade', 
-                fadeEffect: {
-                    crossFade: true,
-                },
-                autoplay: { 
-                    delay: 4000,
-                    disableOnInteraction: false,
-                },
-                speed: 800,
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                simulateTouch: false,
-                touchStartPreventDefault: false,
-            });
         });
-    }
+    });
 
-    function initializeProductListeners() {
-        const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
-        
-        addToCartButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const slug = button.dataset.slug;
-                const product = productDataCache[slug];
-                if (product && product.stock > 0) {
-                    addToCart({
-                        slug: product.slug,
-                        title: product.title,
-                        price: product.price, 
-                        whatsapp_link: product.whatsapp_link
-                    });
-                }
-            });
-        });
-    }
+    // Inicialización del modal del carrito
+    const cartModal = document.getElementById('cart-modal');
+    const viewCartButton = document.getElementById('view-cart-button');
+    const confirmWhatsappButton = document.getElementById('confirm-whatsapp');
 
+    viewCartButton.addEventListener('click', () => {
+        renderCartModal();
+        cartModal.style.display = 'flex';
+    });
 
-    // --- LÓGICA DE CARGA Y ANIMACIÓN INICIAL Y SCROLL ---
-    function hideLoader() {
-        if (loaderOverlay) {
-            loaderOverlay.classList.add('hidden');
-        }
-    }
-
-    function showContent() {
-        if (header) {
-            header.style.opacity = 1;
-        }
-        animatedTexts.forEach((text, index) => {
-            text.style.animationDelay = `${0.2 * index}s`;
-            text.classList.add('show');
-        });
-    }
-
-    window.addEventListener('load', () => {
-        const loaderDuration = 1000; 
-
-        setTimeout(() => {
-            hideLoader(); 
-            showContent();
-        }, loaderDuration);
-        
-        loadProducts(); 
-
-        if (headerVideo) {
-             headerVideo.play().catch(error => {});
+    // Enviar a WhatsApp desde el modal
+    confirmWhatsappButton.addEventListener('click', () => {
+        if (cart.length > 0) {
+            window.open(getWhatsAppMessage(), '_blank');
+            // Opcional: limpiar el carrito después de enviar
+            // clearCart(); 
+            // cartModal.style.display = 'none';
+        } else {
+            alert('Tu carrito está vacío. Agrega productos antes de cotizar.');
         }
     });
 
-    window.addEventListener('scroll', () => {
-        // Navbar
+    // Lógica para que el modal se cierre al hacer clic fuera del contenido
+    cartModal.addEventListener('click', (e) => {
+        if (e.target.classList.contains('cart-modal-overlay')) {
+            cartModal.style.display = 'none';
+        }
+    });
+
+    // Lógica de Scroll para efectos visuales
+    const header = document.querySelector('header');
+    const sections = document.querySelectorAll('section');
+    const navbar = document.querySelector('.navbar');
+
+    const checkScroll = () => {
+        const scrollPosition = window.scrollY + window.innerHeight * 0.8;
+        
+        // Efecto Navbar
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
 
-        // Animación de secciones al hacer scroll 
+        // Efecto secciones
         sections.forEach(section => {
-            const sectionTop = section.getBoundingClientRect().top;
-            const screenHeight = window.innerHeight;
-            if (sectionTop < screenHeight - 200) { 
+            if (section.offsetTop < scrollPosition) {
                 section.classList.add('visible-section');
-            } else {
-                section.classList.remove('visible-section');
             }
         });
-    });
+    };
 
-    // Toggle del Menú
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        navLinks.querySelectorAll('a, button').forEach(el => {
-            el.addEventListener('click', () => {
-                // Cierra el menú móvil al hacer clic en un enlace (excepto el botón de carrito)
-                if (!el.classList.contains('btn-cart') && navLinks.classList.contains('active')) { 
-                    navLinks.classList.remove('active');
-                }
-            });
-        });
-    }
+    window.addEventListener('scroll', checkScroll);
     
-    // Smooth Scroll
-    scrollLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
-            const targetId = link.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-            if (targetSection) {
-                window.scrollTo({
-                    top: targetSection.offsetTop - (navbar.offsetHeight),
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
+    // Carga inicial del contador y efectos de la cabecera
+    updateCartCount();
+    header.style.opacity = 1; // Hacer visible el header
+});
+
+
+// Lógica del Loader y carga de productos
+const headerVideo = document.getElementById('header-video');
+
+window.addEventListener('load', () => {
+    // 1. Ocultar Loader
+    const loader = document.querySelector('.loader-overlay');
+    setTimeout(() => {
+        loader.classList.add('hidden');
+    }, 500); 
+
+    // 2. Cargar productos e inicializar swipers
+    loadProducts(); 
+    initializeTestimonialCarousel(); // Inicializar el carrusel de testimonios
+
+    // 3. Asegurar reproducción de video (necesario por las políticas de navegadores)
+    if (headerVideo) {
+         headerVideo.play().catch(error => {
+             console.log("Autoplay de video bloqueado: ", error);
+         });
+    }
 });
