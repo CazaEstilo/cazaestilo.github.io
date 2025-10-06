@@ -34,7 +34,7 @@
                 <li><a href="#envios" class="scroll-to-section">Envíos y Entregas</a></li>
                 <li><a href="#contacto" class="scroll-to-section">Contacto</a></li>
                 <li>
-                    <button id="view-cart-button" class="btn-cart">
+                    <button id="view-cart-button" class="btn-cart" aria-label="Ver carrito de cotización">
                         <i class="fas fa-shopping-cart"></i> Carrito (<span id="cart-count">0</span>)
                     </button>
                 </li>
@@ -43,30 +43,31 @@
     </nav>
 
     <header>
-        <video id="header-video" src="header-video.mp4" autoplay muted loop playsinline></video>
+        <video id="header-video" src="header-video.mp4" autoplay loop muted playsinline poster="header-bg.jpg"></video>
         
         <h1 class="animated-text">CAZA ESTILO</h1>
         <p class="animated-text">Calle. Estilo. Vístete para dejar huella.</p>
         <a href="#productos" class="btn scroll-to-section animated-text">Explora la colección</a>
     </header>
 
-    <section id="productos" class="hidden-section">
-        <div class="container"> <h2>Productos Destacados</h2>
+    <section id="productos">
+        <div class="container">
+            <h2>Productos Destacados</h2>
             <div class="products" id="products-container">
                 </div>
         </div>
     </section>
     
-    <section id="about" class="hidden-section">
+    <section id="about">
         <div class="container">
             <h2>Quiénes Somos</h2>
             <div class="about-content">
                 <div class="about-text-container">
                     <p class="about-text">
-                        En Caza Estilo no vendemos ropa, creamos identidad. Cada prenda que elegimos está pensada para quienes no temen destacar, para quienes saben que el estilo no se sigue… se impone.
+                        En **Caza Estilo** no vendemos ropa, creamos identidad. Cada prenda que elegimos está pensada para quienes no temen destacar, para quienes saben que el estilo no se sigue… se impone.
                     </p>
                     <p class="about-text">
-                        Dos chicos, nacimos en las calles con una visión clara: vestir a quienes se atreven a ser diferentes, a los que buscan más que moda: buscan presencia. Aquí no encontrarás lo mismo de siempre; cazamos las prendas más exclusivas, únicas y llenas de carácter, piezas que hablan por ti y cuentan tu historia, En Caza Estilo, vestir es una declaración. Aquí no sigues tendencias: las creas. Aquí no solo compras… aquí cazas tu propio estilo.
+                        Dos chicos, nacimos en las calles con una visión clara: vestir a quienes se atreven a ser diferentes, a los que buscan más que moda: buscan presencia. Aquí no encontrarás lo mismo de siempre; cazamos las prendas más exclusivas, únicas y llenas de carácter, piezas que hablan por ti y cuentan tu historia. En Caza Estilo, vestir es una declaración. Aquí no sigues tendencias: **las creas**. Aquí no solo compras… aquí cazas tu propio estilo.
                     </p>
                     <a href="#contacto" class="btn btn-small scroll-to-section">Contáctanos</a>
                 </div>
@@ -74,25 +75,30 @@
         </div>
     </section>
 
-    <section id="envios" class="hidden-section">
+    <section id="envios">
         <div class="container">
             <h2>Envíos y Entregas</h2>
             <div class="shipping-info">
                 <div class="shipping-item">
-                    <i class="fas fa-truck-fast icon-large"></i>
+                    <i class="fas fa-shipping-fast icon-large bounce-icon"></i>
                     <h3>Envíos</h3>
-                    <p>Realizamos envíos gratis a toda Colombia, El tiempo de entrega estimado es de **1 a 4 días hábiles** en Medellín y **3 a 7 días hábiles** para el resto de Colombia. Recibirás un número de seguimiento para rastrear tu pedido.</p>
+                    <p>Realizamos **envíos gratis a toda Colombia**. El tiempo de entrega estimado es de **1 a 4 días hábiles** en Medellín y **3 a 7 días hábiles** para el resto del país. Recibirás un número de seguimiento para rastrear tu pedido.</p>
                 </div>
                 <div class="shipping-item">
-                    <i class="fas fa-box-open icon-large"></i>
-                    <h3>Empaque</h3>
-                    <p>Cada prenda de Caza Estilo se entrega en un empaque diseñado para proteger tu compra y realzar la experiencia.</p>
+                    <i class="fas fa-gift icon-large bounce-icon"></i>
+                    <h3>Empaque Premium</h3>
+                    <p>Cada prenda de Caza Estilo se entrega en un **empaque de lujo** diseñado para proteger tu compra y realzar la experiencia. Tu estilo llega con distinción.</p>
+                </div>
+                <div class="shipping-item">
+                    <i class="fab fa-whatsapp icon-large bounce-icon"></i>
+                    <h3>Compra por WhatsApp</h3>
+                    <p>Nuestro proceso es **rápido y directo**. Añade al carrito y con un solo clic, inicia la conversación en WhatsApp con tu pedido listo para confirmar.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contacto" class="hidden-section">
+    <section id="contacto">
         <div class="container">
             <h2>Contáctanos</h2>
             <div class="contact-content">
@@ -127,30 +133,6 @@
         </div>
         <p>&copy; 2025 Caza Estilo. Todos los derechos reservados.</p>
     </footer>
-
-    <div id="image-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <div class="modal-body-container">
-                
-                <div class="swiper modal-swiper">
-                    <div class="swiper-wrapper" id="modal-swiper-wrapper">
-                        </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-pagination"></div>
-                </div>
-
-                <div class="modal-info">
-                    <h3 class="modal-title"></h3>
-                    <p class="modal-price"></p>
-                    <p class="modal-description"></p>
-                    <button id="modal-add-to-cart" class="btn btn-small">Añadir al Carrito</button>
-                    <a id="modal-whatsapp-link" href="#" target="_blank" class="btn">Comprar Ya (WhatsApp)</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
