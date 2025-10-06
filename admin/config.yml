@@ -2,8 +2,10 @@
 
 backend:
   name: git-gateway 
-  repo: CazaEstilo/CazaEstilo  
+  repo: cazaestilo/CazaEstilo  
   branch: main 
+  # *** ESTO LE DICE AL CMS DÓNDE ESTÁ EL BACKEND DE AUTENTICACIÓN ***
+  identity_url: https://unique-kitten-d29e0e.netlify.app/.netlify/identity
 
 base_url: /CazaEstilo 
 site_url: https://cazaestilo.github.io/CazaEstilo
