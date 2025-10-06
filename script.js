@@ -41,7 +41,40 @@ const productsData = [
 
 let cart = JSON.parse(localStorage.getItem('cazaEstiloCart')) || [];
 
-// --- UTILITIES (Se mantienen igual) ---
+// --- UTILITIES ---
+
+function formatPrice(price) {
+    return `$${price.toLocaleString('es-CO')} COP`;
+}
+
+/**
+ * NUEVA FUNCIÓN: Muestra un toast de notificación (UX)
+ */
+function showToast(message, type = 'success') {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.classList.add('toast');
+    if (type === 'error') {
+        toast.classList.add('error');
+    }
+    
+    const icon = type === 'success' ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-exclamation-triangle"></i>';
+    toast.innerHTML = `${icon} <span>${message}</span>`;
+    
+    container.appendChild(toast);
+
+    // Ocultar y eliminar después de 3 segundos (tiempo de la animación 'toastOut')
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 500); // Espera a que termine la animación
+    }, 3000); 
+}
+
+function updateCartCount() {
+    const countElement = document.getElementById('cart-count');
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    countElement.textContent = totalItems;
+}
 
 function initializeSwipers() {
     document.querySelectorAll('.product-carousel').forEach(carouselElement => {
@@ -92,7 +125,6 @@ function initializeTestimonialCarousel() {
 
 // --- FUNCIÓN DE RENDERIZADO PRINCIPAL (PRODUCTOS) ---
 
-// MODIFICADA: Ahora el botón de carrito llama a openSizeModal
 function loadProducts() {
     const container = document.getElementById('products-container');
     container.innerHTML = productsData.map(product => {
@@ -122,13 +154,13 @@ function loadProducts() {
                         <p>${product.description}</p>
                     </div>
                     <div class="product-price-meta">
-                        <span class="price-tag">$${product.price.toLocaleString('es-CO')} COP</span>
+                        <span class="price-tag">${formatPrice(product.price)}</span>
                     </div>
                     <div class="product-actions">
                         <button class="btn add-to-cart-btn" onclick="openSizeModal(${product.id})" ${product.soldOut ? 'disabled' : ''}>
                             <i class="fas fa-shopping-cart"></i> Añadir al Carrito
                         </button>
-                        <a href="https://wa.me/573012705080?text=${encodeURIComponent(`Hola, me interesa el producto: ${product.name} ($${product.price.toLocaleString('es-CO')} COP).`)}" target="_blank" class="btn btn-whatsapp">
+                        <a href="https://wa.me/573012705080?text=${encodeURIComponent(`Hola, me interesa el producto: ${product.name} (${formatPrice(product.price)}).`)}" target="_blank" class="btn btn-whatsapp">
                             <i class="fab fa-whatsapp"></i> Cazala Ya
                         </a>
                     </div>
@@ -140,10 +172,10 @@ function loadProducts() {
     initializeSwipers();
 }
 
-// --- LÓGICA DEL CARRITO CON TALLAS Y GESTIÓN (NUEVAS FUNCIONES) ---
+// --- LÓGICA DEL CARRITO CON TALLAS Y GESTIÓN ---
 
 /**
- * NUEVA FUNCIÓN: Abre un modal para seleccionar la talla antes de añadir al carrito.
+ * Abre un modal para seleccionar la talla antes de añadir al carrito.
  */
 function openSizeModal(productId) {
     const product = productsData.find(p => p.id === productId);
@@ -153,7 +185,6 @@ function openSizeModal(productId) {
     const modalTitle = document.getElementById('size-modal-title');
     const sizeSelect = document.getElementById('product-size-select');
     const confirmButton = document.getElementById('confirm-size-button');
-    const firstSize = product.sizes.length > 0 ? product.sizes[0] : '';
 
     modalTitle.textContent = product.name;
     
@@ -168,7 +199,7 @@ function openSizeModal(productId) {
         const selectedSize = sizeSelect.value;
         if (selectedSize) {
             addItemToCart(productId, selectedSize);
-            modal.style.display = 'none';
+            modal.style.display = 'none'; // Cierra el modal de talla
         }
     };
 
@@ -176,7 +207,15 @@ function openSizeModal(productId) {
 }
 
 /**
- * MODIFICADA: Añade un producto al carrito, incluyendo la talla y un ID único.
+ * NUEVA FUNCIÓN: Cierra el modal de tallas
+ */
+function closeSizeModal() {
+    document.getElementById('size-modal').style.display = 'none';
+}
+
+
+/**
+ * Añade un producto al carrito, incluyendo la talla y un ID único.
  */
 function addItemToCart(productId, size) {
     const product = productsData.find(p => p.id === productId);
@@ -203,14 +242,15 @@ function addItemToCart(productId, size) {
     localStorage.setItem('cazaEstiloCart', JSON.stringify(cart));
     updateCartCount();
     
-    // Feedback visual
+    // Feedback visual (animación y toast)
     const cartButton = document.getElementById('view-cart-button');
     cartButton.classList.add('cart-feedback');
     setTimeout(() => cartButton.classList.remove('cart-feedback'), 500);
+    showToast(`"${product.name}" (Talla: ${size}) añadido.`);
 }
 
 /**
- * NUEVA FUNCIÓN: Gestiona la cantidad de un artículo en el carrito (+ o -)
+ * Gestiona la cantidad de un artículo en el carrito (+ o -)
  */
 function updateItemQuantity(uniqueId, change) {
     const itemIndex = cart.findIndex(item => item.uniqueId === uniqueId);
@@ -230,9 +270,14 @@ function updateItemQuantity(uniqueId, change) {
 }
 
 /**
- * NUEVA FUNCIÓN: Elimina un artículo completo del carrito
+ * Elimina un artículo completo del carrito
  */
 function removeItem(uniqueId) {
+    const item = cart.find(item => item.uniqueId === uniqueId);
+    if (item) {
+        showToast(`"${item.name}" (Talla: ${item.size}) eliminado.`, 'error');
+    }
+    
     cart = cart.filter(item => item.uniqueId !== uniqueId);
     localStorage.setItem('cazaEstiloCart', JSON.stringify(cart));
     updateCartCount();
@@ -240,18 +285,22 @@ function removeItem(uniqueId) {
 }
 
 /**
- * MODIFICADA: Renderiza el contenido del modal del carrito con controles de cantidad y eliminación.
+ * Renderiza el contenido del modal del carrito con controles de cantidad y eliminación.
  */
 function renderCartModal() {
     const listElement = document.getElementById('cart-items-list');
     const totalElement = document.getElementById('cart-modal-total');
+    const confirmButton = document.getElementById('confirm-whatsapp');
     let total = 0;
 
     if (cart.length === 0) {
         listElement.innerHTML = '<p>El carrito de cotización está vacío. ¡Empieza a cazar tu estilo!</p>';
-        totalElement.textContent = '$0';
+        totalElement.textContent = formatPrice(0);
+        confirmButton.disabled = true;
         return;
     }
+    
+    confirmButton.disabled = false; // Habilitar si hay productos
 
     // Usamos el nuevo formato de renderizado con botones de control
     const itemsHtml = cart.map(item => {
@@ -268,27 +317,27 @@ function renderCartModal() {
                     <span class="item-quantity">${item.quantity}</span>
                     <button class="control-btn" onclick="updateItemQuantity('${item.uniqueId}', 1)">+</button>
                 </div>
-                <span class="item-price">$${itemTotal.toLocaleString('es-CO')} COP</span>
+                <span class="item-price">${formatPrice(itemTotal)}</span>
                 <button class="remove-btn" onclick="removeItem('${item.uniqueId}')" aria-label="Eliminar producto"><i class="fas fa-trash"></i></button>
             </div>
         `;
     }).join('');
 
     listElement.innerHTML = itemsHtml;
-    totalElement.textContent = `$${total.toLocaleString('es-CO')} COP`;
+    totalElement.textContent = formatPrice(total);
 }
 
 
-// MODIFICADA: Función para vaciar el carrito (se mantiene igual)
 function clearCart() {
     cart = [];
     localStorage.removeItem('cazaEstiloCart');
     updateCartCount();
     renderCartModal();
+    showToast('Carrito vaciado con éxito.', 'error');
 }
 
 
-// MODIFICADA: Función para generar el mensaje de WhatsApp, ahora incluye la talla.
+// Función para generar el mensaje de WhatsApp, ahora incluye la talla.
 function getWhatsAppMessage() {
     const phone = '573012705080'; 
     let message = '¡Hola Caza Estilo! Estoy listo para confirmar mi cotización:\n\n';
@@ -298,10 +347,10 @@ function getWhatsAppMessage() {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
         // CRÍTICO: Incluimos la talla en el mensaje
-        message += `* ${item.name} (Talla: ${item.size || 'N/A'}) x${item.quantity} ($${itemTotal.toLocaleString('es-CO')} COP)\n`;
+        message += `* ${item.name} (Talla: ${item.size || 'N/A'}) x${item.quantity} (${formatPrice(itemTotal)})\n`;
     });
 
-    message += `\n*TOTAL ESTIMADO:* $${total.toLocaleString('es-CO')} COP\n\n`;
+    message += `\n*TOTAL ESTIMADO:* ${formatPrice(total)}\n\n`;
     message += 'Por favor, confírmenme la disponibilidad, el costo total con envío y el método de pago. ¡Gracias!';
 
     return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
@@ -314,7 +363,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicialización del menú móvil
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
-    
+    const cartModal = document.getElementById('cart-modal');
+    const sizeModal = document.getElementById('size-modal');
+    const viewCartButton = document.getElementById('view-cart-button');
+    const confirmWhatsappButton = document.getElementById('confirm-whatsapp');
+    const closeSizeModalButton = document.getElementById('close-size-modal-button');
+
     menuToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
     });
@@ -328,35 +382,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Inicialización del modal del carrito
-    const cartModal = document.getElementById('cart-modal');
-    const viewCartButton = document.getElementById('view-cart-button');
-    const confirmWhatsappButton = document.getElementById('confirm-whatsapp');
-
+    // Abrir modal de carrito
     viewCartButton.addEventListener('click', () => {
         renderCartModal();
         cartModal.style.display = 'flex';
     });
+    
+    // Cerrar modal de tallas con el botón 'Cancelar'
+    closeSizeModalButton.addEventListener('click', closeSizeModal);
 
     // Enviar a WhatsApp desde el modal
     confirmWhatsappButton.addEventListener('click', () => {
         if (cart.length > 0) {
             window.open(getWhatsAppMessage(), '_blank');
+            cartModal.style.display = 'none'; // Cerrar modal al confirmar
+            clearCart(); // Opcional: vaciar carrito después de cotizar
         } else {
-            alert('Tu carrito está vacío. Agrega productos antes de cotizar.');
+            showToast('Tu carrito está vacío. Agrega productos antes de cotizar.', 'error');
         }
     });
 
     // Lógica para que los modales se cierren al hacer clic fuera del contenido
-    document.getElementById('cart-modal').addEventListener('click', (e) => {
+    cartModal.addEventListener('click', (e) => {
         if (e.target.classList.contains('cart-modal-overlay')) {
-            document.getElementById('cart-modal').style.display = 'none';
+            cartModal.style.display = 'none';
         }
     });
     // ¡CRÍTICO! Añadir listener para el nuevo modal de tallas
-    document.getElementById('size-modal').addEventListener('click', (e) => {
+    sizeModal.addEventListener('click', (e) => {
         if (e.target.classList.contains('cart-modal-overlay')) {
-            document.getElementById('size-modal').style.display = 'none';
+            sizeModal.style.display = 'none';
         }
     });
 
@@ -383,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', checkScroll);
     
-    updateCartCount();
+    updateCartCount(); // Asegurarse de que el contador se actualice al cargar
     header.style.opacity = 1; 
 });
 
@@ -404,8 +459,8 @@ window.addEventListener('load', () => {
 
     // 3. Asegurar reproducción de video
     if (headerVideo) {
-         headerVideo.play().catch(error => {
-             console.log("Autoplay de video bloqueado: ", error);
-         });
+           headerVideo.play().catch(error => {
+               console.log("Autoplay de video bloqueado: ", error);
+           });
     }
 });
