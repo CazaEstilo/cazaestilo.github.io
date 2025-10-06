@@ -17,7 +17,11 @@
 <body>
 
   <script>
-    // El CMS se auto-inicializará usando el backend de GitHub.
+    // ** FORZAMOS LA ESPERA DEL DOM **
+    document.addEventListener('DOMContentLoaded', function() {
+        // La inicialización ocurre aquí, después de que el <body> esté listo.
+        // NO agregamos código extra, solo la función de espera.
+    });
   </script>
 </body>
 </html>
