@@ -25,29 +25,32 @@
             <a href="#" class="logo">
                 <img src="logo.png" alt="Logo Caza Estilo">
             </a>
-            <button class="menu-toggle" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
             <ul class="nav-links">
+                <li><a href="#productos" class="scroll-to-section">Productos</a></li>
+                <li><a href="#about" class="scroll-to-section">Quiénes Somos</a></li>
+                <li><a href="#testimonios" class="scroll-to-section">Testimonios</a></li>
+                <li><a href="#contacto" class="scroll-to-section">Contacto</a></li>
                 <li>
                     <button id="view-cart-button" class="btn-cart nav-btn-design" aria-label="Ver carrito de cotización">
                         <i class="fas fa-shopping-cart"></i> Carrito (<span id="cart-count">0</span>)
                     </button>
                 </li>
             </ul>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
     <header>
-    <video id="header-video" src="header-video.mp4" autoplay loop muted playsinline poster="header-bg.jpg"></video>
-    
-    <h1 class="animated-text">CAZA ESTILO</h1>
-    <p class="animated-text">Calle. Estilo. Vístete para dejar huella.</p>
-    
-    <div class="btn-wrapper animated-text">
-        <a href="#productos" class="btn scroll-to-section">Explora la colección</a>
-    </div>
-</header>
+        <video id="header-video" src="header-video.mp4" autoplay loop muted playsinline poster="header-bg.jpg"></video>
+        
+        <h1 class="animated-text">CAZA ESTILO</h1>
+        <p class="animated-text">Calle. Estilo. Vístete para dejar huella.</p>
+        <div class="btn-wrapper animated-text">
+            <a href="#productos" class="btn scroll-to-section">Explora la colección</a>
+        </div>
+    </header>
 
     <section id="productos">
         <div class="container">
@@ -74,6 +77,29 @@
         </div>
     </section>
 
+    <section id="testimonios">
+        <div class="container">
+            <h2>Lo que Dicen Nuestros Clientes</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="testimonial-text">"La calidad es increíble, superó mis expectativas. El envío fue rápido y el empaque premium. ¡El jean es perfecto!"</p>
+                    <p class="testimonial-author">— Daniela M.</p>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="testimonial-text">"El trato por WhatsApp fue excelente. Me ayudaron con las tallas y mi saco llegó en 2 días. ¡Definitivamente vuelvo a comprar!"</p>
+                    <p class="testimonial-author">— Esteban G.</p>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="testimonial-text">"Nunca había encontrado un conjunto con tanto estilo. Me encanta que no sea la moda de siempre, es ropa para destacar."</p>
+                    <p class="testimonial-author">— Sofía R.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="envios">
         <div class="container">
             <h2>Envíos y Entregas</h2>
@@ -92,6 +118,29 @@
                     <i class="fab fa-whatsapp icon-large bounce-icon"></i>
                     <h3>Compra por WhatsApp</h3>
                     <p>Nuestro proceso es **rápido y directo**. Añade al carrito y con un solo clic, inicia la conversación en WhatsApp con tu pedido listo para confirmar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="politicas">
+        <div class="container">
+            <h2>Información Legal y de Compra</h2>
+            <div class="policies-grid">
+                <div class="policy-card">
+                    <h3>Cambios y Devoluciones</h3>
+                    <p>Aceptamos cambios de talla o prenda si se notifica en las primeras 48 horas tras la recepción. Las prendas deben estar sin usar y con etiquetas. No se realiza devolución de dinero.</p>
+                    <a href="#" class="policy-link">Ver política completa</a>
+                </div>
+                <div class="policy-card">
+                    <h3>Términos y Condiciones</h3>
+                    <p>Al realizar una cotización con Caza Estilo, aceptas nuestros términos de uso, proceso de pago vía Nequi/Daviplata y los tiempos de entrega estipulados.</p>
+                    <a href="#" class="policy-link">Ver términos completos</a>
+                </div>
+                <div class="policy-card">
+                    <h3>Política de Privacidad</h3>
+                    <p>Tus datos (nombre y número de contacto) son usados exclusivamente para el proceso de cotización, envío y seguimiento. No compartimos tu información con terceros.</p>
+                    <a href="#" class="policy-link">Ver política de privacidad</a>
                 </div>
             </div>
         </div>
@@ -129,6 +178,13 @@
             <a href="https://instagram.com/cazaestiloo" target="_blank" aria-label="Instagram de Caza Estilo"><i class="fab fa-instagram"></i></a>
             <a href="https://wa.me/573012705080" target="_blank" aria-label="WhatsApp de Caza Estilo"><i class="fab fa-whatsapp"></i></a>
             <a href="https://www.tiktok.com/@_cazaestilo" target="_blank" aria-label="TikTok de Caza Estilo"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <div class="footer-links">
+            <a href="#politicas" class="scroll-to-section">Cambios y Devoluciones</a>
+            <span>|</span>
+            <a href="#politicas" class="scroll-to-section">Términos</a>
+            <span>|</span>
+            <a href="#politicas" class="scroll-to-section">Privacidad</a>
         </div>
         <p>&copy; 2025 Caza Estilo. Todos los derechos reservados.</p>
     </footer>
