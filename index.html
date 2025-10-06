@@ -3,116 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caza Estilo - Tu Presencia Empieza Aquí</title>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Caza Estilo - Moda Urbana Premium</title>
+    <link rel="icon" type="image/png" href="imagenes/favicon.png"> 
+
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
-    <link rel="icon" href="favicon.png" type="image/png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
     <div class="loader-overlay">
-        <div class="loader-content">
-             <img src="imagenes/logo.png" alt="Caza Estilo Logo" class="logo-animation">
-        </div>
+        <img src="imagenes/logo.png" alt="Logo Caza Estilo Animación" class="logo-animation">
     </div>
 
     <nav class="navbar">
         <div class="container">
-            <a href="#" class="logo">
-                <img src="imagenes/logo.png" alt="Logo Caza Estilo">
+            <a href="#header" class="logo scroll-to-section">
+                <img src="imagenes/logo.png" alt="Caza Estilo Logo">
             </a>
+            
+            <button class="menu-toggle" aria-label="Abrir menú">
+                <i class="fas fa-bars"></i>
+            </button>
+
             <ul class="nav-links">
                 <li><a href="#productos" class="scroll-to-section">Productos</a></li>
                 <li><a href="#about" class="scroll-to-section">Quiénes Somos</a></li>
                 <li><a href="#testimonios" class="scroll-to-section">Testimonios</a></li>
                 <li><a href="#contacto" class="scroll-to-section">Contacto</a></li>
                 <li>
-                    <button id="view-cart-button" class="btn-cart nav-btn-design" aria-label="Ver carrito de cotización">
+                    <button class="nav-btn-design" id="view-cart-button" aria-label="Ver carrito de cotización">
                         <i class="fas fa-shopping-cart"></i> Carrito (<span id="cart-count">0</span>)
                     </button>
                 </li>
             </ul>
-            <button class="menu-toggle" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
         </div>
     </nav>
 
-    <header>
-        <video id="header-video" src="imagenes/header-video.mp4" autoplay loop muted playsinline poster="imagenes/header-bg.jpg"></video>
-        
-        <h1 class="animated-text">CAZA ESTILO</h1>
-        <p class="animated-text">Calle. Estilo. Vístete para dejar huella.</p>
-        <div class="btn-wrapper animated-text">
-            <a href="#productos" class="btn scroll-to-section">Explora la colección</a>
+    <header id="header">
+        <video id="header-video" autoplay loop muted playsinline>
+            <source src="imagenes/header_video.mp4" type="video/mp4">
+            Tu navegador no soporta el tag de video.
+        </video>
+        <h1 class="animated-text" style="animation-delay: 0.2s;">Vive la Moda, Caza tu Estilo</h1>
+        <p class="animated-text" style="animation-delay: 0.4s;">La ropa no te define, pero tu actitud sí.</p>
+        <div class="btn-wrapper">
+            <a href="#productos" class="btn scroll-to-section">Explora la Colección</a>
         </div>
     </header>
 
     <section id="productos">
         <div class="container">
-            <h2>Productos Destacados</h2>
-            <div class="products" id="products-container">
+            <h2>Nuestra Colección Exclusiva</h2>
+            <div id="products-container" class="products">
                 </div>
         </div>
     </section>
-    
+
     <section id="about">
         <div class="container">
-            <h2>Quiénes Somos</h2>
-            <div class="about-content">
-                <div class="about-text-container">
-                    <p class="about-text">
-                        En **Caza Estilo** no vendemos ropa, creamos identidad. Cada prenda que elegimos está pensada para quienes no temen destacar, para quienes saben que el estilo no se sigue… se impone.
-                    </p>
-                    <p class="about-text">
-                        Dos chicos, nacimos en las calles con una visión clara: vestir a quienes se atreven a ser diferentes, a los que buscan más que moda: buscan presencia. Aquí no encontrarás lo mismo de siempre; cazamos las prendas más exclusivas, únicas y llenas de carácter, piezas que hablan por ti y cuentan tu historia. En Caza Estilo, vestir es una declaración. Aquí no sigues tendencias: **las creas**. Aquí no solo compras… aquí cazas tu propio estilo.
-                    </p>
-                    <a href="https://wa.me/573012705080" target="_blank" class="btn btn-small">Contáctanos por WhatsApp</a>
-                </div>
+            <h2>¿Quiénes Somos?</h2>
+            <p>Somos Caza Estilo, nacidos de la pasión por la cultura urbana y la calidad. Más que una marca, somos un movimiento que fusiona el diseño vanguardista con la comodidad duradera.</p>
+            <p>Nuestras prendas están hechas para quienes viven al límite, para quienes no siguen tendencias, sino que las crean. Cada pieza es una declaración.</p>
+            <div style="margin-top: 2rem;">
+                <a href="#contacto" class="btn scroll-to-section">¡Únete al Movimiento!</a>
             </div>
         </div>
     </section>
 
     <section id="testimonios">
         <div class="container">
-            <h2>Mira cómo se ve el estilo en la calle</h2>
-            <p class="section-subtitle">Fotos enviadas por nuestros clientes con sus prendas Caza Estilo.</p>
-
+            <h2>Clientes Hablan</h2>
+            <p class="section-subtitle">Lo que dicen quienes ya están cazando su estilo.</p>
+            
             <div class="testimonials-carousel swiper-container">
                 <div class="swiper-wrapper">
-                    
                     <div class="swiper-slide testimonial-slide">
-                        <img src="imagenes/testimonio1.jpg" alt="Testimonio cliente 1 - Conjunto Corazón" class="testimonial-img">
+                        <img src="imagenes/testimonio1.jpg" alt="Testimonio de Cliente 1" class="testimonial-img">
                         <div class="testimonial-caption">
-                            <p>"¡El conjunto es fire! La calidad supera las fotos."</p>
-                            <span class="testimonial-author-name">— Andrés L.</span>
+                            <p>"La calidad de esta chaqueta superó mis expectativas. El corte es perfecto y el envío fue rapidísimo. Definitivamente mi nueva tienda favorita."</p>
+                            <span class="testimonial-author-name">- Mateo R.</span>
                         </div>
                     </div>
-                    
                     <div class="swiper-slide testimonial-slide">
-                        <img src="imagenes/testimonio2.jpg" alt="Testimonio cliente 2 - Jean Blanco" class="testimonial-img">
+                        <img src="imagenes/testimonio2.jpg" alt="Testimonio de Cliente 2" class="testimonial-img">
                         <div class="testimonial-caption">
-                            <p>"Llegó súper rápido y el jean me queda perfecto. Recomendados."</p>
-                            <span class="testimonial-author-name">— Valentina S.</span>
+                            <p>"Los jeans son increíblemente cómodos y tienen un diseño único que no encuentro en otro lugar. ¡Ya quiero mi segundo par!"</p>
+                            <span class="testimonial-author-name">- Valentina S.</span>
                         </div>
                     </div>
-                    
                     <div class="swiper-slide testimonial-slide">
-                        <img src="imagenes/testimonio3.jpg" alt="Testimonio cliente 3 - Saco Exclusivo" class="testimonial-img">
+                        <img src="imagenes/testimonio3.jpg" alt="Testimonio de Cliente 3" class="testimonial-img">
                         <div class="testimonial-caption">
-                            <p>"Saco exclusivo y muy cómodo. Ya tengo mi presencia."</p>
-                            <span class="testimonial-author-name">— Mateo G.</span>
+                            <p>"Excelente atención y el conjunto me queda pintado. Me gustó que me asesoraran con la talla. ¡Recomendados 100%!"</p>
+                            <span class="testimonial-author-name">- Juan C.</span>
                         </div>
                     </div>
-                    
+                    <div class="swiper-slide testimonial-slide">
+                        <img src="imagenes/testimonio4.jpg" alt="Testimonio de Cliente 4" class="testimonial-img">
+                        <div class="testimonial-caption">
+                            <p>"La camiseta gráfica es una obra de arte. Se siente el algodón de alta calidad. La mejor compra que he hecho en línea este año."</p>
+                            <span class="testimonial-author-name">- Sofía G.</span>
+                        </div>
                     </div>
-                
+                </div>
                 <div class="swiper-pagination testimonial-pagination"></div>
-                
                 <div class="swiper-button-prev testimonial-prev"></div>
                 <div class="swiper-button-next testimonial-next"></div>
             </div>
@@ -124,39 +123,39 @@
             <h2>Envíos y Entregas</h2>
             <div class="shipping-info">
                 <div class="shipping-item">
-                    <i class="fas fa-shipping-fast icon-large bounce-icon"></i>
-                    <h3>Envíos</h3>
-                    <p>Realizamos **envíos gratis a toda Colombia**. El tiempo de entrega estimado es de **1 a 4 días hábiles** en Medellín y **3 a 7 días hábiles** para el resto del país. Recibirás un número de seguimiento para rastrear tu pedido.</p>
+                    <i class="fas fa-truck icon-large bounce-icon"></i>
+                    <h3>Envíos Rápidos</h3>
+                    <p>Despacho en 24-48 horas después de la confirmación del pedido.</p>
                 </div>
                 <div class="shipping-item">
-                    <i class="fas fa-gift icon-large bounce-icon"></i>
+                    <i class="fas fa-box-open icon-large bounce-icon"></i>
                     <h3>Empaque Premium</h3>
-                    <p>Cada prenda de Caza Estilo se entrega en un **empaque de lujo** diseñado para proteger tu compra y realzar la experiencia. Tu estilo llega con distinción.</p>
+                    <p>Recibe tus prendas con el cuidado y estilo que merecen.</p>
                 </div>
                 <div class="shipping-item">
-                    <i class="fab fa-whatsapp icon-large bounce-icon"></i>
-                    <h3>Compra por WhatsApp</h3>
-                    <p>Nuestro proceso es **rápido y directo**. Añade al carrito y con un solo clic, inicia la conversación en WhatsApp con tu pedido listo para confirmar.</p>
+                    <i class="fas fa-shield-alt icon-large bounce-icon"></i>
+                    <h3>Seguimiento Total</h3>
+                    <p>Te proporcionamos el número de guía para rastrear tu pedido en todo momento.</p>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <section id="politicas">
         <div class="container">
-            <h2>Información Legal y de Compra</h2>
+            <h2>Nuestras Políticas</h2>
             <div class="policies-grid">
                 <div class="policy-card">
                     <h3>Cambios y Devoluciones</h3>
-                    <p>Aceptamos cambios de talla o prenda si se notifica en las primeras 48 horas tras la recepción. Las prendas deben estar sin usar y con etiquetas. No se realiza devolución de dinero. **Esta es nuestra política de cambios completa.**</p>
+                    <p>Aceptamos cambios dentro de los 30 días siguientes a la compra por talla o defecto de fábrica.</p>
                 </div>
                 <div class="policy-card">
-                    <h3>Términos y Condiciones</h3>
-                    <p>Al realizar una cotización con Caza Estilo, aceptas nuestros términos de uso, proceso de pago vía Nequi/Daviplata y los tiempos de entrega estipulados. **Si tienes dudas, contáctanos antes de confirmar tu pedido.**</p>
+                    <h3>Métodos de Pago</h3>
+                    <p>Aceptamos transferencias bancarias, Nequi, y pagos contra entrega en ciudades principales.</p>
                 </div>
                 <div class="policy-card">
-                    <h3>Política de Privacidad</h3>
-                    <p>Tus datos (nombre y número de contacto) son usados exclusivamente para el proceso de cotización, envío y seguimiento. No compartimos tu información con terceros. **Tu información está segura con nosotros.**</p>
+                    <h3>Privacidad de Datos</h3>
+                    <p>Tus datos están seguros. Solo los usamos para gestionar tu pedido y enviarte promociones (si nos autorizas).</p>
                 </div>
             </div>
         </div>
@@ -164,25 +163,21 @@
 
     <section id="contacto">
         <div class="container">
-            <h2>Contáctanos</h2>
+            <h2>Hablemos</h2>
             <div class="contact-content">
-                <p class="contact-text">¿Tienes alguna pregunta, sugerencia o simplemente quieres saludar? ¡Estamos aquí para escucharte!</p>
+                <p class="contact-text">¿Tienes alguna duda sobre una talla, envío o quieres hacernos una propuesta? Contáctanos, estamos listos para atenderte.</p>
                 <div class="contact-details">
                     <div class="contact-item">
-                        <i class="fab fa-whatsapp icon-medium"></i>
-                        <p><strong>WhatsApp:</strong> <a href="https://wa.me/573012705080" target="_blank">+57 3012705080</a></p>
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:info@cazaestilo.com">info@cazaestilo.com</a>
                     </div>
                     <div class="contact-item">
-                        <i class="fab fa-instagram icon-medium"></i>
-                        <p><strong>Instagram:</strong> <a href="https://instagram.com/cazaestiloo" target="_blank">@cazaestiloo</a></p>
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/573012705080" target="_blank">+57 301 270 5080</a>
                     </div>
                     <div class="contact-item">
-                        <i class="fab fa-tiktok icon-medium"></i>
-                        <p><strong>TikTok:</strong> <a href="https://www.tiktok.com/@_cazaestilo" target="_blank">@_cazaestilo</a></p>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope icon-medium"></i>
-                        <p><strong>Email:</strong> <a href="mailto:cazaestiloo@gmail.com">cazaestiloo@gmail.com</a></p>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Medellín, Colombia</span>
                     </div>
                 </div>
             </div>
@@ -190,21 +185,42 @@
     </section>
 
     <footer>
-        <div class="socials">
-            <a href="https://instagram.com/cazaestiloo" target="_blank" aria-label="Instagram de Caza Estilo"><i class="fab fa-instagram"></i></a>
-            <a href="https://wa.me/573012705080" target="_blank" aria-label="WhatsApp de Caza Estilo"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://www.tiktok.com/@_cazaestilo" target="_blank" aria-label="TikTok de Caza Estilo"><i class="fab fa-tiktok"></i></a>
+        <div class="container">
+            <div class="socials">
+                <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="#about" class="scroll-to-section">Quiénes Somos</a> <span>|</span>
+                <a href="#politicas" class="scroll-to-section">Políticas de Devolución</a> <span>|</span>
+                <a href="#envios" class="scroll-to-section">Envíos</a>
+            </div>
+            <p>&copy; 2024 Caza Estilo. Todos los derechos reservados.</p>
         </div>
-        <div class="footer-links">
-            <a href="#politicas" class="scroll-to-section">Cambios y Devoluciones</a>
-            <span>|</span>
-            <a href="#politicas" class="scroll-to-section">Términos</a>
-            <span>|</span>
-            <a href="#politicas" class="scroll-to-section">Privacidad</a>
-        </div>
-        <p>&copy; 2025 Caza Estilo. Todos los derechos reservados.</p>
     </footer>
 
+    <div id="size-modal" class="cart-modal-overlay" style="display:none;">
+        <div class="cart-modal-content size-modal-content">
+            <h3 id="size-modal-title">Selecciona la Talla</h3>
+            
+            <p>Por favor, elige la talla para agregar este artículo a tu cotización:</p>
+            
+            <div class="size-selection-group">
+                <label for="product-size-select">Talla:</label>
+                <select id="product-size-select" class="size-select-dropdown">
+                    </select>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="document.getElementById('size-modal').style.display='none'">Cancelar</button>
+                <button id="confirm-size-button" class="btn btn-primary-confirm">
+                    Añadir al Carrito
+                </button>
+            </div>
+        </div>
+    </div>
+    
     <div id="cart-modal" class="cart-modal-overlay" style="display:none;">
         <div class="cart-modal-content">
             <h3>Tu Carrito de Cotización</h3>
@@ -212,10 +228,10 @@
                 <p>El carrito está vacío.</p>
             </div>
             <div class="cart-total">
-                <span>Total:</span>
+                <span>Total Estimado:</span>
                 <span id="cart-modal-total" class="total-price">$0</span>
             </div>
-            <p class="modal-info">**Proceso de Cotización:** Haz clic en "Confirmar Pedido" para enviarnos tu lista por WhatsApp.</p>
+            <p class="modal-info">**Proceso de Cotización:** Usa los botones '+' y '-' para ajustar cantidades. Haz clic en "Confirmar Pedido" para enviarnos tu lista por WhatsApp.</p>
             <div class="modal-actions">
                 <button class="btn btn-secondary" onclick="document.getElementById('cart-modal').style.display='none'">Cerrar</button>
                 <button class="btn btn-warning" onclick="clearCart()">Vaciar Carrito</button>
