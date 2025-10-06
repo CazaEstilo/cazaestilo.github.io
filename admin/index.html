@@ -1,18 +1,26 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel de Administración - Caza Estilo</title>
-  
-  <style>
-    /* Estilos base si los necesitas */
-    body { font-family: sans-serif; }
-  </style>
-  
-</head>
+  </head>
 <body>
 
+  <script>
+    // 1. Borrar todas las entradas de caché de Decap CMS (LocalStorage)
+    if (window.localStorage) {
+        for (let i = 0; i < window.localStorage.length; i++) {
+            const key = window.localStorage.key(i);
+            if (key.startsWith('decap-cms-')) {
+                window.localStorage.removeItem(key);
+            }
+        }
+    }
+
+    // 2. Si el sitio aún intenta redirigir a Netlify, forzar la recarga
+    // Esto es un parche temporal para obligar a la página a refrescar
+    if (window.location.href.includes('api.netlify.com')) {
+        window.location.href = 'https://cazaestilo.github.io/admin';
+    }
+  </script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
 </body>
