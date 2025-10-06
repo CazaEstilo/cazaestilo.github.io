@@ -1,29 +1,31 @@
-# CazaEstilo/admin/config.yml
+# Archivo: admin/config.yml (CÓDIGO MODIFICADO)
 
 backend:
-  # Usamos 'git-gateway' porque ya activaste Netlify Identity/Git Gateway
+  # Usamos 'git-gateway' porque activaste Netlify Identity/Git Gateway
   name: git-gateway 
-  # *** REEMPLAZA CON TU USUARIO/REPOSITORIO EXACTO ***
-  repo: CazaEstilo/CazaEstilo 
-  branch: main # O 'master', según la rama principal de tu repositorio
+  # *** ESTA ES LA RUTA EXACTA DE TU REPOSITORIO ***
+  repo: cazaestilo/CazaEstilo 
+  branch: main # o 'master'
+
+# CONFIGURACIÓN DE RUTA BASE (¡ESTO SOLUCIONA EL PROBLEMA!)
+# Netlify usa esto para saber dónde está la raíz real de tu sitio
+site_url: https://cazaestilo.github.io/CazaEstilo
+base_url: https://cazaestilo.github.io/CazaEstilo 
 
 # Configuraciones de Medios
-# Asegúrate de crear esta carpeta en la raíz: assets/img/products/
 media_folder: "assets/img/products" 
 public_folder: "/assets/img/products" 
 
-# Define la estructura de los productos (Colección 'Productos')
+# Define la estructura de los productos
 collections:
   - name: "productos" 
     label: "Productos Destacados" 
-    # Asegúrate de crear esta carpeta en la raíz: _productos/
     folder: "_productos" 
     create: true 
     slug: "{{slug}}"
     format: "json" 
     fields: 
       - {label: "Nombre del Producto", name: "title", widget: "string"}
-      # Usamos 'markdown' para permitir descripciones más largas y con formato
       - {label: "Descripción Detallada", name: "body", widget: "markdown", required: true}
       - {label: "Precio (COP)", name: "price", widget: "number", value_type: "int", min: 0, step: 100}
       - {label: "Stock Disponible (0 = Agotado)", name: "stock", widget: "number", value_type: "int", min: 0, default: 1}
