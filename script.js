@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     const scrollLinks = document.querySelectorAll('.scroll-to-section');
-    const logoVideo = document.getElementById('logo-video'); 
+    const headerVideo = document.getElementById('header-video'); // Video del Header
     
     // --- VARIABLES DEL MODAL Y CARRUSEL ---
     const modal = document.getElementById('image-modal');
@@ -20,10 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalPrice = document.querySelector('.modal-price');
     const modalDescription = document.querySelector('.modal-description');
     const modalWhatsappLink = document.getElementById('modal-whatsapp-link');
-    const modalAddToCartButton = document.getElementById('modal-add-to-cart'); // Nuevo botón de carrito en modal
+    const modalAddToCartButton = document.getElementById('modal-add-to-cart'); 
     const closeButton = document.querySelector('.close-button');
-    let productDataCache = {}; // Cache para guardar los datos del producto
-    let currentProductSlug = null; // Para saber qué producto está en el modal
+    let productDataCache = {}; 
+    let currentProductSlug = null; 
 
     // --- VARIABLES Y LÓGICA DEL CARRITO DE WHATSAPP ---
     let cart = JSON.parse(localStorage.getItem('cazaestilo_cart')) || [];
@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateCartCount() {
         if (cartCountElement) {
-            // Muestra la cantidad total de artículos, no de tipos de producto
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             cartCountElement.textContent = totalItems;
         }
@@ -71,11 +70,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cart.forEach(item => {
             const itemTotal = item.price * item.quantity;
-            message += `* ${item.title} (Cant: ${item.quantity}) - Total: $${itemTotal.toLocaleString('es-CO')} COP\n`;
+            const itemTotalFormatted = itemTotal.toLocaleString('es-CO');
+            
+            message += `* ${item.title} (Cant: ${item.quantity}) - Total: $${itemTotalFormatted} COP\n`;
             total += itemTotal;
         });
 
-        message += `\nTotal estimado: $${total.toLocaleString('es-CO')} COP`;
+        const totalFormatted = total.toLocaleString('es-CO');
+        message += `\nTotal estimado: $${totalFormatted} COP`;
         message += `\n\nPor favor, confírmenme disponibilidad y proceso de pago.`;
 
         const encodedMessage = encodeURIComponent(message);
@@ -84,18 +86,21 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(whatsappURL, '_blank');
     }
     
-    // Escucha el botón principal del carrito
     if (viewCartButton) {
         viewCartButton.addEventListener('click', viewCart);
     }
     updateCartCount();
 
-    // Escucha el botón "Añadir al Carrito" DENTRO DEL MODAL
     if (modalAddToCartButton) {
         modalAddToCartButton.addEventListener('click', () => {
             if (currentProductSlug && productDataCache[currentProductSlug]) {
-                addToCart(productDataCache[currentProductSlug]);
-                modal.classList.remove('open'); // Cierra el modal después de añadir
+                const product = productDataCache[currentProductSlug];
+                if (product.stock > 0) {
+                    addToCart(product);
+                    modal.classList.remove('open');
+                } else {
+                    alert("Este producto está agotado y no puede añadirse al carrito.");
+                }
             }
         });
     }
@@ -115,16 +120,13 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const soldOutClass = stock === 0 ? 'sold-out' : '';
         const stockText = stock > 0 ? `Stock: ${stock} unid.` : '¡AGOTADO!';
-        const buttonText = stock > 0 ? 'Cazala aqui' : 'Avísame';
+        const buttonText = stock > 0 ? 'Añadir al Carrito' : 'Agotado';
         
         const encodedTitle = encodeURIComponent(title);
-        // Link directo para compra individual
         const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=%C2%A1Hola!%20Me%20interesa%20el%20${encodedTitle}%20(Precio%3A%20${price}).%20Quiero%20ordenar%20ya%20mismo%20%F0%9F%92%96.`;
 
-        // Guardamos la data completa en caché
         productDataCache[slug] = { ...product, price_formatted: price, whatsapp_link: whatsappLink };
         
-        // Plantilla HTML del producto
         const productHTML = `
             <div class="product ${soldOutClass}">
                 <a href="#" class="open-modal-link" data-slug="${slug}">
@@ -138,22 +140,24 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="quality-info">Calidad: ${quality}%</div>
                     </div>
                     <button class="btn btn-small add-to-cart-btn" data-slug="${slug}" ${stock === 0 ? 'disabled' : ''}>
-                        ${stock > 0 ? 'Añadir al Carrito' : 'Agotado'}
+                        ${buttonText}
                     </button>
-                    
                     <a href="${whatsappLink}" target="_blank" class="btn btn-small" ${stock === 0 ? 'style="display:none;"' : ''}>
-                         ${buttonText}
+                         Cazala aqui
                     </a>
                 </div>
             </div>
         `;
 
-        document.getElementById('products-container').insertAdjacentHTML('beforeend', productHTML);
+        const productsContainer = document.getElementById('products-container');
+        if (productsContainer) {
+            productsContainer.insertAdjacentHTML('beforeend', productHTML);
+        }
     }
     
     // Función para cargar los datos (SIMULACIÓN DE JSON)
     async function loadProducts() {
-        // *** IMPORTANTE: AJUSTA ESTE ARRAY CON TUS PRODUCTOS REALES Y RUTAS DE IMAGENES ***
+        // *** CAMBIA ESTOS DATOS POR TUS PRODUCTOS REALES ***
         const productsData = [
             {
                 slug: "conjunto-corazon",
@@ -162,7 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 price: 94900,
                 stock: 5,
                 quality: 95,
-                // Asegúrate de que estas rutas sean correctas
                 images: [{ image: "conjunto.jpg" }, { image: "conjunto2.jpg" }, { image: "conjunto3.jpg" }],
             },
             {
@@ -189,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeProductListeners();
     }
     
-    // Función para inicializar y gestionar el Carrusel (Swiper) en el modal
     function initializeSwiper(images) {
         modalSwiperWrapper.innerHTML = ''; 
 
@@ -214,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
-            effect: 'fade', // Transición Dinámica
+            effect: 'fade', 
             fadeEffect: {
                 crossFade: true,
             },
@@ -222,7 +224,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Inicializa listeners para abrir el modal y añadir al carrito
     function initializeProductListeners() {
         const openModalLinks = document.querySelectorAll('.open-modal-link');
         const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
@@ -234,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const slug = link.dataset.slug;
                 const product = productDataCache[slug];
-                currentProductSlug = slug; // Guarda el producto actual
+                currentProductSlug = slug; 
 
                 if (product) {
                     modalTitle.textContent = product.title;
@@ -242,11 +243,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     modalDescription.innerHTML = product.body.replace(/\n/g, '<br>'); 
                     modalWhatsappLink.href = product.whatsapp_link;
                     
-                    // Ajusta el botón Añadir al Carrito del modal
                     const isAvailable = product.stock > 0;
                     modalAddToCartButton.disabled = !isAvailable;
                     modalAddToCartButton.textContent = isAvailable ? 'Añadir al Carrito' : 'Agotado';
-                    modalWhatsappLink.style.display = isAvailable ? 'block' : 'none'; // Oculta el botón de compra inmediata si está agotado
+                    modalWhatsappLink.style.display = isAvailable ? 'block' : 'none'; 
                     
                     initializeSwiper(product.images);
                     modal.classList.add('open');
@@ -267,10 +267,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // --- Funcionalidad del Loader y Animaciones Iniciales ---
+    // --- LÓGICA DE CARGA Y ANIMACIÓN INICIAL ---
     function hideLoader() {
         if (loaderOverlay) {
-            if (logoVideo) logoVideo.pause(); 
             loaderOverlay.classList.add('hidden');
         }
     }
@@ -286,27 +285,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.addEventListener('load', () => {
-        let delayTime = 3000; 
-        if (logoVideo) {
-            logoVideo.currentTime = 0; 
-            logoVideo.play().catch(error => {
-                 console.warn("Autoplay falló, ocultando loader tras 3s:", error);
-            });
-            logoVideo.addEventListener('ended', hideLoader);
-        }
-        
+        // Ocultar el loader tras 1 segundo para ver el video
+        const loaderDuration = 1000; 
+
         setTimeout(() => {
-            hideLoader(); // Forzar ocultar si el video falla
+            hideLoader(); 
             showContent();
-        }, delayTime);
+        }, loaderDuration);
         
-        loadProducts(); // Carga los productos dinámicamente
+        loadProducts(); 
+
+        if (headerVideo) {
+             headerVideo.play().catch(error => {
+                 console.warn("Autoplay de video del header falló:", error);
+            });
+        }
     });
 
 
-    // --- El resto de tus funcionalidades de navegación y modal (iguales) ---
+    // --- Funcionalidades de navegación, scroll y modal ---
     
-    // Funcionalidad de Scroll (Nav y Secciones)
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
@@ -324,15 +322,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Toggle de Menú Móvil
     if (menuToggle && navLinks) {
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
 
-        navLinks.querySelectorAll('a, button').forEach(el => { // Añadido 'button' para el carrito
+        navLinks.querySelectorAll('a, button').forEach(el => {
             el.addEventListener('click', () => {
-                // Solo cerramos si el elemento no es el botón de carrito
                 if (!el.classList.contains('btn-cart')) { 
                     navLinks.classList.remove('active');
                 }
@@ -340,7 +336,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Smooth Scroll
     scrollLinks.forEach(link => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
@@ -355,7 +350,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Cierre de Modal
     closeButton.addEventListener('click', () => {
         modal.classList.remove('open');
     });
