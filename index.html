@@ -16,14 +16,14 @@
     
     <div class="loader-overlay">
         <div class="loader-content">
-             <img src="logo.png" alt="Caza Estilo Logo" class="logo-animation">
+             <img src="imagenes/logo.png" alt="Caza Estilo Logo" class="logo-animation">
         </div>
     </div>
 
     <nav class="navbar">
         <div class="container">
             <a href="#" class="logo">
-                <img src="logo.png" alt="Logo Caza Estilo">
+                <img src="imagenes/logo.png" alt="Logo Caza Estilo">
             </a>
             <ul class="nav-links">
                 <li><a href="#productos" class="scroll-to-section">Productos</a></li>
@@ -43,7 +43,7 @@
     </nav>
 
     <header>
-        <video id="header-video" src="header-video.mp4" autoplay loop muted playsinline poster="header-bg.jpg"></video>
+        <video id="header-video" src="imagenes/header-video.mp4" autoplay loop muted playsinline poster="imagenes/header-bg.jpg"></video>
         
         <h1 class="animated-text">CAZA ESTILO</h1>
         <p class="animated-text">Calle. Estilo. Vístete para dejar huella.</p>
@@ -79,68 +79,42 @@
 
     <section id="testimonios">
         <div class="container">
-            <h2>Lo que Dicen Nuestros Clientes</h2>
-            <div class="testimonials-grid">
-                
-                <div class="testimonial-card whatsapp-card">
-                    <div class="chat-top-bar">
-                        <i class="fas fa-arrow-left"></i>
-                        <i class="fas fa-user-circle contact-photo"></i>
-                        <span class="contact-name">Daniela M.</span>
-                        <div class="chat-icons">
-                            <i class="fas fa-video"></i>
-                            <i class="fas fa-ellipsis-v"></i>
-                        </div>
-                    </div>
-                    <div class="chat-body">
-                        <div class="chat-bubble received">
-                            La calidad es **increíble**, superó mis expectativas. El envío fue muy rápido y el **empaque es premium**. ¡El jean es perfecto! 💯
-                        </div>
-                        <div class="chat-meta">
-                            <i class="fas fa-check-double"></i> <span>20:15</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card whatsapp-card">
-                     <div class="chat-top-bar">
-                        <i class="fas fa-arrow-left"></i>
-                        <i class="fas fa-user-circle contact-photo"></i>
-                        <span class="contact-name">Esteban G.</span>
-                        <div class="chat-icons">
-                            <i class="fas fa-video"></i>
-                            <i class="fas fa-ellipsis-v"></i>
-                        </div>
-                    </div>
-                    <div class="chat-body">
-                        <div class="chat-bubble received">
-                            El trato por WhatsApp fue **excelente**. Me ayudaron con las tallas y mi saco llegó en **2 días**. ¡Definitivamente vuelvo a comprar! 👌
-                        </div>
-                        <div class="chat-meta">
-                            <i class="fas fa-check-double"></i> <span>11:30</span>
-                        </div>
-                    </div>
-                </div>
+            <h2>Mira cómo se ve el estilo en la calle</h2>
+            <p class="section-subtitle">Fotos enviadas por nuestros clientes con sus prendas Caza Estilo.</p>
 
-                <div class="testimonial-card whatsapp-card">
-                     <div class="chat-top-bar">
-                        <i class="fas fa-arrow-left"></i>
-                        <i class="fas fa-user-circle contact-photo"></i>
-                        <span class="contact-name">Sofía R.</span>
-                        <div class="chat-icons">
-                            <i class="fas fa-video"></i>
-                            <i class="fas fa-ellipsis-v"></i>
+            <div class="testimonials-carousel swiper-container">
+                <div class="swiper-wrapper">
+                    
+                    <div class="swiper-slide testimonial-slide">
+                        <img src="imagenes/testimonio1.jpg" alt="Testimonio cliente 1 - Conjunto Corazón" class="testimonial-img">
+                        <div class="testimonial-caption">
+                            <p>"¡El conjunto es fire! La calidad supera las fotos."</p>
+                            <span class="testimonial-author-name">— Andrés L.</span>
                         </div>
                     </div>
-                    <div class="chat-body">
-                        <div class="chat-bubble received">
-                            Nunca había encontrado un conjunto con tanto estilo. Me encanta que no sea la moda de siempre, es **ropa para destacar** ✨. Gracias Caza Estilo.
-                        </div>
-                        <div class="chat-meta">
-                            <i class="fas fa-check-double"></i> <span>15:45</span>
+                    
+                    <div class="swiper-slide testimonial-slide">
+                        <img src="imagenes/testimonio2.jpg" alt="Testimonio cliente 2 - Jean Blanco" class="testimonial-img">
+                        <div class="testimonial-caption">
+                            <p>"Llegó súper rápido y el jean me queda perfecto. Recomendados."</p>
+                            <span class="testimonial-author-name">— Valentina S.</span>
                         </div>
                     </div>
-                </div>
+                    
+                    <div class="swiper-slide testimonial-slide">
+                        <img src="imagenes/testimonio3.jpg" alt="Testimonio cliente 3 - Saco Exclusivo" class="testimonial-img">
+                        <div class="testimonial-caption">
+                            <p>"Saco exclusivo y muy cómodo. Ya tengo mi presencia."</p>
+                            <span class="testimonial-author-name">— Mateo G.</span>
+                        </div>
+                    </div>
+                    
+                    </div>
+                
+                <div class="swiper-pagination testimonial-pagination"></div>
+                
+                <div class="swiper-button-prev testimonial-prev"></div>
+                <div class="swiper-button-next testimonial-next"></div>
             </div>
         </div>
     </section>
@@ -230,6 +204,27 @@
         </div>
         <p>&copy; 2025 Caza Estilo. Todos los derechos reservados.</p>
     </footer>
+
+    <div id="cart-modal" class="cart-modal-overlay" style="display:none;">
+        <div class="cart-modal-content">
+            <h3>Tu Carrito de Cotización</h3>
+            <div id="cart-items-list" class="cart-items-list">
+                <p>El carrito está vacío.</p>
+            </div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-modal-total" class="total-price">$0</span>
+            </div>
+            <p class="modal-info">**Proceso de Cotización:** Haz clic en "Confirmar Pedido" para enviarnos tu lista por WhatsApp.</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="document.getElementById('cart-modal').style.display='none'">Cerrar</button>
+                <button class="btn btn-warning" onclick="clearCart()">Vaciar Carrito</button>
+                <button id="confirm-whatsapp" class="btn btn-whatsapp-confirm">
+                    <i class="fab fa-whatsapp"></i> Confirmar Pedido
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
