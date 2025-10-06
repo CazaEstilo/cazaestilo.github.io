@@ -542,6 +542,68 @@ h2 {
     display: block;
     margin-top: 1.5rem;
 }
+/* --- Sección Testimonios (Simulación de Chat) --- */
+
+.chat-simulation {
+    border-left: none; /* Elimina el borde anterior */
+    background-color: #0d1217; /* Fondo oscuro de chat */
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333;
+}
+
+.chat-header i {
+    font-size: 1.8rem;
+    color: #4CAF50; /* Icono de perfil de WhatsApp */
+}
+
+.chat-header span {
+    font-weight: bold;
+    color: var(--color-white);
+    font-size: 1.1rem;
+}
+
+.chat-bubble {
+    background-color: #262D31; /* Fondo de burbuja de chat (recibido) */
+    color: var(--color-light-grey);
+    padding: 12px 15px;
+    border-radius: 10px 10px 10px 0; /* Borde de burbuja */
+    line-height: 1.5;
+    font-style: normal;
+    font-size: 0.95rem;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.chat-meta {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 5px;
+}
+
+.chat-meta i {
+    color: #34B7F1; /* Checkmarks de WhatsApp (azul) */
+    margin-left: 5px;
+}
+
+/* Modificación de la sección políticas para que se vea mejor sin enlaces */
+#politicas .policy-card {
+    padding: 2.5rem; /* Más espacio */
+    text-align: center;
+}
+#politicas .policy-card p {
+    margin-bottom: 0;
+}
 
 /* --- Sección Envíos y Entregas (Se mantiene) --- */
 #envios {
