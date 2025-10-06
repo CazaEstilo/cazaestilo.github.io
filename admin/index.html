@@ -1,34 +1,18 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel de Administración - Caza Estilo</title>
-  
-  <style>
-    body { font-family: 'Montserrat', sans-serif; }
-  </style>
-  
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  
-  <link rel="icon" href="/CazaEstilo/favicon.png" type="image/png">
-  
-</head>
+  </head>
 <body>
 
   <script>
-    // ** SOLAMENTE LÓGICA DE REDIRECCIÓN (LO MÁS LIMPIO) **
-    // Esto es el mínimo código necesario para que el login funcione y redirija.
-    
+    // ÚNICAMENTE LÓGICA DE REDIRECCIÓN
     if (window.netlifyIdentity) {
         
         window.netlifyIdentity.on("init", user => {
             if (!user) {
-                // Si el usuario se loguea, redirige al panel
+                // Si el usuario se loguea, redirige a la raíz del panel (sin subdirectorio)
                 window.netlifyIdentity.on("login", () => {
-                    document.location.href = "/CazaEstilo/admin"; 
+                    document.location.href = "/admin"; // <--- REDIRIGE A /admin
                 });
             }
         });
