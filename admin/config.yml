@@ -1,15 +1,16 @@
 backend:
-  name: github
-  repo: CazaEstilo/CazaEstilo
+  name: github                                    
+  repo: CazaEstilo/CazaEstilo                     
   branch: main
-  # ...
+  base_url: https://github.com
+  auth_url: /authorize
+  
+# RESTAURAR RUTAS ABSOLUTAS:
+base_url: /CazaEstilo/ # <-- Vuelve a incluir el nombre del repositorio
+site_url: https://cazaestilo.github.io/CazaEstilo/ # <-- Vuelve a incluir el nombre del repositorio
 
-# RUTAS SIMPLIFICADAS
-base_url: /
-site_url: https://cazaestilo.github.io/ 
-# ...
-public_folder: "/assets/img/products" 
-# ...
+media_folder: "assets/img/products" 
+public_folder: "/CazaEstilo/assets/img/products" # <-- Vuelve a incluir el nombre del repositorio
 
 collections:
   - name: "productos" 
