@@ -7,11 +7,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="favicon.png" type="image/png">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    
     <div class="loader-overlay">
-        <div class="loader"></div>
+        <video id="logo-video" src="logo-video.mp4" autoplay muted loop playsinline></video>
+        <div class="loader-content">
+             <img src="logo.png" alt="Caza Estilo Logo" class="logo-animation">
+        </div>
     </div>
 
     <nav class="navbar">
@@ -39,116 +46,7 @@
 
     <section id="productos" class="hidden-section">
         <h2>Productos Destacados</h2>
-        <div class="products">
-            <div class="product">
-                <a href="#" class="open-modal-link" 
-                   data-img-src="conjunto.jpg"
-                   data-title="Conjunto Corazon"
-                   data-price="$94.900 COP"
-                   data-description="Un conjunto de dos piezas con un diseño único, perfecto para quienes buscan un look atrevido y memorable.">
-                    <img src="conjunto.jpg" alt="Conjunto Corazon">
-                </a>
-                <div class="product-info">
-                    <h3>Conjunto Corazon</h3>
-                    <p>$94.900 COP</p>
-                    <div class="product-meta">
-                        <div class="stock-info">Stock: 1 unid.</div>
-                        <div class="quality-info">Calidad: 95%</div>
-                    </div>
-                    <a href="https://wa.me/573012705080?text=%C2%A1Hola!%20Me%20encantar%C3%ADa%20ordenar%20el%20Conjunto%20de%20Coraz%C3%B3n.%20Estoy%20list@%20para%20llevarlo.%20Precio%3A%20%2494.900%20COP." class="btn btn-small">Cazala aqui</a>
-                </div>
-            </div>
-
-            <div class="product">
-                <a href="#" class="open-modal-link" 
-                   data-img-src="jeanblanco.jpg"
-                   data-title="Jean Blanco"
-                   data-price="$110.900 COP"
-                   data-description="Un jean blanco de corte moderno, ideal para combinar con cualquier prenda y crear un estilo minimalista y sofisticado.">
-                    <img src="jeanblanco.jpg" alt="Jean Blanco">
-                </a>
-                <div class="product-info">
-                    <h3>Jean Blanco</h3>
-                    <p>$110.900 COP</p>
-                    <div class="product-meta">
-                        <div class="stock-info">Stock: 1 unid.</div>
-                        <div class="quality-info">Calidad: 100%</div>
-                    </div>
-                    <a href="https://wa.me/573012705080?text=%C2%A1Hola!%20Me%20encanta%20este%20Jean%20Blanco.%20%C2%BFPuedo%20hacer%20mi%20pedido%3F%20%C2%A1Quiero%20estrenarlo%20pronto!%20Precio%3A%20%24110.900%20COP." target="_blank" class="btn btn-small">Cazala aqui</a>
-                </div>
-            </div>
-            <div class="product">
-                <a href="#" class="open-modal-link" 
-                   data-img-src="jeancafe.jpg"
-                   data-title="Jean Cafe"
-                   data-price="$132.900 COP"
-                   data-description="Un jean de color café con un fit relajado y cómodo, perfecto para quienes buscan una pieza versátil y con carácter.">
-                    <img src="jeancafe.jpg" alt="Jean Cafe">
-                </a>
-                <div class="product-info">
-                    <h3>Jean Cafe</h3>
-                    <p>$132.900 COP</p>
-                    <div class="product-meta">
-                        <div class="stock-info">Stock: 1 unid.</div>
-                        <div class="quality-info">Calidad: 100%</div>
-                    </div>
-                    <a href="https://wa.me/573012705080?text=%C2%A1Hola!%20Estoy%20fascinada%20con%20el%20Jean%20Caf%C3%A9.%20%C2%BFPodr%C3%ADan%20ayudarme%20con%20la%20compra%3F%20%C2%A1Me%20urge%20tenerlo!%20Precio%3A%20%24132.900%20COP." target="_blank" class="btn btn-small">Cazala aqui</a>
-                </div>
-            </div>
-            <div class="product">
-                <a href="#" class="open-modal-link" 
-                   data-img-src="saco.jpg"
-                   data-title="Saco"
-                   data-price="$105.900 COP"
-                   data-description="Un saco suave y acogedor, ideal para los días fríos sin sacrificar tu estilo. Un básico imprescindible con un toque especial.">
-                    <img src="saco.jpg" alt="Saco">
-                </a>
-                <div class="product-info">
-                    <h3>Saco</h3>
-                    <p>$105.900 COP</p>
-                    <div class="product-meta">
-                        <div class="stock-info">Stock: 1 unid.</div>
-                        <div class="quality-info">Calidad: 100%</div>
-                    </div>
-                    <a href="https://wa.me/573012705080?text=%C2%A1Hola!%20Este%20Saco%20es%20perfecto%20para%20m%C3%AD.%20Me%20gustar%C3%ADa%20saber%20m%C3%A1s%20y%20pedirlo.%20%C2%A1Gracias!%20Precio%3A%20%24105.900%20COP." target="_blank" class="btn btn-small">Cazala aqui</a>
-                </div>
-            </div>
-            <div class="product">
-                <a href="#" class="open-modal-link" 
-                   data-img-src="chaqueta.jpg"
-                   data-title="Chaqueta"
-                   data-price="$97.900 COP"
-                   data-description="Una chaqueta versátil y ligera que complementa cualquier atuendo, aportando un toque de audacia y distinción a tu look.">
-                    <img src="chaqueta.jpg" alt="Chaqueta">
-                </a>
-                <div class="product-info">
-                    <h3>Chaqueta</h3>
-                    <p>$97.900 COP</p>
-                    <div class="product-meta">
-                        <div class="stock-info">Stock: 1 unid.</div>
-                        <div class="quality-info">Calidad: 100%</div>
-                    </div>
-                    <a href="https://wa.me/573012705080?text=%C2%A1Hola!%20Me%20interesa%20mucho%20la%20Chaqueta.%20%C2%BFCu%C3%A1les%20son%20los%20pasos%20para%20comprarla%3F%20%C2%A1La%20necesito%20ya!%20Precio%3A%20%2497.900%20COP." target="_blank" class="btn btn-small">Cazala aqui</a>
-                </div>
-            </div>
-            <div class="product sold-out">
-                <a href="#" class="open-modal-link" 
-                   data-img-src="chaqueta.jpg"
-                   data-title="Otro"
-                   data-price="100.000 COP"
-                   data-description="Una chaqueta versátil y ligera que complementa cualquier atuendo, aportando un toque de audacia y distinción a tu look.">
-                    <img src="buzoma.png" alt="buzoma">
-                </a>
-                <div class="product-info">
-                    <h3>Pronto</h3>
-                    <p>¿?</p>
-                    <div class="product-meta">
-                        <div class="stock-info"></div>
-                        <div class="quality-info"></div>
-                    </div>
-                    <a href="https://wa.me/573012705080?text=Hola%2C%20estoy%20interesado%20en%20la%20Chaqueta%20de%20%24108.500%20COP." target="_blank" class="btn btn-small">Cazala aqui</a>
-                </div>
-            </div>
+        <div class="products" id="products-container">
         </div>
     </section>
 
@@ -220,15 +118,27 @@
     <div id="image-modal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
-            <img src="" alt="Imagen de producto en grande" class="modal-image">
-            <div class="modal-info">
-                <h3 class="modal-title"></h3>
-                <p class="modal-price"></p>
-                <p class="modal-description"></p>
+            <div class="modal-body-container">
+                
+                <div class="swiper modal-swiper">
+                    <div class="swiper-wrapper" id="modal-swiper-wrapper">
+                        </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+                <div class="modal-info">
+                    <h3 class="modal-title"></h3>
+                    <p class="modal-price"></p>
+                    <p class="modal-description"></p>
+                    <a id="modal-whatsapp-link" href="#" target="_blank" class="btn">¡Lo quiero! Cazalo aquí</a>
+                </div>
             </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
