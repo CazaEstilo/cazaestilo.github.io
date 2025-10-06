@@ -12,7 +12,7 @@ site_url: https://cazaestilo.github.io/
 media_folder: "assets/img/products" 
 public_folder: "/assets/img/products" 
 
-# DEFINICIÓN DE COLECCIONES (AJUSTAR ESTO SI ES NECESARIO)
+# DEFINICIÓN DE COLECCIONES
 collections:
   - name: "productos"
     label: "Productos Destacados"
