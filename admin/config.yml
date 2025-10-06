@@ -1,18 +1,20 @@
 backend:
-  # USAR EL NUEVO NOMBRE DEL REPOSITORIO
+  # Usa el nuevo nombre del repositorio
   name: github                                    
   repo: cazaestilo/cazaestilo.github.io           
   branch: main
   
-# RUTAS DE PUBLICACIÓN EN LA RAÍZ (Las más simples posibles)
+# Rutas de Publicación en la Raíz
 base_url: /  
 site_url: https://cazaestilo.github.io/ 
 
-# RUTAS DE MEDIOS (sin subdirectorio)
+# Rutas de Medios (sin subdirectorio)
 media_folder: "assets/img/products" 
 public_folder: "/assets/img/products" 
 
-# DEFINICIÓN DE COLECCIONES
+# Asegúrate de que no haya ninguna referencia a 'widgets' o 'identity' aquí
+# Si tienes un bloque de 'widgets:', elimínalo completamente.
+
 collections:
   - name: "productos"
     label: "Productos Destacados"
