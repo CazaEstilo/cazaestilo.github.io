@@ -8,23 +8,22 @@
   <style>
     body { font-family: 'Montserrat', sans-serif; }
   </style>
-</head>
-<body>
-
+  
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  
+  <link rel="icon" href="/CazaEstilo/logo.png" type="image/png">
+  
+</head>
+<body>
 
   <script>
-    // Este script se ejecuta justo después de que los scripts de arriba cargan.
-    // Esto asegura que window.CMS exista antes de que cualquier otra cosa falle.
-    
-    // Lógica del login de Netlify Identity
+    // ÚNICA LÓGICA: SÓLO REDIRECCIÓN (Sin ninguna llamada a 'init' o 'appendChild')
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
         if (!user) {
           window.netlifyIdentity.on("login", () => {
-            // Redirecciona a la URL base del panel
             document.location.href = "/CazaEstilo/admin"; 
           });
         }
