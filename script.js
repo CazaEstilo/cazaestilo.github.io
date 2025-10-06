@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     const scrollLinks = document.querySelectorAll('.scroll-to-section');
-    const headerVideo = document.getElementById('header-video'); // Video del Header
+    const headerVideo = document.getElementById('header-video'); 
     
     // --- VARIABLES DEL MODAL Y CARRUSEL ---
     const modal = document.getElementById('image-modal');
@@ -285,7 +285,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.addEventListener('load', () => {
-        // Ocultar el loader tras 1 segundo para ver el video
         const loaderDuration = 1000; 
 
         setTimeout(() => {
