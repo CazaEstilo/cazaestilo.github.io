@@ -2,8 +2,6 @@ backend:
   name: github                                    
   repo: CazaEstilo/CazaEstilo                     
   branch: main
-  base_url: https://github.com
-  auth_url: /authorize
   
 # RUTAS SIMPLIFICADAS
 base_url: / # <--- CLAVE
