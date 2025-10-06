@@ -1,6 +1,6 @@
 /* =======================================
-   ESTILOS BASE Y VARIABLES (Dorado y Negro)
-   ======================================= */
+    ESTILOS BASE Y VARIABLES (Dorado y Negro)
+    ======================================= */
 
 :root {
     --color-primary: #d4af37; /* Dorado principal */
@@ -37,6 +37,30 @@ body {
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
 }
+
+/* ------------------------------------------------ */
+/* --- MEJORA 1: ACCESIBILIDAD (Focus States) --- */
+/* Asegura que los usuarios que navegan por teclado tengan un indicador claro y de marca */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+.nav-btn-design:focus,
+.control-btn:focus {
+    /* Fondo claro para alto contraste */
+    outline: 2px solid var(--color-light-grey); 
+    outline-offset: 3px;
+    border-radius: 5px;
+}
+
+/* Mejora el enfoque de los botones principales con color dorado */
+.btn:focus,
+.btn-primary-confirm:focus {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 8px;
+}
+/* ------------------------------------------------ */
 
 .container {
     max-width: 1400px;
@@ -89,10 +113,17 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     transition: background-color 0.3s ease;
 }
+
+/* ------------------------------------------------ */
+/* --- MEJORA 2: Navbar (Frosted Glass en Scroll) --- */
 .navbar.scrolled {
-    background-color: var(--color-secondary);
+    background-color: rgba(10, 10, 10, 0.8); /* Ligeramente más transparente */
+    backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7); 
 }
+/* ------------------------------------------------ */
+
 .navbar .container {
     display: flex;
     justify-content: space-between;
@@ -327,11 +358,14 @@ h2 {
     position: relative;
 }
 
+/* ------------------------------------------------ */
+/* --- MEJORA 3: Detalle de Producto (Borde de Brillo en Hover) --- */
 .product:hover {
-    /* Mejorado el efecto hover */
     transform: translateY(-10px); 
     box-shadow: 0 20px 40px rgba(var(--color-primary-rgb), 0.5); 
+    border: 1px solid var(--color-primary); /* Añadido el borde de brillo */
 }
+/* ------------------------------------------------ */
 
 .product-carousel {
     width: 100%;
@@ -781,8 +815,8 @@ footer p {
 
 
 /* =======================================
-   MEJORAS UX/CONVERSIÓN
-   ======================================= */
+    MEJORAS UX/CONVERSIÓN
+    ======================================= */
 
 /* --- CAMBIO 1: Botón de WhatsApp Fijo (Conversión) --- */
 #whatsapp-fixed-btn {
@@ -888,8 +922,8 @@ footer p {
 
 
 /* =======================================
-   MODALES (Carrito y Tallas)
-   ======================================= */
+    MODALES (Carrito y Tallas)
+    ======================================= */
 
 .cart-modal-overlay {
     position: fixed;
@@ -942,6 +976,28 @@ footer p {
     border-radius: 10px;
     margin-bottom: 1.5rem;
 }
+
+/* ------------------------------------------------ */
+/* --- MEJORA 4: Barras de Desplazamiento Personalizadas (Carrito y Tabla de Tallas) --- */
+/* Estilos para navegadores basados en WebKit (Chrome, Edge, Safari) */
+.cart-items-list::-webkit-scrollbar,
+#size-guide-table-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px; 
+}
+
+.cart-items-list::-webkit-scrollbar-track,
+#size-guide-table-container::-webkit-scrollbar-track {
+    background: var(--color-secondary);
+}
+
+.cart-items-list::-webkit-scrollbar-thumb,
+#size-guide-table-container::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary);
+    border-radius: 20px;
+    border: 2px solid var(--color-dark-grey);
+}
+/* ------------------------------------------------ */
 
 
 /* --- ESTILOS DE GESTIÓN DE CARRITO --- */
@@ -1203,8 +1259,8 @@ footer p {
 }
 
 /* =======================================
-   MEDIA QUERIES (Responsividad)
-   ======================================= */
+    MEDIA QUERIES (Responsividad)
+    ======================================= */
 
 @media (max-width: 992px) {
     /* Navbar móvil */
