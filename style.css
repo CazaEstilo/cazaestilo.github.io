@@ -175,6 +175,7 @@ header::before {
 
 /* CRÍTICO: Estilo del botón "Explora la colección" (Solución definitiva para el estiramiento) */
 /* CRÍTICO: Estilo del botón "Explora la colección" (Solución definitiva para el estiramiento) */
+/* CRÍTICO: Estilo del botón "Explora la colección" (Ajuste Final) */
 header a.btn {
     z-index: 2;
     background: var(--color-primary);
@@ -185,13 +186,17 @@ header a.btn {
     font-weight: 700;
     text-transform: uppercase;
     text-decoration: none;
-    border-radius: 50px; /* Forma de píldora */
+    border-radius: 50px; 
     box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.5);
     transition: all 0.3s ease;
     
-    /* CORRECCIÓN FINAL (ya estaba, pero la reforzaremos) */
+    /* SOLUCIÓN AGRESIVA PARA EL ANCHO */
     display: inline-block; 
-    width: fit-content; 
+    
+    /* Compatibilidad para asegurar el ancho del contenido */
+    width: -moz-fit-content; /* Para Firefox */
+    width: fit-content;      /* Estándar moderno */
+    
     margin: 0 auto; 
 }
 header a.btn:hover {
