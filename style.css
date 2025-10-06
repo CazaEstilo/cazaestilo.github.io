@@ -173,13 +173,13 @@ header::before {
     z-index: 1;
 }
 
-/* CRÍTICO: Estilo del botón "Explora la colección" (Ajustado para ser compacto) */
+/* CRÍTICO: Estilo del botón "Explora la colección" (Solución definitiva para el estiramiento) */
 header a.btn {
     z-index: 2;
     background: var(--color-primary);
     color: var(--color-secondary);
     border: 2px solid var(--color-primary);
-    padding: 15px 35px; /* Menos padding vertical, más horizontal */
+    padding: 15px 35px; 
     font-size: 1.1rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -188,10 +188,10 @@ header a.btn {
     box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.5);
     transition: all 0.3s ease;
     
-    /* CORRECCIÓN FINAL PARA EL BOTÓN ESTIRADO */
+    /* CORRECCIÓN FINAL */
     display: inline-block; 
-    width: fit-content; /* Fuerza a que ocupe solo el ancho del contenido */
-    margin: 0 auto; /* Centra el botón si el header es display: flex; */
+    width: fit-content; 
+    margin: 0 auto; 
 }
 header a.btn:hover {
     background: var(--color-white);
@@ -439,11 +439,14 @@ h2 {
 }
 
 
-/* --- Sección Quiénes Somos --- */
+/* --- Sección Quiénes Somos (Ajuste del Botón) --- */
 #about {
     text-align: center;
 }
 #about a.btn {
+    /* Mantenemos el estilo de botón compacto aquí también */
+    display: inline-block;
+    width: fit-content;
     background: var(--color-secondary);
     color: var(--color-primary);
     border-color: var(--color-primary);
@@ -454,7 +457,7 @@ h2 {
 }
 
 
-/* --- Sección Envíos y Entregas (Mejorada Distribución y Efectos) --- */
+/* --- Sección Envíos y Entregas (Corrección de íconos/diseño) --- */
 #envios {
     background: var(--color-dark-grey);
     text-align: center;
@@ -483,6 +486,12 @@ h2 {
     border-color: var(--color-primary);
 }
 
+.icon-large {
+    font-size: 3.5rem; /* Hace los íconos grandes */
+    color: var(--color-primary); /* Les da el color dorado */
+    margin-bottom: 1rem;
+}
+
 .bounce-icon {
     animation: none; 
     transition: color 0.3s ease;
@@ -496,7 +505,90 @@ h2 {
 }
 
 
-/* --- Modal de Resumen del Carrito (NUEVOS ESTILOS) --- */
+/* --- Sección Contacto (Corrección de diseño de lista) --- */
+#contacto {
+    text-align: center;
+    background: var(--color-secondary);
+}
+
+.contact-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contact-text {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: var(--color-text-light);
+}
+
+.contact-details {
+    /* Usa flex para organizar los items lado a lado/debajo en móvil */
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    min-width: 250px;
+    text-align: left;
+}
+.contact-item i {
+    color: var(--color-primary);
+    font-size: 1.5rem; 
+}
+
+.contact-item a {
+    color: var(--color-light-grey);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-item a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+/* --- Footer (Estilos corregidos para Derechos Reservados) --- */
+footer {
+    background-color: var(--color-dark-grey);
+    color: var(--color-text-light);
+    text-align: center;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--color-primary); /* Línea divisoria dorada */
+}
+
+footer .socials {
+    margin-bottom: 1.5rem;
+}
+
+footer .socials a {
+    color: var(--color-light-grey);
+    font-size: 1.8rem;
+    margin: 0 1rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+    text-decoration: none; 
+}
+
+footer .socials a:hover {
+    color: var(--color-primary);
+    transform: scale(1.2);
+}
+
+footer p {
+    font-size: 0.9rem;
+    color: var(--color-text-light); /* Le da un color claro para que se vea */
+    margin: 0;
+}
+
+
+/* --- Modal de Resumen del Carrito --- */
 
 .cart-modal-overlay {
     position: fixed;
@@ -706,53 +798,10 @@ h2 {
     .btn-whatsapp-confirm {
         flex-grow: 1;
     }
-}
-/* --- Sección Contacto --- */
-#contacto {
-    text-align: center;
-    background: var(--color-secondary);
-}
 
-.contact-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.contact-text {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    color: var(--color-text-light);
-}
-
-.contact-details {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-    padding: 1rem 0;
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1rem;
-    min-width: 250px;
-    text-align: left;
-}
-
-.contact-item i {
-    color: var(--color-primary);
-    font-size: 1.5rem;
-}
-
-.contact-item a {
-    color: var(--color-light-grey);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.contact-item a:hover {
-    color: var(--color-primary);
-    text-decoration: underline;
+    /* Footer Responsive */
+    footer .socials a {
+        font-size: 1.5rem;
+        margin: 0 0.8rem;
+    }
 }
