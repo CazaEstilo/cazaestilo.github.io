@@ -15,7 +15,6 @@
 <body>
     
     <div class="loader-overlay">
-        <video id="logo-video" src="logo-video.mp4" autoplay muted loop playsinline></video>
         <div class="loader-content">
              <img src="logo.png" alt="Caza Estilo Logo" class="logo-animation">
         </div>
@@ -39,11 +38,13 @@
                         <i class="fas fa-shopping-cart"></i> Carrito (<span id="cart-count">0</span>)
                     </button>
                 </li>
-                </ul>
+            </ul>
         </div>
     </nav>
 
     <header>
+        <video id="header-video" src="logo-video.mp4" autoplay muted loop playsinline></video>
+        
         <h1 class="animated-text">CAZA ESTILO</h1>
         <p class="animated-text">Calle. Estilo. Vístete para dejar huella.</p>
         <a href="#productos" class="btn scroll-to-section animated-text">Explora la colección</a>
@@ -54,6 +55,7 @@
         <div class="products" id="products-container">
         </div>
     </section>
+    
     <section id="about" class="hidden-section">
         <h2>Quiénes Somos</h2>
         <div class="about-content">
