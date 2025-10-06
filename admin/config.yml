@@ -1,6 +1,6 @@
 backend:
   name: github                                    # <--- CLAVE: Usar GitHub
-  repo: cazaestilo/CazaEstilo                     # Tu repositorio
+  repo: CazaEstilo/CazaEstilo                     # Tu repositorio
   branch: main
   base_url: https://github.com
   auth_url: /authorize
