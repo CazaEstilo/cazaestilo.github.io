@@ -323,7 +323,8 @@ h2 {
 }
 
 .product:hover {
-    transform: translateY(-10px) scale(1.03); 
+    /* Mejorado el efecto hover */
+    transform: translateY(-10px); 
     box-shadow: 0 20px 40px rgba(var(--color-primary-rgb), 0.5); 
 }
 
@@ -468,9 +469,11 @@ h2 {
     color: white;
     padding: 10px 20px;
     border-radius: 10px;
-    font-size: 2rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
     font-weight: bold;
     z-index: 10;
+    letter-spacing: 2px;
 }
 .product.sold-out .add-to-cart-btn {
     background: #333;
@@ -535,8 +538,8 @@ h2 {
 .testimonial-img {
     width: 100%;
     height: 400px; 
-    object-fit: contain; /* CRÍTICO: Muestra la imagen completa sin cortar */
-    background-color: var(--color-secondary); /* Fondo negro para el 'contain' */
+    object-fit: contain; 
+    background-color: var(--color-secondary); 
     display: block;
 }
 
@@ -826,7 +829,7 @@ footer p {
 }
 
 
-/* --- ESTILOS DE GESTIÓN DE CARRITO (NUEVO) --- */
+/* --- ESTILOS DE GESTIÓN DE CARRITO --- */
 
 .cart-item {
     display: grid;
@@ -901,7 +904,7 @@ footer p {
     color: var(--color-white);
 }
 
-/* --- ESTILOS DE MODAL DE TALLAS (NUEVO) --- */
+/* --- ESTILOS DE MODAL DE TALLAS --- */
 .size-modal-content {
     max-width: 400px;
     padding: 2rem;
@@ -1008,6 +1011,73 @@ footer p {
     border-color: #128C7E;
 }
 
+/* --- CAMBIO 1: Botón de WhatsApp Fijo (Conversión) --- */
+#whatsapp-fixed-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25D366; 
+    color: var(--color-white);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.6);
+    z-index: 1500; /* Debajo de los modales, encima de todo lo demás */
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+#whatsapp-fixed-btn:hover {
+    background: #128C7E; 
+    transform: scale(1.1) rotate(5deg);
+}
+/* --- FIN CAMBIO 1 --- */
+
+/* --- CAMBIO 2: Contenedor de Notificaciones (Toast) (UX) --- */
+#toast-container {
+    position: fixed;
+    top: 100px; /* Debajo de la navbar */
+    right: 20px;
+    z-index: 2500;
+    pointer-events: none; /* Permite hacer clic a través de él */
+}
+
+.toast {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+    padding: 15px 25px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 250px;
+    
+    /* Animación de entrada y salida */
+    animation: toastIn 0.5s ease-out, toastOut 0.5s ease-in 2.5s forwards;
+}
+
+.toast.error {
+    background-color: #e74c3c;
+    color: var(--color-white);
+}
+
+@keyframes toastIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+@keyframes toastOut {
+    to { transform: translateX(100%); opacity: 0; }
+}
+
+.toast i {
+    font-size: 1.2rem;
+}
+/* --- FIN CAMBIO 2 --- */
 
 /* --- Media Queries (Responsividad) --- */
 
@@ -1104,29 +1174,51 @@ footer p {
     .cart-item {
         grid-template-columns: 1fr;
         grid-template-areas: 
-            "title"
-            "controls"
-            "price";
+            "title remove"
+            "controls price";
         text-align: center;
         padding-bottom: 1.5rem;
         position: relative;
     }
     .item-title-group {
         grid-area: title;
-        text-align: center;
+        text-align: left;
     }
     .item-controls {
         grid-area: controls;
-        margin: 5px auto;
+        justify-content: flex-start;
     }
     .item-price {
         grid-area: price;
-        text-align: center;
+        text-align: right;
         font-size: 1.2rem;
     }
     .remove-btn {
-        position: absolute;
-        top: 5px;
-        right: 5px;
+        grid-area: remove;
+        position: static;
+        text-align: right;
+    }
+    
+    .cart-total {
+        font-size: 1.2rem;
+    }
+    
+    /* WhatsApp Fijo Móvil */
+    #whatsapp-fixed-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.7rem;
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    #toast-container {
+        top: auto; 
+        bottom: 20px;
+        right: 15px;
+        left: 15px;
+    }
+    .toast {
+        min-width: auto;
     }
 }
