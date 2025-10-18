@@ -1,12 +1,13 @@
 // --- CONFIGURACIÓN DE PRODUCTOS ---
+
 const productsData = [
     {
         id: 1,
         name: "Conjunto Estilo Urbano",
         description: "Comodidad y presencia. Este conjunto de dos piezas te hará destacar sin esfuerzo.",
         price: 180000,
-        images: ["imagenes/conjunto.jpg", "imagenes/producto1-2.jpg", "imagenes/producto1-3.jpg"], 
-        sizes: ["S", "M", "L", "XL"], 
+        images: ["imagenes/conjunto.jpg", "imagenes/producto1-2.jpg", "imagenes/producto1-3.jpg"],
+        sizes: ["S", "M", "L", "XL"],
         soldOut: false,
         sizeGuide: { // Guía para Chaquetas/Conjuntos
             headers: ["Talla", "Pecho (CM)", "Largo (CM)"],
@@ -24,7 +25,7 @@ const productsData = [
         description: "Chaqueta con caída holgada. El toque perfecto para un look imponente y moderno.",
         price: 240000,
         images: ["imagenes/jeanblanco.jpg", "imagenes/producto2-2.jpg"],
-        sizes: ["S", "M", "L"], 
+        sizes: ["S", "M", "L"],
         soldOut: false,
         sizeGuide: { // Guía para Chaquetas/Conjuntos
             headers: ["Talla", "Pecho (CM)", "Largo (CM)"],
@@ -41,7 +42,7 @@ const productsData = [
         description: "Durabilidad y diseño. Bolsillos laterales que redefinen la silueta casual.",
         price: 155000,
         images: ["imagenes/jeancafe.jpg", "imagenes/producto3-2.jpg", "imagenes/producto3-3.jpg"],
-        sizes: ["28", "30", "32", "34"], 
+        sizes: ["28", "30", "32", "34"],
         soldOut: true, // Aún agotado
         sizeGuide: { // Guía para Jeans
             headers: ["Talla", "Cintura (CM)", "Cadera (CM)"],
@@ -59,7 +60,7 @@ const productsData = [
         description: "Algodón premium con diseño exclusivo. Arte callejero para tu día a día.",
         price: 90000,
         images: ["imagenes/producto4-1.jpg", "imagenes/producto4-2.jpg"],
-        sizes: ["XS", "S", "M", "L", "XL"], 
+        sizes: ["XS", "S", "M", "L", "XL"],
         soldOut: false,
         sizeGuide: { // Guía para Camisetas
             headers: ["Talla", "Pecho (CM)", "Hombro (CM)"],
@@ -74,14 +75,19 @@ const productsData = [
     }
 ];
 
+
 let cart = JSON.parse(localStorage.getItem('cazaEstiloCart')) || [];
 let currentProductId = null; // Almacena el ID del producto que abrió el modal
 
+
 // --- UTILITIES Y FEEDBACK VISUAL ---
 
+
 function formatPrice(price) {
+    // Asegura el formato de moneda colombiana
     return `$${price.toLocaleString('es-CO')} COP`;
 }
+
 
 /**
  * Muestra un toast de notificación (UX)
@@ -101,9 +107,10 @@ function showToast(message, type = 'success') {
 
     setTimeout(() => {
         toast.style.opacity = '0';
-        setTimeout(() => toast.remove(), 500); 
-    }, 3000); 
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
 }
+
 
 function updateCartCount() {
     const countElement = document.getElementById('cart-count');
@@ -111,10 +118,17 @@ function updateCartCount() {
     countElement.textContent = totalItems;
 }
 
-// --- CARRUSELES Y RENDERIZADO ---
+
+// --- CARRUSELES Y RENDERIZADO (Se mantienen igual) ---
+
 
 function initializeSwipers() {
     document.querySelectorAll('.product-carousel').forEach(carouselElement => {
+        // Asegura que solo se inicialice si aún no tiene un Swiper asociado
+        if (carouselElement.swiper) {
+            carouselElement.swiper.destroy(); // Destruye si ya existe para re-inicializar
+        }
+        
         const productID = carouselElement.closest('.product').dataset.id;
         new Swiper(carouselElement, {
             slidesPerView: 1,
@@ -134,6 +148,7 @@ function initializeSwipers() {
         });
     });
 }
+
 
 function initializeTestimonialCarousel() {
     new Swiper('.testimonials-carousel', {
@@ -160,33 +175,22 @@ function initializeTestimonialCarousel() {
     });
 }
 
-/**
- * Carga dinámicamente los productos con Lazy Loading en sus imágenes.
- */
+
 function loadProducts() {
     const container = document.getElementById('products-container');
     container.innerHTML = productsData.map(product => {
         const isSoldOut = product.soldOut ? 'sold-out' : '';
         
-        const imagesHtml = product.images.map((image, index) => {
-            // 🚀 MEJORA 1: Implementación de Lazy Loading
-            // El primer slide puede cargarse 'eagerly' o como 'lazy' si está muy abajo.
-            // Para el propósito general, aplicamos 'loading="lazy"' a todas las imágenes secundarias.
-            const loadingAttr = (index === 0) ? '' : 'loading="lazy"'; 
-            return `
-                <div class="swiper-slide">
-                    <img src="${image}" alt="${product.name} - Vista ${index + 1}" ${loadingAttr}>
-                </div>
-            `;
-        }).join('');
-
-        const soldOutOverlay = product.soldOut ? '<div class="sold-out-overlay">AGOTADO</div>' : '';
+        const imagesHtml = product.images.map(image => `
+            <div class="swiper-slide">
+                <img src="${image}" alt="${product.name}">
+            </div>
+        `).join('');
 
         return `
             <div class="product ${isSoldOut}" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">
                 
                 <div class="product-carousel swiper-container">
-                    ${soldOutOverlay}
                     <div class="swiper-wrapper">
                         ${imagesHtml}
                     </div>
@@ -205,7 +209,7 @@ function loadProducts() {
                     </div>
                     <div class="product-actions">
                         <button class="btn add-to-cart-btn" onclick="openSizeModal(${product.id})" ${product.soldOut ? 'disabled' : ''}>
-                            <i class="fas fa-shopping-cart"></i> ${product.soldOut ? 'Sin Stock' : 'Añadir al Carrito'}
+                            <i class="fas fa-shopping-cart"></i> Añadir al Carrito
                         </button>
                         <a href="https://wa.me/573012705080?text=${encodeURIComponent(`Hola, me interesa el producto: ${product.name} (${formatPrice(product.price)}).`)}" target="_blank" class="btn btn-whatsapp">
                             <i class="fab fa-whatsapp"></i> Cazala Ya
@@ -219,7 +223,9 @@ function loadProducts() {
     initializeSwipers();
 }
 
-// --- LÓGICA DEL MODAL Y GUÍA DE TALLAS ---
+
+// --- LÓGICA DEL MODAL Y GUÍA DE TALLAS (CORREGIDO) ---
+
 
 /**
  * Abre un modal para seleccionar la talla.
@@ -238,7 +244,7 @@ function openSizeModal(productId) {
     modalTitle.textContent = product.name;
     
     // Rellena el select con las tallas disponibles
-    sizeSelect.innerHTML = product.sizes.map(size => 
+    sizeSelect.innerHTML = product.sizes.map(size =>
         `<option value="${size}">${size}</option>`
     ).join('');
 
@@ -251,14 +257,12 @@ function openSizeModal(productId) {
         if (selectedSize) {
             addItemToCart(productId, selectedSize);
             closeSizeModal();
-        } else {
-            // 🚀 MEJORA 4: Feedback si no selecciona talla (aunque el dropdown siempre tiene una)
-             showToast('Por favor, selecciona una talla válida.', 'error');
         }
     };
 
     modal.style.display = 'flex';
 }
+
 
 /**
  * Cierra el modal de tallas
@@ -267,6 +271,7 @@ function closeSizeModal() {
     document.getElementById('size-modal').style.display = 'none';
     currentProductId = null;
 }
+
 
 /**
  * Genera la tabla de tallas y muestra la vista de guía.
@@ -288,20 +293,15 @@ function showSizeGuide(event) {
     
     // Encabezados
     guide.headers.forEach(header => {
-        tableHTML += `<th scope="col">${header}</th>`; // 🚀 MEJORA 5: Accesibilidad - scope="col" en headers
+        tableHTML += `<th>${header}</th>`;
     });
     tableHTML += '</tr></thead><tbody>';
 
     // Datos
     guide.data.forEach(row => {
         tableHTML += '<tr>';
-        row.forEach((cell, index) => {
-            // 🚀 MEJORA 5: Accesibilidad - scope="row" para la columna principal (Talla)
-            if (index === 0) {
-                 tableHTML += `<th scope="row">${cell}</th>`;
-            } else {
-                tableHTML += `<td>${cell}</td>`;
-            }
+        row.forEach(cell => {
+            tableHTML += `<td>${cell}</td>`;
         });
         tableHTML += '</tr>';
     });
@@ -314,6 +314,7 @@ function showSizeGuide(event) {
     document.getElementById('size-guide-view').style.display = 'block';
 }
 
+
 /**
  * Oculta la tabla de tallas y muestra la vista de selección.
  */
@@ -322,7 +323,9 @@ function hideSizeGuide() {
     document.getElementById('size-guide-view').style.display = 'none';
 }
 
-// --- LÓGICA DEL CARRITO ---
+
+// --- LÓGICA DEL CARRITO (Se mantiene igual) ---
+
 
 /**
  * Añade un producto al carrito, incluyendo la talla y un ID único.
@@ -338,10 +341,10 @@ function addItemToCart(productId, size) {
         existingItem.quantity++;
     } else {
         cart.push({
-            uniqueId: uniqueId, 
+            uniqueId: uniqueId,
             id: productId,
             name: product.name,
-            size: size, 
+            size: size,
             price: product.price,
             quantity: 1
         });
@@ -354,8 +357,9 @@ function addItemToCart(productId, size) {
     const cartButton = document.getElementById('view-cart-button');
     cartButton.classList.add('cart-feedback');
     setTimeout(() => cartButton.classList.remove('cart-feedback'), 500);
-    showToast(`"${product.name}" (Talla: ${size}) añadido. ¡Cazado!`); // 🚀 MEJORA 6: Mensaje más dinámico
+    showToast(`"${product.name}" (Talla: ${size}) añadido.`);
 }
+
 
 /**
  * Gestiona la cantidad de un artículo en el carrito.
@@ -367,15 +371,16 @@ function updateItemQuantity(uniqueId, change) {
         cart[itemIndex].quantity += change;
         
         if (cart[itemIndex].quantity <= 0) {
-            removeItem(uniqueId, false); 
+            removeItem(uniqueId, false);
             return;
         }
 
         localStorage.setItem('cazaEstiloCart', JSON.stringify(cart));
         updateCartCount();
-        renderCartModal(); 
+        renderCartModal();
     }
 }
+
 
 /**
  * Elimina un artículo completo del carrito
@@ -392,6 +397,7 @@ function removeItem(uniqueId, showFeedback = true) {
     updateCartCount();
     renderCartModal();
 }
+
 
 /**
  * Renderiza el contenido del modal del carrito.
@@ -415,24 +421,23 @@ function renderCartModal() {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
         return `
-            <div class="cart-item" data-unique-id="${item.uniqueId}" role="listitem">
+            <div class="cart-item" data-unique-id="${item.uniqueId}">
                 <div class="item-title-group">
                     <span class="item-title">${item.name}</span>
                     <span class="item-size"> (Talla: ${item.size || 'N/A'})</span>
                 </div>
                 <div class="item-controls">
-                    <button class="control-btn" onclick="updateItemQuantity('${item.uniqueId}', -1)" aria-label="Disminuir cantidad de ${item.name}">-</button>
-                    <span class="item-quantity" aria-live="polite">${item.quantity}</span>
-                    <button class="control-btn" onclick="updateItemQuantity('${item.uniqueId}', 1)" aria-label="Aumentar cantidad de ${item.name}">+</button>
+                    <button class="control-btn" onclick="updateItemQuantity('${item.uniqueId}', -1)">-</button>
+                    <span class="item-quantity">${item.quantity}</span>
+                    <button class="control-btn" onclick="updateItemQuantity('${item.uniqueId}', 1)">+</button>
                 </div>
                 <span class="item-price">${formatPrice(itemTotal)}</span>
-                <button class="remove-btn" onclick="removeItem('${item.uniqueId}')" aria-label="Eliminar ${item.name}"><i class="fas fa-trash"></i></button>
+                <button class="remove-btn" onclick="removeItem('${item.uniqueId}')" aria-label="Eliminar producto"><i class="fas fa-trash"></i></button>
             </div>
         `;
     }).join('');
 
-    // 🚀 MEJORA 7: Accesibilidad - Usar un rol de lista para el carrito
-    listElement.innerHTML = `<div role="list">${itemsHtml}</div>`; 
+    listElement.innerHTML = itemsHtml;
     totalElement.textContent = formatPrice(total);
 }
 
@@ -448,7 +453,7 @@ function clearCart() {
 
 // Función para generar el mensaje de WhatsApp.
 function getWhatsAppMessage() {
-    const phone = '573012705080'; 
+    const phone = '573012705080';
     let message = '¡Hola Caza Estilo! Estoy listo para confirmar mi cotización:\n\n';
     let total = 0;
 
@@ -465,7 +470,8 @@ function getWhatsAppMessage() {
 }
 
 
-/* --- EVENT LISTENERS Y LÓGICA DE LA PÁGINA --- */
+/* --- EVENT LISTENERS Y LÓGICA DE LA PÁGINA (Se mantiene igual) --- */
+
 
 // LÓGICA PARA EL BOTÓN VOLVER ARRIBA
 const backToTopButton = document.getElementById('back-to-top');
@@ -521,7 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
     confirmWhatsappButton.addEventListener('click', () => {
         if (cart.length > 0) {
             window.open(getWhatsAppMessage(), '_blank');
-            cartModal.style.display = 'none'; 
+            cartModal.style.display = 'none';
             clearCart(); // Vaciar carrito después de cotizar
         } else {
             showToast('Tu carrito está vacío. Agrega productos antes de cotizar.', 'error');
@@ -567,45 +573,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', checkScroll);
     
-    updateCartCount(); 
-    document.querySelector('header').style.opacity = 1; 
+    updateCartCount();
+    // Prevenir el flash de contenido: la opacidad del header se ajusta solo en CSS
+    // document.querySelector('header').style.opacity = 1; 
 });
 
 
 // Lógica del Loader y carga de productos
 const headerVideo = document.getElementById('header-video');
-const loader = document.querySelector('.loader-overlay');
-const MAX_LOAD_TIME = 2000; // 🚀 MEJORA 2: Máximo 2 segundos para el loader
-
-/**
- * Oculta el loader. Se usa una función para manejar el timing desde varios puntos.
- */
-const hideLoader = () => {
-    if (loader && !loader.classList.contains('hidden')) {
-        loader.classList.add('hidden');
-    }
-};
 
 window.addEventListener('load', () => {
-    // 1. Cargar productos e inicializar swipers
-    loadProducts(); 
-    initializeTestimonialCarousel(); 
+    // 1. Ocultar Loader
+    const loader = document.querySelector('.loader-overlay');
+    setTimeout(() => {
+        loader.classList.add('hidden');
+    }, 500);
 
-    // 2. Controlar la reproducción del video y el loader
+    // 2. Cargar productos e inicializar swipers
+    loadProducts();
+    initializeTestimonialCarousel();
+
+    // 3. Asegurar reproducción de video
     if (headerVideo) {
-        // Ocultar el loader cuando el video está listo para reproducirse
-        headerVideo.addEventListener('canplaythrough', hideLoader, { once: true });
-        
-        headerVideo.play().catch(error => {
-            console.log("Autoplay de video bloqueado: ", error);
-            // Si el autoplay falla (es común en móviles), ocultamos el loader de inmediato.
-            hideLoader(); 
-        });
-    } else {
-        // Si no hay video, ocultar el loader inmediatamente al cargar la página.
-        hideLoader();
+           headerVideo.play().catch(error => {
+               console.log("Autoplay de video bloqueado: ", error);
+           });
     }
-    
-    // 🚀 MEJORA 3: Ocultar el loader por si algo falla o tarda demasiado (Fallback de tiempo)
-    setTimeout(hideLoader, MAX_LOAD_TIME);
 });
