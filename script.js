@@ -42,7 +42,7 @@ const productsData = [
         price: 132900,
         images: ["imagenes/jeancafe1.jpg", "imagenes/jeancafe2.jpg"],
         sizes: ["32"], 
-        soldOut: flase, // Aún agotado "true"
+        soldOut: false, // Aún agotado "true"
         sizeGuide: { // Guía para Jeans
             headers: ["Talla", "Cintura (CM)", "Cadera (CM)"],
             data: [
@@ -60,7 +60,7 @@ const productsData = [
         price: 110900,
         images: ["imagenes/jeanblanco1.jpg", "imagenes/jeanblanco2.jpg"],
         sizes: ["32"], 
-        soldOut: flase, // Aún agotado "true"
+        soldOut: false, // Aún agotado "true"
         sizeGuide: { // Guía para Jeans
             headers: ["Talla", "Cintura (CM)", "Cadera (CM)"],
             data: [
@@ -78,7 +78,7 @@ const productsData = [
         price: 110900,
         images: ["imagenes/jeannegro1.jpg", "imagenes/jeannegro2.jpg"],
         sizes: ["32"], 
-        soldOut: flase, // Aún agotado "true"
+        soldOut: false, // Aún agotado "true"
         sizeGuide: { // Guía para Jeans
             headers: ["Talla", "Cintura (CM)", "Cadera (CM)"],
             data: [
