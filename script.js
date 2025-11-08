@@ -2,11 +2,11 @@
 const productsData = [
     {
         id: 1,
-        name: "Conjunto Estilo Urbano",
+        name: "Conjunto Corazon",
         description: "Comodidad y presencia. Este conjunto de dos piezas te hará destacar sin esfuerzo.",
-        price: 180000,
-        images: ["imagenes/conjunto.jpg", "imagenes/producto1-2.jpg", "imagenes/producto1-3.jpg"], 
-        sizes: ["S", "M", "L", "XL"], 
+        price: 94900,
+        images: ["imagenes/conjunto1.jpg", "imagenes/conjunto2"], 
+        sizes: ["XL"], 
         soldOut: false,
         sizeGuide: { // Guía para Chaquetas/Conjuntos
             headers: ["Talla", "Pecho (CM)", "Largo (CM)"],
@@ -20,11 +20,11 @@ const productsData = [
     },
     {
         id: 2,
-        name: "Chaqueta Negra Oversize",
+        name: "Chaqueta Angeles",
         description: "Chaqueta con caída holgada. El toque perfecto para un look imponente y moderno.",
-        price: 240000,
-        images: ["imagenes/jeanblanco.jpg", "imagenes/producto2-2.jpg"],
-        sizes: ["S", "M", "L"], 
+        price: 97900,
+        images: ["imagenes/angeles1.jpg", "imagenes/angeles2.jpg"],
+        sizes: ["L"], 
         soldOut: false,
         sizeGuide: { // Guía para Chaquetas/Conjuntos
             headers: ["Talla", "Pecho (CM)", "Largo (CM)"],
@@ -37,12 +37,12 @@ const productsData = [
     },
     {
         id: 3,
-        name: "Jean Cargo Streetwear",
+        name: "Jean cafe",
         description: "Durabilidad y diseño. Bolsillos laterales que redefinen la silueta casual.",
-        price: 155000,
-        images: ["imagenes/jeancafe.jpg", "imagenes/producto3-2.jpg", "imagenes/producto3-3.jpg"],
-        sizes: ["28", "30", "32", "34"], 
-        soldOut: true, // Aún agotado
+        price: 132900,
+        images: ["imagenes/jeancafe1.jpg", "imagenes/jeancafe2.jpg"],
+        sizes: ["32"], 
+        soldOut: flase, // Aún agotado "true"
         sizeGuide: { // Guía para Jeans
             headers: ["Talla", "Cintura (CM)", "Cadera (CM)"],
             data: [
@@ -55,11 +55,47 @@ const productsData = [
     },
     {
         id: 4,
-        name: "Camiseta Gráfica Vintage",
+        name: "Jean blanco",
+        description: "Durabilidad y diseño. Bolsillos laterales que redefinen la silueta casual.",
+        price: 110900,
+        images: ["imagenes/jeanblanco1.jpg", "imagenes/jeanblanco2.jpg"],
+        sizes: ["32"], 
+        soldOut: flase, // Aún agotado "true"
+        sizeGuide: { // Guía para Jeans
+            headers: ["Talla", "Cintura (CM)", "Cadera (CM)"],
+            data: [
+                ["28", "72", "92"],
+                ["30", "77", "97"],
+                ["32", "82", "102"],
+                ["34", "87", "107"]
+            ]
+        }
+    },
+    {
+        id: 5,
+        name: "Jean negro",
+        description: "Durabilidad y diseño. Bolsillos laterales que redefinen la silueta casual.",
+        price: 110900,
+        images: ["imagenes/jeannegro1.jpg", "imagenes/jeannegro2.jpg"],
+        sizes: ["32"], 
+        soldOut: flase, // Aún agotado "true"
+        sizeGuide: { // Guía para Jeans
+            headers: ["Talla", "Cintura (CM)", "Cadera (CM)"],
+            data: [
+                ["28", "72", "92"],
+                ["30", "77", "97"],
+                ["32", "82", "102"],
+                ["34", "87", "107"]
+            ]
+        }
+    },
+    {
+        id: 6,
+        name: "Saco",
         description: "Algodón premium con diseño exclusivo. Arte callejero para tu día a día.",
-        price: 90000,
-        images: ["imagenes/producto4-1.jpg", "imagenes/producto4-2.jpg"],
-        sizes: ["XS", "S", "M", "L", "XL"], 
+        price: 105900,
+        images: ["imagenes/buzo1.jpg", "imagenes/buzo2.jpg"],
+        sizes: ["XL"], 
         soldOut: false,
         sizeGuide: { // Guía para Camisetas
             headers: ["Talla", "Pecho (CM)", "Hombro (CM)"],
