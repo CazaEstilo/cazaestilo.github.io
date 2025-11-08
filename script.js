@@ -5,7 +5,7 @@ const productsData = [
         name: "Conjunto Corazon",
         description: "Comodidad y presencia. Este conjunto de dos piezas te hará destacar sin esfuerzo.",
         price: 94900,
-        images: ["imagenes/conjunto1.jpg", "imagenes/conjunto2"], 
+        images: ["imagenes/conjunto1.jpg", "imagenes/conjunto2.jpg"], 
         sizes: ["XL"], 
         soldOut: false,
         sizeGuide: { // Guía para Chaquetas/Conjuntos
@@ -91,6 +91,25 @@ const productsData = [
     },
     {
         id: 6,
+        name: "Saco cruz",
+        description: "Algodón premium con diseño exclusivo. Arte callejero para tu día a día.",
+        price: 97900,
+        images: ["imagenes/cruz1.jpg", "imagenes/cruz2.jpg", "imagenes/cruz3.jpg"],
+        sizes: ["XL"], 
+        soldOut: false,
+        sizeGuide: { // Guía para Camisetas
+            headers: ["Talla", "Pecho (CM)", "Hombro (CM)"],
+            data: [
+                ["XS", "90", "40"],
+                ["S", "95", "42"],
+                ["M", "100", "44"],
+                ["L", "105", "46"],
+                ["XL", "110", "48"]
+            ]
+        }
+    },
+    {
+        id: 7,
         name: "Saco",
         description: "Algodón premium con diseño exclusivo. Arte callejero para tu día a día.",
         price: 105900,
